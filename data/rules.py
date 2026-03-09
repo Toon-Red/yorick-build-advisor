@@ -20,7 +20,7 @@ from data.rune_pages import (
 RANGED_POKE_CHAMPS = {
     "Teemo", "Quinn", "Vayne", "Kennen", "Kayle", "Smolder", "Gnar",
     "Jayce", "Gangplank", "Heimerdinger", "Rumble",
-    "Malphite", "Yone", "Varus", "Akshan", "Aurora",
+    "Malphite", "Yone", "Yasuo", "Fiora", "Varus", "Akshan", "Aurora",
     "Aurelion Sol", "Cassiopeia", "Ryze", "Swain",
 }
 
@@ -43,7 +43,8 @@ ADAPTIVE_SHARD_CHAMPS = {
     "Vayne", "Gwen", "Kayle", "Nasus",
 }
 
-EXHAUST_PRIMARY = {"Tryndamere", "Riven", "Renekton"}
+EXHAUST_PRIMARY = {"Tryndamere"}
+EXHAUST_WITH_GHOST = {"Riven", "Renekton"}
 EXHAUST_SECONDARY = {"Yasuo", "Yone", "Jax", "Irelia", "Rengar"}
 
 BAD_AD_MATCHUPS = {
@@ -84,6 +85,11 @@ def get_buckets() -> dict[str, set]:
 # RULE 1: Resolve Adaptation (A/B/C system)
 # ============================================================================
 
+RESOLVE_OVERRIDE_CHAMPS = {
+    "Volibear": {"row2": SECOND_WIND, "row3": UNFLINCHING, "code": "B+C"},
+}
+
+
 def resolve_adaptation(keystone: str, enemy: str) -> dict:
     """Determine resolve rune slots based on keystone + enemy.
 
@@ -99,6 +105,10 @@ def resolve_adaptation(keystone: str, enemy: str) -> dict:
     is_primary = keystone.startswith("Grasp")
 
     if is_primary:
+        # Matchup-specific overrides (e.g. Volibear = Second Wind + Unflinching)
+        if enemy in RESOLVE_OVERRIDE_CHAMPS:
+            return dict(RESOLVE_OVERRIDE_CHAMPS[enemy])
+
         # Grasp pages: row2 + row3 adapt (Demolish is row1)
         if enemy in buckets["RANGED_POKE_CHAMPS"]:
             return {"row2": SECOND_WIND, "row3": REVITALIZE, "code": "B"}
@@ -149,6 +159,8 @@ def summoner_spells(enemy: str, exhaust_viable: bool = False,
 
     if enemy in buckets["EXHAUST_PRIMARY"]:
         return "Exhaust/TP"
+    elif enemy in buckets["EXHAUST_WITH_GHOST"]:
+        return "Exhaust/Ghost"
     elif enemy in buckets["EXHAUST_SECONDARY"] or exhaust_viable:
         return "Exhaust viable (Ghost/Ignite default)"
     else:

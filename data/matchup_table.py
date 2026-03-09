@@ -126,7 +126,7 @@ MATCHUP_TABLE: dict[str, MatchupInfo] = {
     ),
     "Gangplank": MatchupInfo(
         difficulty="Easy",
-        keystones=("Grasp-1", "Conqueror", "Comet"),
+        keystones=("Grasp-1", "Conqueror", "Comet", "Aery"),
         item_category="sundered_sky",
         tags=("vs_ranged_poke", "push_lane"),
         advice="Sundered Sky rush. He's squishy — land E and all-in. His W cleanses slow but not W wall.",
@@ -267,7 +267,7 @@ MATCHUP_TABLE: dict[str, MatchupInfo] = {
     ),
     "Nocturne": MatchupInfo(
         difficulty="HARD",
-        keystones=("Grasp-1", "Conqueror"),
+        keystones=("Grasp-1", "Conqueror", "Hail of Blades"),
         item_category="default",
         tags=("vs_fighter", "vs_dash"),
         advice="Bait his spell shield before E. His R denies vision. Wall him after he dashes in.",
@@ -441,7 +441,7 @@ MATCHUP_TABLE: dict[str, MatchupInfo] = {
     ),
     "Urgot": MatchupInfo(
         difficulty="HARD",
-        keystones=("Conqueror", "Comet"),
+        keystones=("Conqueror", "Comet", "Aery"),
         item_category="default",
         tags=("vs_fighter", "vs_ranged"),
         advice="Don't stand in W range. W him when he E dashes in. Track passive leg cooldowns. Don't get R executed at 25%.",
