@@ -1,7 +1,11 @@
 # -*- mode: python ; coding: utf-8 -*-
 import os
+import importlib
 
 block_cipher = None
+
+# Find webview2 package dynamically
+_webview2_path = os.path.dirname(importlib.import_module('webview2').__file__)
 
 a = Analysis(
     ['launcher.py'],
@@ -16,7 +20,7 @@ a = Analysis(
         ('engine.py', '.'),
         ('app.py', '.'),
         ('updater.py', '.'),
-        (r'C:\Users\prest\AppData\Roaming\Python\Python314\site-packages\webview2', 'webview2'),
+        (_webview2_path, 'webview2'),
     ],
     hiddenimports=[
         'webview2',
