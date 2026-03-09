@@ -1,0 +1,3115 @@
+{
+  "schema_version": 2,
+  "guide_id": "kampsycho-yorick-v1",
+  "guide_name": "Kampsycho Guide",
+  "champion": "Yorick",
+  "author": "Kampsycho",
+  "data": {
+    "matchups": {
+      "Aatrox": {
+        "difficulty": "HARD",
+        "keystones": [
+          "Conqueror",
+          "Comet"
+        ],
+        "item_category": "default",
+        "tags": [
+          "vs_fighter",
+          "vs_sustain"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "Dodge Q sweetspots. W him when he Qs. Ghouls body-block Q. Post-6 with Maiden you win extended trades if he misses Q."
+      },
+      "Akali": {
+        "difficulty": "Advanced",
+        "keystones": [
+          "Comet",
+          "Aery"
+        ],
+        "item_category": "eclipse_poke",
+        "tags": [
+          "vs_assassin",
+          "vs_ap",
+          "e_max"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "E max with Eclipse. She can shroud to avoid E. W her when she dashes in and shroud is down."
+      },
+      "Akshan": {
+        "difficulty": "Advanced",
+        "keystones": [
+          "Aery",
+          "Comet"
+        ],
+        "item_category": "eclipse_poke",
+        "tags": [
+          "vs_ranged",
+          "vs_adc_top",
+          "e_max"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "Ranged matchup \u2014 Second Wind. Let him push, farm under tower. W him to cancel his E swing."
+      },
+      "Ambessa": {
+        "difficulty": "HARD",
+        "keystones": [
+          "Aery",
+          "Conqueror"
+        ],
+        "item_category": "default",
+        "tags": [
+          "vs_fighter",
+          "vs_dash"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "Multiple dashes but short-range. Poke with E+Aery. Disengage after E+ghouls poke."
+      },
+      "Anivia": {
+        "difficulty": "Advanced",
+        "keystones": [
+          "Comet",
+          "Aery",
+          "Phase Rush"
+        ],
+        "item_category": "default",
+        "tags": [
+          "vs_ap",
+          "vs_zone_control"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "Her wall blocks ghouls. W her \u2014 she's immobile. Kill egg with ghouls. Push hard, she has mana issues early."
+      },
+      "Aurelion Sol": {
+        "difficulty": "Advanced",
+        "keystones": [
+          "Aery",
+          "Comet"
+        ],
+        "item_category": "default",
+        "tags": [
+          "vs_ap",
+          "vs_ranged"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "He scales hard \u2014 punish early. W him when he walks up. He's immobile without flash."
+      },
+      "Aurora": {
+        "difficulty": "Advanced",
+        "keystones": [
+          "Comet",
+          "Aery"
+        ],
+        "item_category": "eclipse_poke",
+        "tags": [
+          "vs_ap",
+          "vs_ranged",
+          "e_max"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "E max with Eclipse. She's squishy \u2014 land E and all-in. W her when she tries to escape with R."
+      },
+      "Briar": {
+        "difficulty": "Medium",
+        "keystones": [
+          "Grasp-1",
+          "Conqueror"
+        ],
+        "item_category": "default",
+        "tags": [
+          "vs_fighter",
+          "vs_sustain",
+          "vs_dash"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "Wall her during frenzy to trap her with ghouls. Bait W, then commit with E+W after it ends."
+      },
+      "Camille": {
+        "difficulty": "HARD",
+        "keystones": [
+          "Comet",
+          "Aery",
+          "Conqueror"
+        ],
+        "item_category": "default",
+        "tags": [
+          "vs_fighter",
+          "vs_true_damage",
+          "vs_dash"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "W where she will land from E. Don't fight in her R zone without ghouls. Force extended fights with Maiden."
+      },
+      "Cassiopeia": {
+        "difficulty": "Medium",
+        "keystones": [
+          "Aery",
+          "Conqueror"
+        ],
+        "item_category": "default",
+        "tags": [
+          "vs_ap",
+          "vs_ranged"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "High DPS but squishy. Don't face her (R stuns). Build MR. Farm safe, outscale in side lane."
+      },
+      "Cho'Gath": {
+        "difficulty": "Advanced",
+        "keystones": [
+          "Conqueror",
+          "Hail of Blades"
+        ],
+        "item_category": "liandry_shred",
+        "tags": [
+          "vs_tank",
+          "anti_hp_stack"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "HP stacker \u2014 Liandry's burn shreds him. Dodge Q, don't stand in W silence. Out-split him hard."
+      },
+      "Darius": {
+        "difficulty": "Easy",
+        "keystones": [
+          "Comet",
+          "Conqueror"
+        ],
+        "item_category": "default",
+        "tags": [
+          "vs_fighter",
+          "poke_lane"
+        ],
+        "shard_override": "MS",
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "Poke with E+ghouls from range. W him when he uses E pull. Don't let him get 5 stacks."
+      },
+      "Dr. Mundo": {
+        "difficulty": "Easy",
+        "keystones": [
+          "Grasp-1",
+          "Conqueror",
+          "Comet"
+        ],
+        "item_category": "liandry_shred",
+        "tags": [
+          "vs_tank",
+          "free_lane",
+          "anti_hp_stack"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "He can't kill you. Dodge Q cleavers. Liandry's burn shreds his HP stacking. Split push wins."
+      },
+      "Fiora": {
+        "difficulty": "Medium",
+        "keystones": [
+          "Grasp-1",
+          "Conqueror"
+        ],
+        "item_category": "iceborn_cleaver",
+        "tags": [
+          "vs_fighter",
+          "vs_true_damage"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "Iceborn rush. She parries W \u2014 never W predictably. Fight only with 4 ghouls + Maiden. Hug walls to deny vitals."
+      },
+      "Gangplank": {
+        "difficulty": "Easy",
+        "keystones": [
+          "Grasp-1",
+          "Conqueror",
+          "Comet",
+          "Aery"
+        ],
+        "item_category": "sundered_sky",
+        "tags": [
+          "vs_ranged_poke",
+          "push_lane"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "Sundered Sky rush. He's squishy \u2014 land E and all-in. His W cleanses slow but not W wall."
+      },
+      "Garen": {
+        "difficulty": "Easy",
+        "keystones": [
+          "Conqueror",
+          "Comet"
+        ],
+        "item_category": "default",
+        "tags": [
+          "vs_fighter",
+          "vs_sustain"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "W him when he runs at you with Q. E+ghouls deny his passive regen. Avoid R execute at low HP."
+      },
+      "Gnar": {
+        "difficulty": "Advanced",
+        "keystones": [
+          "Comet",
+          "Aery",
+          "Phase Rush"
+        ],
+        "item_category": "eclipse_poke",
+        "tags": [
+          "vs_ranged",
+          "e_max"
+        ],
+        "shard_override": "MS",
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "E max with Eclipse. Back off near Mega form. W him in Mini to force all-in. Phase Rush escapes Mega."
+      },
+      "Gragas": {
+        "difficulty": "Advanced",
+        "keystones": [
+          "Grasp-2"
+        ],
+        "item_category": "sundered_sky",
+        "tags": [
+          "vs_ap",
+          "vs_fighter"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "Sundered Sky rush + Second Wind. His body slam goes through W. Grasp-2 with Manaflow and Scorch."
+      },
+      "Gwen": {
+        "difficulty": "EXTREME",
+        "keystones": [
+          "Comet",
+          "Aery",
+          "Conqueror",
+          "Phase Rush"
+        ],
+        "item_category": "default",
+        "tags": [
+          "vs_fighter",
+          "vs_true_damage",
+          "vs_ap"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "Her W zone makes ghouls useless. Fight OUTSIDE her W. Weak early, strong mid. W her, walk out of W zone. Phase Rush escapes her R slow."
+      },
+      "Heimerdinger": {
+        "difficulty": "Advanced",
+        "keystones": [
+          "Comet",
+          "Aery"
+        ],
+        "item_category": "default",
+        "tags": [
+          "vs_ranged",
+          "vs_ap",
+          "vs_zone_control"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "Turrets zone you hard. Ghouls die to turrets. Farm safely, build MR. He's immobile \u2014 call for ganks."
+      },
+      "Illaoi": {
+        "difficulty": "Easy",
+        "keystones": [
+          "Conqueror",
+          "Comet",
+          "Aery"
+        ],
+        "item_category": "default",
+        "tags": [
+          "vs_fighter"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "DODGE HER E. If she pulls your spirit, walk away. NEVER fight in her R \u2014 walk out and re-engage."
+      },
+      "Irelia": {
+        "difficulty": "EXTREME",
+        "keystones": [
+          "Grasp-1",
+          "Conqueror",
+          "Hail of Blades"
+        ],
+        "item_category": "iceborn_cleaver",
+        "tags": [
+          "vs_fighter",
+          "vs_dash"
+        ],
+        "shard_override": null,
+        "exhaust_viable": true,
+        "summoner_spells": "Exhaust/TP",
+        "special_note": "BAN HER",
+        "advice": "BAN HER. Her Q one-shots ghouls and stacks passive. W to cancel Q chain. Iceborn + anti-heal rush."
+      },
+      "Jax": {
+        "difficulty": "HARD",
+        "keystones": [
+          "Grasp-1",
+          "Comet",
+          "Aery"
+        ],
+        "item_category": "iceborn_cleaver",
+        "tags": [
+          "vs_fighter"
+        ],
+        "shard_override": "MS",
+        "exhaust_viable": true,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "Iceborn rush. W him when he Es to trap him. MS shard critical (350 vs 340). Aery+Bramble trick viable."
+      },
+      "Jayce": {
+        "difficulty": "Medium",
+        "keystones": [
+          "Comet",
+          "Grasp-1",
+          "Aery",
+          "Conqueror"
+        ],
+        "item_category": "sundered_sky",
+        "tags": [
+          "vs_ranged",
+          "vs_poke"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "Sundered Sky rush + Second Wind. He falls off hard after 15 mins. W him in melee form."
+      },
+      "K'Sante": {
+        "difficulty": "HARD",
+        "keystones": [
+          "First Strike",
+          "Comet",
+          "Conqueror"
+        ],
+        "item_category": "default",
+        "tags": [
+          "vs_tank",
+          "vs_fighter"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "First Strike for gold gen. W him when he dashes. His All Out (R) makes him squishy \u2014 all-in window."
+      },
+      "Kayle": {
+        "difficulty": "Easy",
+        "keystones": [
+          "Comet",
+          "Aery"
+        ],
+        "item_category": "eclipse_poke",
+        "tags": [
+          "vs_ranged",
+          "e_max"
+        ],
+        "shard_override": "AF",
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "ABUSE HER EARLY. Melee until 6, weak until 11. E max Eclipse. Zone her off CS. End before 16."
+      },
+      "Kennen": {
+        "difficulty": "Easy",
+        "keystones": [
+          "Comet",
+          "Aery"
+        ],
+        "item_category": "default",
+        "tags": [
+          "vs_ranged",
+          "vs_ap"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "Poke with E+ghouls. Don't stack near ghouls (he stuns everyone). W him when he Es in for R. Bramble+Aery trick."
+      },
+      "Kled": {
+        "difficulty": "HARD",
+        "keystones": [
+          "Grasp-1",
+          "Comet"
+        ],
+        "item_category": "iceborn_cleaver",
+        "tags": [
+          "vs_fighter",
+          "vs_all_in"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "Iceborn rush. W him when he dismounts to deny remount. Ghouls body-block his Q."
+      },
+      "Malphite": {
+        "difficulty": "Medium",
+        "keystones": [
+          "Grasp-1",
+          "Comet"
+        ],
+        "item_category": "default",
+        "tags": [
+          "vs_tank",
+          "push_lane"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "He pokes with Q but runs out of mana. BC shreds his armor. Push and split."
+      },
+      "Maokai": {
+        "difficulty": "Easy",
+        "keystones": [
+          "Conqueror",
+          "First Strike"
+        ],
+        "item_category": "liandry_shred",
+        "tags": [
+          "vs_tank",
+          "push_lane"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "Tiny threat. He can't match your splitpush at any stage."
+      },
+      "Mordekaiser": {
+        "difficulty": "HARD",
+        "keystones": [
+          "Phase Rush",
+          "Conqueror",
+          "First Strike"
+        ],
+        "item_category": "vs_morde",
+        "tags": [
+          "vs_ap",
+          "vs_fighter"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "CRITICAL: His R steals Maiden. Phase Rush escapes Rylai's. Ghouls DON'T follow into Death Realm. Maiden DOES."
+      },
+      "Naafiri": {
+        "difficulty": "Medium",
+        "keystones": [
+          "Grasp-2",
+          "Grasp-3",
+          "Aery"
+        ],
+        "item_category": "default",
+        "tags": [
+          "vs_assassin",
+          "vs_ad"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "Her dogs die to ghouls. W her when she dashes in. Grasp for short trades. Outscale hard."
+      },
+      "Nasus": {
+        "difficulty": "Easy",
+        "keystones": [
+          "Conqueror",
+          "Phase Rush"
+        ],
+        "item_category": "default",
+        "tags": [
+          "vs_tank",
+          "deny_stacks"
+        ],
+        "shard_override": "AF",
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "Punish early. WARNING: ghouls give him free Q stacks. Freeze when possible. Phase Rush kites his wither."
+      },
+      "Nocturne": {
+        "difficulty": "HARD",
+        "keystones": [
+          "Grasp-1",
+          "Conqueror",
+          "Hail of Blades"
+        ],
+        "item_category": "default",
+        "tags": [
+          "vs_fighter",
+          "vs_dash"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "Bait his spell shield before E. His R denies vision. Wall him after he dashes in."
+      },
+      "Olaf": {
+        "difficulty": "HARD",
+        "keystones": [
+          "Grasp-1",
+          "Conqueror"
+        ],
+        "item_category": "default",
+        "tags": [
+          "vs_fighter",
+          "vs_lane_bully"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "He runs you down early. Don't fight 1-5. His R = unstoppable (W doesn't trap). Farm safe, outscale."
+      },
+      "Ornn": {
+        "difficulty": "HARD",
+        "keystones": [
+          "First Strike",
+          "Comet"
+        ],
+        "item_category": "liandry_shred",
+        "tags": [
+          "vs_tank",
+          "vs_cc"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "First Strike for gold gen. Dodge his E and R. Push and split but respect his CC chain."
+      },
+      "Pantheon": {
+        "difficulty": "Medium",
+        "keystones": [
+          "Comet",
+          "Conqueror"
+        ],
+        "item_category": "default",
+        "tags": [
+          "vs_fighter",
+          "vs_lane_bully"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "Empowered W stun into Q chunks hard. Bone Plating helps. He falls off after 15 mins. Survive and outscale."
+      },
+      "Poppy": {
+        "difficulty": "Medium",
+        "keystones": [
+          "Grasp-1",
+          "Conqueror"
+        ],
+        "item_category": "default",
+        "tags": [
+          "vs_tank"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "Her W blocks dashes but you don't dash. Don't fight near walls (E stun). Out-split her."
+      },
+      "Quinn": {
+        "difficulty": "Medium",
+        "keystones": [
+          "Aery",
+          "Comet"
+        ],
+        "item_category": "eclipse_poke",
+        "tags": [
+          "vs_ranged",
+          "vs_adc_top",
+          "e_max"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "E max with Eclipse. W her when she vaults in. You outscale massively. Bramble+Aery trick."
+      },
+      "Renekton": {
+        "difficulty": "EXTREME",
+        "keystones": [
+          "Grasp-2",
+          "Grasp-3",
+          "Conqueror"
+        ],
+        "item_category": "iceborn_cleaver",
+        "tags": [
+          "vs_fighter",
+          "vs_lane_bully"
+        ],
+        "shard_override": null,
+        "exhaust_viable": true,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "Insane early burst with empowered W. Iceborn rush + Bone Plating mandatory. Don't fight at 50+ fury. Survive to 2 items."
+      },
+      "Riven": {
+        "difficulty": "HARD",
+        "keystones": [
+          "Grasp-1",
+          "Grasp-2",
+          "Comet"
+        ],
+        "item_category": "iceborn_cleaver",
+        "tags": [
+          "vs_fighter",
+          "vs_dash",
+          "vs_all_in"
+        ],
+        "shard_override": null,
+        "exhaust_viable": true,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "Iceborn rush. She dashes through W but armor + slow help. Bone Plating blocks her combo. HoB viable."
+      },
+      "Rumble": {
+        "difficulty": "Medium",
+        "keystones": [
+          "Comet",
+          "Aery",
+          "Conqueror"
+        ],
+        "item_category": "default",
+        "tags": [
+          "vs_ap",
+          "vs_zone_control"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "His flamespitter melts ghouls. Don't stack ghouls in Q range. MR important. W him \u2014 he's immobile."
+      },
+      "Ryze": {
+        "difficulty": "Advanced",
+        "keystones": [
+          "Conqueror",
+          "Grasp-4"
+        ],
+        "item_category": "default",
+        "tags": [
+          "vs_ap",
+          "vs_ranged"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "He combos hard but is squishy. Land E and all-in. W him \u2014 no escape. Grasp-4 Approach Velocity to chase."
+      },
+      "Sejuani": {
+        "difficulty": "Medium",
+        "keystones": [
+          "Grasp-1",
+          "Grasp-3",
+          "Conqueror"
+        ],
+        "item_category": "default",
+        "tags": [
+          "vs_tank",
+          "vs_cc"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "Good CC but low damage. Push and take plates. Out-split all game. Respect CC chain for ganks."
+      },
+      "Sett": {
+        "difficulty": "EXTREME",
+        "keystones": [
+          "Grasp-1",
+          "Conqueror",
+          "Hail of Blades"
+        ],
+        "item_category": "titanic_breaker",
+        "tags": [
+          "vs_fighter"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "Dodge W true damage center. Bone Plating + Unflinching mandatory. W him during E pull. Tiamat \u2192 Titanic. HoB outburst viable."
+      },
+      "Shen": {
+        "difficulty": "Medium",
+        "keystones": [
+          "Conqueror",
+          "Comet",
+          "Aery"
+        ],
+        "item_category": "default",
+        "tags": [
+          "vs_tank",
+          "punish_ult"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "Push when he ults away \u2014 free plates. His W blocks auto attacks including ghouls. Out-split him."
+      },
+      "Singed": {
+        "difficulty": "Easy",
+        "keystones": [
+          "Grasp-1",
+          "Conqueror"
+        ],
+        "item_category": "default",
+        "tags": [
+          "vs_ap"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "DO NOT CHASE. W him when he runs in to fling. Push and take plates while he proxies."
+      },
+      "Sion": {
+        "difficulty": "Medium",
+        "keystones": [
+          "Grasp-1",
+          "Conqueror",
+          "First Strike"
+        ],
+        "item_category": "liandry_shred",
+        "tags": [
+          "vs_tank",
+          "anti_hp_stack"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "Dodge Q charge. W him during Q channel to cancel. HP stacker \u2014 Liandry's shreds him."
+      },
+      "Skarner": {
+        "difficulty": "Easy",
+        "keystones": [
+          "Grasp-1",
+          "Conqueror",
+          "Comet"
+        ],
+        "item_category": "default",
+        "tags": [
+          "vs_tank",
+          "vs_cc"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "He's tanky but you outscale. Don't get dragged by R. W him to kite. Free lane."
+      },
+      "Smolder": {
+        "difficulty": "Advanced",
+        "keystones": [
+          "Comet",
+          "Aery"
+        ],
+        "item_category": "default",
+        "tags": [
+          "vs_ranged",
+          "vs_scaling"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "He scales hard \u2014 punish early. Zone with ghouls. Push for plates. E max Eclipse if you want to all-in."
+      },
+      "Swain": {
+        "difficulty": "Medium",
+        "keystones": [
+          "Aery",
+          "Comet",
+          "Conqueror"
+        ],
+        "item_category": "default",
+        "tags": [
+          "vs_ap",
+          "vs_ranged"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "Dodge E root. Build MR. Push hard \u2014 poor waveclear early. W him to deny escape."
+      },
+      "Sylas": {
+        "difficulty": "Easy",
+        "keystones": [
+          "Grasp-2",
+          "Grasp-3",
+          "Conqueror",
+          "Comet"
+        ],
+        "item_category": "default",
+        "tags": [
+          "vs_ap",
+          "vs_fighter"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "He steals R but Maiden isn't scary for him. Grasp for short trades. Push and take plates."
+      },
+      "Tahm Kench": {
+        "difficulty": "Medium",
+        "keystones": [
+          "Conqueror",
+          "First Strike"
+        ],
+        "item_category": "default",
+        "tags": [
+          "vs_tank",
+          "vs_sustain"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "He's tanky with grey health but can't kill you. Don't get hit by Q tongue 3 times. Push freely."
+      },
+      "Teemo": {
+        "difficulty": "Advanced",
+        "keystones": [
+          "Aery",
+          "Comet"
+        ],
+        "item_category": "eclipse_poke",
+        "tags": [
+          "vs_ranged",
+          "vs_ap",
+          "vs_blind",
+          "e_max"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "E max Eclipse. His blind stops ghoul autos. Tiamat bypasses blind for Aery. Bramble+Aery trick. Buy Sweeper."
+      },
+      "Trundle": {
+        "difficulty": "EXTREME",
+        "keystones": [
+          "Conqueror",
+          "Phase Rush"
+        ],
+        "item_category": "titanic_breaker",
+        "tags": [
+          "vs_fighter",
+          "vs_stat_steal"
+        ],
+        "shard_override": "MS",
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "His R steals stats \u2014 don't R first. Tiamat rush into BC. Executioner's if he builds Ravenous Hydra."
+      },
+      "Tryndamere": {
+        "difficulty": "EXTREME",
+        "keystones": [
+          "Grasp-2",
+          "Grasp-1",
+          "Grasp-3",
+          "Conqueror"
+        ],
+        "item_category": "iceborn_cleaver",
+        "tags": [
+          "vs_fighter",
+          "vs_crit",
+          "vs_split"
+        ],
+        "shard_override": "MS",
+        "exhaust_viable": true,
+        "summoner_spells": "Exhaust/TP",
+        "special_note": "",
+        "advice": "Iceborn rush + Titanic. Exhaust mandatory. W him when he spins in. Disengage when he ults (5s)."
+      },
+      "Udyr": {
+        "difficulty": "Medium",
+        "keystones": [
+          "Conqueror",
+          "Grasp-3"
+        ],
+        "item_category": "default",
+        "tags": [
+          "vs_fighter",
+          "vs_sustain"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "He runs fast with bear stance. W him to kite. Can't match your push. Out-split him."
+      },
+      "Urgot": {
+        "difficulty": "HARD",
+        "keystones": [
+          "Conqueror",
+          "Comet",
+          "Aery"
+        ],
+        "item_category": "default",
+        "tags": [
+          "vs_fighter",
+          "vs_ranged"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "Don't stand in W range. W him when he E dashes in. Track passive leg cooldowns. Don't get R executed at 25%."
+      },
+      "Varus": {
+        "difficulty": "EXTREME",
+        "keystones": [
+          "Comet",
+          "Conqueror"
+        ],
+        "item_category": "default",
+        "tags": [
+          "vs_ranged",
+          "vs_poke"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "Brutal poke lane. Second Wind + Doran's Shield. Farm under tower. Call for ganks \u2014 no escape."
+      },
+      "Vayne": {
+        "difficulty": "Advanced",
+        "keystones": [
+          "Comet",
+          "Aery"
+        ],
+        "item_category": "default",
+        "tags": [
+          "vs_ranged",
+          "vs_adc_top",
+          "vs_true_damage"
+        ],
+        "shard_override": "AF",
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "She kites and shreds with %HP true damage. Second Wind + D Shield. Bramble+Aery trick. Outscale at 2 items."
+      },
+      "Vladimir": {
+        "difficulty": "Medium",
+        "keystones": [
+          "Conqueror",
+          "Comet",
+          "Aery"
+        ],
+        "item_category": "default",
+        "tags": [
+          "vs_ap",
+          "vs_sustain"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "His pool dodges everything. Don't waste W when pool is up. Punish early when CDs are long. Build MR."
+      },
+      "Volibear": {
+        "difficulty": "EXTREME",
+        "keystones": [
+          "Grasp-2",
+          "Conqueror"
+        ],
+        "item_category": "default",
+        "tags": [
+          "vs_fighter",
+          "vs_all_in"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "Wins early all-ins. Don't fight 1-3. His R disables tower. Grasp-2 with Unflinching. Post-6 with Maiden can match."
+      },
+      "Warwick": {
+        "difficulty": "EXTREME",
+        "keystones": [
+          "Comet",
+          "Conqueror"
+        ],
+        "item_category": "default",
+        "tags": [
+          "vs_fighter",
+          "vs_sustain"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "He heals a lot below 50% \u2014 need anti-heal or burst. His R suppresses. W him when he Qs onto you. Comet poke to whittle."
+      },
+      "Wukong": {
+        "difficulty": "HARD",
+        "keystones": [
+          "Comet",
+          "Grasp-2"
+        ],
+        "item_category": "default",
+        "tags": [
+          "vs_fighter",
+          "vs_clone"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "Clone can bait W. Don't W until you confirm it's real. His R knockup \u2014 W to cancel R spin."
+      },
+      "Yasuo": {
+        "difficulty": "HARD",
+        "keystones": [
+          "Grasp-1"
+        ],
+        "item_category": "iceborn_cleaver",
+        "tags": [
+          "vs_fighter",
+          "vs_dash",
+          "vs_windwall"
+        ],
+        "shard_override": "MS",
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "Iceborn rush \u2014 slow field key since he dashes through ghouls. Windwall blocks E. Steelcaps reduce damage a lot."
+      },
+      "Yone": {
+        "difficulty": "EXTREME",
+        "keystones": [
+          "Conqueror",
+          "Comet"
+        ],
+        "item_category": "titanic_breaker",
+        "tags": [
+          "vs_fighter",
+          "vs_dash"
+        ],
+        "shard_override": "MS",
+        "exhaust_viable": true,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "W where he'll snap back from E. Conqueror + MS shard. Tiamat \u2192 Titanic. Ghouls body-block his R."
+      },
+      "Yorick": {
+        "difficulty": "Easy",
+        "keystones": [
+          "Conqueror",
+          "Grasp-1"
+        ],
+        "item_category": "default",
+        "tags": [
+          "vs_fighter"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "Mirror match \u2014 whoever lands E with more ghouls wins. W enemy Maiden to deny it."
+      },
+      "Zaahen": {
+        "difficulty": "Medium",
+        "keystones": [
+          "Comet",
+          "Conqueror"
+        ],
+        "item_category": "default",
+        "tags": [
+          "vs_fighter"
+        ],
+        "shard_override": "MS",
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "Comet poke is strong. MS shard helps with his mobility. Push and split."
+      },
+      "Zac": {
+        "difficulty": "Medium",
+        "keystones": [
+          "Conqueror",
+          "Grasp-1"
+        ],
+        "item_category": "default",
+        "tags": [
+          "vs_tank",
+          "vs_cc"
+        ],
+        "shard_override": null,
+        "exhaust_viable": false,
+        "summoner_spells": "Ghost/Ignite",
+        "special_note": "",
+        "advice": "He's tanky with good CC. Stand on blobs to deny healing. Push and split. Respect engage for ganks."
+      }
+    },
+    "rune_pages": {
+      "Phase Rush": {
+        "name": "Phase Rush",
+        "primary_style_id": 8200,
+        "sub_style_id": 8400,
+        "selected_perk_ids": [
+          8230,
+          8226,
+          8234,
+          8237,
+          8446,
+          8453,
+          5005,
+          5010,
+          5013
+        ],
+        "description": "Mobility/kiting build for matchups where you need to disengage quickly"
+      },
+      "Grasp-1": {
+        "name": "Grasp-1",
+        "primary_style_id": 8400,
+        "sub_style_id": 8000,
+        "selected_perk_ids": [
+          8437,
+          8446,
+          8473,
+          8453,
+          9104,
+          8009,
+          5005,
+          5001,
+          5013
+        ],
+        "description": "Default Grasp page \u2014 good all-around for short trades and tower taking"
+      },
+      "Comet": {
+        "name": "Comet",
+        "primary_style_id": 8200,
+        "sub_style_id": 8400,
+        "selected_perk_ids": [
+          8229,
+          8226,
+          8210,
+          8237,
+          8446,
+          8453,
+          5005,
+          5001,
+          5013
+        ],
+        "description": "Pet poke build \u2014 E+ghouls proc Comet for ranged harass"
+      },
+      "Conqueror": {
+        "name": "Conqueror",
+        "primary_style_id": 8000,
+        "sub_style_id": 8400,
+        "selected_perk_ids": [
+          8010,
+          8009,
+          9104,
+          8017,
+          8446,
+          8453,
+          5005,
+          5001,
+          5013
+        ],
+        "description": "Sustained damage for extended fights vs tanks and bruisers"
+      },
+      "Aery": {
+        "name": "Aery",
+        "primary_style_id": 8200,
+        "sub_style_id": 8400,
+        "selected_perk_ids": [
+          8214,
+          8226,
+          8234,
+          8237,
+          8446,
+          8453,
+          5005,
+          5010,
+          5013
+        ],
+        "description": "Aggressive poke \u2014 Aery procs more often than Comet for frequent trades"
+      },
+      "Grasp-4": {
+        "name": "Grasp-4",
+        "primary_style_id": 8400,
+        "sub_style_id": 8300,
+        "selected_perk_ids": [
+          8437,
+          8446,
+          8444,
+          8453,
+          8321,
+          8410,
+          5005,
+          5008,
+          5013
+        ],
+        "description": "Chase/mobility Grasp \u2014 Approach Velocity for sticking to targets after W"
+      },
+      "First Strike": {
+        "name": "First Strike",
+        "primary_style_id": 8300,
+        "sub_style_id": 8400,
+        "selected_perk_ids": [
+          8369,
+          8321,
+          8313,
+          8410,
+          8446,
+          8453,
+          5005,
+          5008,
+          5001
+        ],
+        "description": "Economy page \u2014 First Strike gold generation for scaling builds"
+      },
+      "Grasp-2": {
+        "name": "Grasp-2",
+        "primary_style_id": 8400,
+        "sub_style_id": 8200,
+        "selected_perk_ids": [
+          8437,
+          8446,
+          8473,
+          8242,
+          8226,
+          8237,
+          5005,
+          5001,
+          5013
+        ],
+        "description": "Poke + tenacity Grasp \u2014 Manaflow for mana, Unflinching for CC-heavy lanes"
+      },
+      "Hail of Blades": {
+        "name": "Hail of Blades",
+        "primary_style_id": 8100,
+        "sub_style_id": 8400,
+        "selected_perk_ids": [
+          9923,
+          8139,
+          8137,
+          8106,
+          8446,
+          8451,
+          5005,
+          5001,
+          5001
+        ],
+        "description": "Burst attack speed \u2014 fast Q trades and quick grave generation"
+      },
+      "Grasp-3": {
+        "name": "Grasp-3",
+        "primary_style_id": 8400,
+        "sub_style_id": 8100,
+        "selected_perk_ids": [
+          8437,
+          8446,
+          8444,
+          8453,
+          8139,
+          8137,
+          5005,
+          5001,
+          5013
+        ],
+        "description": "Sustain Grasp \u2014 Second Wind + Taste of Blood for heavy poke lanes"
+      }
+    },
+    "item_builds": {
+      "Default BBC": {
+        "name": "Default BBC",
+        "starter": [
+          1055,
+          2003
+        ],
+        "boots": [
+          3047,
+          3111,
+          3158
+        ],
+        "core": [
+          3161,
+          3071,
+          6610
+        ],
+        "situational": [
+          3181,
+          3053,
+          6333,
+          3065
+        ],
+        "description": "Shojin gives pets 12% DMG Amp, Only missing 8% from Yorick's old E that gave 20% and Black Cleaver gives Ghouls everything they scale with (HP, AD, MS) and Shred, While Hull & Bastion Breaker help you Splitpush and abuse Turret plates [mobafire L449]"
+      },
+      "Iceborn Cleaver": {
+        "name": "Iceborn Cleaver",
+        "starter": [
+          1054,
+          2003
+        ],
+        "boots": [
+          3047,
+          3111
+        ],
+        "core": [
+          6662,
+          3071,
+          6610
+        ],
+        "situational": [
+          3161,
+          3065,
+          3053,
+          3110
+        ],
+        "description": "Default Tank Build, Gauntlet into Cleaver or Gauntlet into Sky, Can work into most AD counters like Jax, Ren, Kled [mobafire L464]"
+      },
+      "Titanic Breaker": {
+        "name": "Titanic Breaker",
+        "starter": [
+          1055,
+          2003
+        ],
+        "boots": [
+          3047,
+          3111
+        ],
+        "core": [
+          3748,
+          3181,
+          2501
+        ],
+        "situational": [
+          3053,
+          3161,
+          3071,
+          6610
+        ],
+        "description": "Titanic Breaker & Blood Gage \u2014 Good into Non HP/Tank Killers like Riven, Renekton, Kled, Champs that need to snowball, Sky 5th or Shojin, Sky for Sustain, Shojin for DMG [mobafire L455-456]"
+      },
+      "Shojin Hull": {
+        "name": "Shojin Hull",
+        "starter": [
+          1055,
+          2003
+        ],
+        "boots": [
+          3047,
+          3009
+        ],
+        "core": [
+          3161,
+          3071,
+          3181,
+          2520
+        ],
+        "situational": [
+          3814,
+          3142,
+          3053,
+          6610
+        ],
+        "description": "Full Splitpush with Lethality items to boost Bastion Breaker, Choose between Shojin or Cleaver for Scaling DMG Item [mobafire L473-474]"
+      },
+      "Iceborn Dragon": {
+        "name": "Iceborn Dragon",
+        "starter": [
+          1054,
+          2003
+        ],
+        "boots": [
+          3047,
+          3111
+        ],
+        "core": [
+          6662,
+          3161,
+          3065,
+          6665
+        ],
+        "situational": [
+          2525,
+          2502
+        ],
+        "description": "Tankier Variation of Iceborn Cleaver [mobafire L458-459]"
+      },
+      "Speed Rick": {
+        "name": "Speed Rick",
+        "starter": [
+          1055,
+          2003
+        ],
+        "boots": [
+          3009,
+          3047
+        ],
+        "core": [
+          3078,
+          3071,
+          3742
+        ],
+        "situational": [
+          4401,
+          6610,
+          3181
+        ],
+        "description": "vs Ranged Team Comps or against Quinn, Gnar, Ryze, Cassio, etc. Choose Triforce or Tiamat into Sundered Sky first, only Buy Hull into Roaming ones like Quinn or if you can Split for free [mobafire L485-486]"
+      },
+      "Conqueror Bruiser": {
+        "name": "Conqueror Bruiser",
+        "starter": [
+          1055,
+          2003
+        ],
+        "boots": [
+          3047,
+          3111
+        ],
+        "core": [
+          3161,
+          3071,
+          3053
+        ],
+        "situational": [
+          6610,
+          6333,
+          3065,
+          3181
+        ],
+        "description": "Sustained fight build \u2014 pairs with Conqueror for extended trades vs bruisers"
+      },
+      "Anti-Tank": {
+        "name": "Anti-Tank",
+        "starter": [
+          1055,
+          2003
+        ],
+        "boots": [
+          3047,
+          3158
+        ],
+        "core": [
+          3161,
+          3071,
+          6694
+        ],
+        "situational": [
+          6610,
+          3053,
+          3181
+        ],
+        "description": "Max armor shred vs tanks \u2014 Cleaver + Serylda's for armor pen stacking"
+      },
+      "Anti-AP": {
+        "name": "Anti-AP",
+        "starter": [
+          1054,
+          2003
+        ],
+        "boots": [
+          3111
+        ],
+        "core": [
+          3161,
+          3065,
+          2504
+        ],
+        "situational": [
+          3071,
+          3156,
+          4401,
+          3053
+        ],
+        "description": "MR stacking vs AP-heavy lanes \u2014 Spirit Visage + Kaenic Rookern"
+      },
+      "Hexplate Engage": {
+        "name": "Hexplate Engage",
+        "starter": [
+          1055,
+          2003
+        ],
+        "boots": [
+          3009,
+          3047
+        ],
+        "core": [
+          3073,
+          3071,
+          6610
+        ],
+        "situational": [
+          3161,
+          3053,
+          3742
+        ],
+        "description": "Engage build \u2014 Hexplate ult for gap closing + teamfight presence"
+      },
+      "Lethal Splitpush": {
+        "name": "Lethal Splitpush",
+        "starter": [
+          1055,
+          2003
+        ],
+        "boots": [
+          3047,
+          3111
+        ],
+        "core": [
+          3748,
+          3181,
+          2520
+        ],
+        "situational": [
+          226695,
+          226609,
+          3071
+        ],
+        "description": "Lethality Build for Splitpushing vs Heal & Shield abusers like Riven, Ambessa [mobafire L461]"
+      },
+      "Bloodmail Bruiser": {
+        "name": "Bloodmail Bruiser",
+        "starter": [
+          1055,
+          2003
+        ],
+        "boots": [
+          3047,
+          3111
+        ],
+        "core": [
+          3161,
+          3071,
+          2501
+        ],
+        "situational": [
+          6610,
+          3053,
+          3065
+        ],
+        "description": "Both Items give you free AD up to 150, Sterak Gives 40 to Yorick, Bloodmail gives 30 from stats then another 30-50 from HP to AD conversion. Bloodmail scales off HP and maxes out at 30% HP, Sterak also Procs the shield at 30% [mobafire L505]"
+      },
+      "Full Armor": {
+        "name": "Full Armor",
+        "starter": [
+          1054,
+          2003
+        ],
+        "boots": [
+          3047,
+          3174
+        ],
+        "core": [
+          6662,
+          6333,
+          3075
+        ],
+        "situational": [
+          2525,
+          3110,
+          3143
+        ],
+        "description": "VS Full AD Team \u2014 auto attackers get Thornmail, crits get Omen, high AS melee get Frozen Heart, DD into Sterak if needed [mobafire L531-532]"
+      },
+      "Full MR": {
+        "name": "Full MR",
+        "starter": [
+          1054,
+          2003
+        ],
+        "boots": [
+          3111
+        ],
+        "core": [
+          2504,
+          3065,
+          4401
+        ],
+        "situational": [
+          3053,
+          6665,
+          3156
+        ],
+        "description": "VS Full AP or Heavy Magic DMG \u2014 vs AP Burst like LB/Zoe/Annie go Rookern + Sterak, against APs that slowly kill go FoN into Jak'Sho or Rookern [mobafire L528-529]"
+      },
+      "GA Revive": {
+        "name": "GA Revive",
+        "starter": [
+          1055,
+          2003
+        ],
+        "boots": [
+          3047,
+          3111
+        ],
+        "core": [
+          3161,
+          3071,
+          3026
+        ],
+        "situational": [
+          6610,
+          3053,
+          6333
+        ],
+        "description": "Last Item Always when LATE GAME (Ghouls stay Alive as you revive). Replace with Sterak's later if you have gold, Sell Hullbreaker if game may end if you lose fight [mobafire L491]"
+      },
+      "Unending Despair": {
+        "name": "Unending Despair",
+        "starter": [
+          1054,
+          2003
+        ],
+        "boots": [
+          3047,
+          3111
+        ],
+        "core": [
+          6662,
+          2502,
+          3065
+        ],
+        "situational": [
+          6665,
+          3083,
+          3071,
+          3075
+        ],
+        "description": "Drain tank \u2014 Unending Despair aura + Spirit Visage amplified healing"
+      },
+      "Eclipse Poke": {
+        "name": "Eclipse Poke",
+        "starter": [
+          1036,
+          2031
+        ],
+        "boots": [
+          3158,
+          3009
+        ],
+        "core": [
+          6692,
+          3161,
+          3071
+        ],
+        "situational": [
+          6610,
+          3181,
+          6694,
+          3053
+        ],
+        "description": "E max into Eclipse & Shojin with Comet or Aery Rune. Works into range top: Teemo, Aurora, Akali, Kayle, Gnar, Quinn, etc. [mobafire L1647]"
+      },
+      "Sundered Sky Rush": {
+        "name": "Sundered Sky Rush",
+        "starter": [
+          1054,
+          2003
+        ],
+        "boots": [
+          3047,
+          3111
+        ],
+        "core": [
+          6610,
+          3161,
+          3065
+        ],
+        "situational": [
+          6333,
+          222517,
+          6692,
+          3053
+        ],
+        "description": "Sky Dragon's Sustain \u2014 Fighter Tank Build for aggressive Yorick Mains. Go Sky first if Hard Matchup, Shojin First otherwise [mobafire L467-468]"
+      },
+      "Liandry Tank Shred": {
+        "name": "Liandry Tank Shred",
+        "starter": [
+          1055,
+          2003
+        ],
+        "boots": [
+          3047,
+          3158
+        ],
+        "core": [
+          3071,
+          6653,
+          3161
+        ],
+        "situational": [
+          6692,
+          8020,
+          2502
+        ],
+        "description": "Hybrid Monk \u2014 Beats any Tank, if Ahead BC into Eclipse, if they rush HP or you're behind BC into Liandry instead, good into Cho'Gath, Tahmkench, Ornn, Mundo, Nasus. Can solo kill Darius, Illaoi, Ornn when Maiden is released [mobafire L482-483]"
+      },
+      "Bonk Shovel": {
+        "name": "Bonk Shovel",
+        "starter": [
+          1055,
+          2003
+        ],
+        "boots": [
+          3047,
+          3111
+        ],
+        "core": [
+          3078,
+          6610,
+          3742
+        ],
+        "situational": [
+          3181,
+          6694,
+          3161
+        ],
+        "description": "Old Classic Build, Best Splitpush Build VS Towers and most ranged champs. Sky + Deadmans beats Ranged champs, Really good in low elo, good into most fighters top like Yone or Yasuo [mobafire L476]"
+      },
+      "Voidborn Dragon": {
+        "name": "Voidborn Dragon",
+        "starter": [
+          1055,
+          2003
+        ],
+        "boots": [
+          3047,
+          3111
+        ],
+        "core": [
+          3161,
+          224633,
+          2501
+        ],
+        "situational": [
+          3053,
+          3065,
+          2502
+        ],
+        "description": "AP DMG AMP version of Double Pen Build, AP Fighter Tank. Shred Tanks and Amplify your DMG by 26%, Heal for 10% Omnivamp and Increase E's %HP DMG per 100 AP, While Riftmaker Converts your HP Into AP [mobafire L479]"
+      },
+      "Hullbreakin Dat Ashe": {
+        "name": "Hullbreakin Dat Ashe",
+        "starter": [
+          1055,
+          2003
+        ],
+        "boots": [
+          3047,
+          3009
+        ],
+        "core": [
+          3078,
+          3181,
+          3742
+        ],
+        "situational": [
+          3161,
+          3748,
+          6664
+        ],
+        "description": "Choose Between Triforce or Shojin. Splitpush-focused with movespeed and waveclear [mobafire L470]"
+      },
+      "Maiden Push": {
+        "name": "Maiden Push",
+        "starter": [
+          1055,
+          2003
+        ],
+        "boots": [
+          3047,
+          3111
+        ],
+        "core": [
+          3071,
+          6653,
+          223118
+        ],
+        "situational": [
+          3161,
+          6664,
+          3742
+        ],
+        "description": "Not a Full build, just items that work when releasing Maiden or Ghouls in sidelane. Maiden & Ghouls can proc Eclipse & Liandry to lower enemies HP, while Malignance lowers Maiden Cooldown and deals DMG [mobafire L488]"
+      },
+      "VS Jax (Iceborn)": {
+        "name": "VS Jax (Iceborn)",
+        "starter": [
+          1029,
+          2031
+        ],
+        "boots": [
+          3047,
+          3111
+        ],
+        "core": [
+          6662,
+          3071,
+          3065
+        ],
+        "situational": [
+          3161,
+          8020,
+          6610
+        ],
+        "description": "VS Jax Grasp path \u2014 Sheen rush into Iceborn for slow field + armor. BC or Shojin 2nd for shred/DMG, Spirit Visage 3rd for sustain + MR vs his hybrid damage. W him when he Counter Strikes to trap him until it expires [mobafire L537-538]."
+      },
+      "VS Jax (Shojin)": {
+        "name": "VS Jax (Shojin)",
+        "starter": [
+          1029,
+          2031
+        ],
+        "boots": [
+          3047,
+          3111
+        ],
+        "core": [
+          3161,
+          6662,
+          3071,
+          8020
+        ],
+        "situational": [
+          3065,
+          6610
+        ],
+        "description": "VS Jax Shojin-first path \u2014 rush Shojin for 12% pet DMG amp then Iceborn second. Works with Conqueror or Comet for poke-heavy lane. Abyssal Mask handles his hybrid damage. Poke with E+ghouls, W his Counter Strike [mobafire L540-541]."
+      },
+      "VS Morde": {
+        "name": "VS Morde",
+        "starter": [
+          1036,
+          2031
+        ],
+        "boots": [
+          3111,
+          3009
+        ],
+        "core": [
+          3071,
+          4401,
+          3161,
+          3742
+        ],
+        "situational": [
+          226695,
+          3065
+        ],
+        "description": "VS Mordekaiser \u2014 BC first for armor shred, FoN for magic damage reduction + MS, Shojin for pet DMG amp, DMP for movespeed. Serpent's Fang situational to break his passive shield. Null-Magic Mantle early for MR. Don't have Maiden out when he Rs you [mobafire L543-544]."
+      },
+      "VS Trundle": {
+        "name": "VS Trundle",
+        "starter": [
+          1029,
+          2031
+        ],
+        "boots": [
+          3047,
+          3111
+        ],
+        "core": [
+          3071,
+          3748,
+          3181
+        ],
+        "situational": [
+          3123,
+          3153,
+          3161,
+          3742
+        ],
+        "description": "VS Trundle \u2014 Tiamat rush into BC for shred, Titanic for waveclear, Hull for splitpush. Buy Executioner's Calling if he finishes Ravenous Hydra (anti-heal his lifesteal). BOTRK good 4th+ item for his high HP. His R steals your stats \u2014 don't ult first [mobafire L546-547]."
+      },
+      "VS Trynd (Conqueror)": {
+        "name": "VS Trynd (Conqueror)",
+        "starter": [
+          1029,
+          2031
+        ],
+        "boots": [
+          3047
+        ],
+        "core": [
+          3071,
+          3748,
+          3143
+        ],
+        "situational": [
+          3742,
+          3123,
+          3161,
+          3181,
+          226609
+        ],
+        "description": "VS Tryndamere Conqueror path \u2014 BC + Titanic for sustained DPS, Randuin's to reduce his crits. Executioner's early if he heals too much. Exhaust is mandatory \u2014 save it for his R. W him when he spins in, disengage when he ults [mobafire L549-550]."
+      },
+      "VS Irelia": {
+        "name": "VS Irelia",
+        "starter": [
+          1029,
+          2031
+        ],
+        "boots": [
+          3047
+        ],
+        "core": [
+          3078,
+          3748,
+          3110
+        ],
+        "situational": [
+          3153,
+          3123,
+          3076,
+          6610
+        ],
+        "description": "VS Irelia \u2014 Trinity for Sheen proc + dueling, Titanic for waveclear, Frozen Heart to cripple her AS-reliant kit (Q resets need attack speed). Buy Bramble Vest or Executioner's early to cut her Q healing. BOTRK good additional item for stat value. Her Q one-shots ghouls \u2014 W to cancel Q chain [mobafire L552-553]."
+      },
+      "VS Trynd (Iceborn Old)": {
+        "name": "VS Trynd (Iceborn Old)",
+        "starter": [
+          1029,
+          2031
+        ],
+        "boots": [
+          3047
+        ],
+        "core": [
+          6662,
+          3071,
+          3742
+        ],
+        "situational": [
+          3123,
+          3161,
+          3181
+        ],
+        "description": "VS Tryndamere Iceborn tank path \u2014 Iceborn slow field kites him, BC shreds armor, DMP for movespeed to escape his R duration. Old reliable tank path. Buy Executioner's if needed for his Q heal [mobafire L555-556]."
+      },
+      "VS Ranged Top": {
+        "name": "VS Ranged Top",
+        "starter": [
+          1054,
+          2003
+        ],
+        "boots": [
+          3047,
+          3111,
+          3009
+        ],
+        "core": [
+          3161,
+          3071,
+          6610,
+          3181
+        ],
+        "situational": [
+          3076,
+          3742,
+          4401
+        ],
+        "description": "VS Ranged Top (Teemo, Vayne, Kennen, etc.) \u2014 Doran's Shield start for sustain. Shojin for pet DMG amp, BC for shred, Sky for sustain on catches, Hull for split pressure. Aery + Bramble Vest: their autos trigger Bramble which triggers Aery for free poke. Max E [mobafire L534-535]."
+      },
+      "Default Titanic Path": {
+        "name": "Default Titanic Path",
+        "starter": [
+          1055,
+          2003
+        ],
+        "boots": [
+          3047,
+          3111
+        ],
+        "core": [
+          3071,
+          3748,
+          3181
+        ],
+        "situational": [
+          2520,
+          6664,
+          3742,
+          3161
+        ],
+        "description": "Default Titanic Path \u2014 BC for shred, Titanic for waveclear + HP scaling, Hull for splitpush. Good all-around path when you want waveclear + splitting power. Works with Conqueror for sustained trades."
+      }
+    },
+    "buckets": {
+      "RANGED_POKE_CHAMPS": [
+        "Akshan",
+        "Aurelion Sol",
+        "Aurora",
+        "Cassiopeia",
+        "Fiora",
+        "Gangplank",
+        "Gnar",
+        "Heimerdinger",
+        "Jayce",
+        "Kayle",
+        "Kennen",
+        "Malphite",
+        "Quinn",
+        "Rumble",
+        "Ryze",
+        "Smolder",
+        "Swain",
+        "Teemo",
+        "Varus",
+        "Vayne",
+        "Yasuo",
+        "Yone"
+      ],
+      "BURST_CC_CHAMPS": [
+        "Jax",
+        "Kled",
+        "Nocturne",
+        "Pantheon",
+        "Renekton",
+        "Riven",
+        "Sett",
+        "Urgot",
+        "Volibear",
+        "Wukong"
+      ],
+      "BURST_CHAMPS": [
+        "Ambessa",
+        "Jax",
+        "Kled",
+        "Nocturne",
+        "Renekton",
+        "Riven",
+        "Sett",
+        "Wukong"
+      ],
+      "MS_SHARD_CHAMPS": [
+        "Darius",
+        "Jax",
+        "Trundle",
+        "Tryndamere",
+        "Yasuo",
+        "Yone",
+        "Zaahen"
+      ],
+      "ADAPTIVE_SHARD_CHAMPS": [
+        "Gwen",
+        "Kayle",
+        "Nasus",
+        "Vayne"
+      ],
+      "EXHAUST_PRIMARY": [
+        "Tryndamere"
+      ],
+      "EXHAUST_WITH_GHOST": [
+        "Renekton",
+        "Riven"
+      ],
+      "EXHAUST_SECONDARY": [
+        "Irelia",
+        "Jax",
+        "Rengar",
+        "Yasuo",
+        "Yone"
+      ],
+      "BAD_AD_MATCHUPS": [
+        "Irelia",
+        "Jax",
+        "Kled",
+        "Renekton",
+        "Riven",
+        "Sett",
+        "Tryndamere"
+      ],
+      "AP_MELEE_CHAMPS": [
+        "Gwen",
+        "Mordekaiser",
+        "Sylas"
+      ],
+      "AP_POKE_CHAMPS": [
+        "Gragas",
+        "Heimerdinger",
+        "Rumble",
+        "Teemo",
+        "Volibear"
+      ],
+      "RANGED_AD_CHAMPS": [
+        "Akshan",
+        "Kayle",
+        "Kennen",
+        "Quinn",
+        "Smolder",
+        "Vayne"
+      ],
+      "RANGED_AP_CHAMPS": [
+        "Akali",
+        "Anivia",
+        "Aurora",
+        "Cassiopeia",
+        "Ryze",
+        "Swain"
+      ],
+      "AD_TANK_AGGRO": [
+        "Shen",
+        "Sion"
+      ],
+      "AP_TANK_CHAMPS": [
+        "Cho'Gath",
+        "Malphite",
+        "Ornn"
+      ],
+      "SHEEN_ICEBORN_CHAMPS": [
+        "Fiora",
+        "Irelia",
+        "Jax",
+        "Kled",
+        "Renekton",
+        "Riven",
+        "Yasuo"
+      ],
+      "TIAMAT_TITANIC_CHAMPS": [
+        "Sett",
+        "Trundle",
+        "Tryndamere",
+        "Yone"
+      ],
+      "ECLIPSE_POKE_CHAMPS": [
+        "Akali",
+        "Akshan",
+        "Aurora",
+        "Gnar",
+        "Kayle",
+        "Quinn",
+        "Teemo"
+      ],
+      "SUNDERED_SKY_CHAMPS": [
+        "Gangplank",
+        "Gragas",
+        "Jayce"
+      ],
+      "LIANDRY_SHRED_CHAMPS": [
+        "Cho'Gath",
+        "Dr. Mundo",
+        "Maokai",
+        "Ornn",
+        "Sion",
+        "Tahm Kench"
+      ]
+    },
+    "rune_build_compat": {
+      "Grasp-1": [
+        "Default BBC",
+        "Iceborn Cleaver",
+        "Titanic Breaker",
+        "Conqueror Bruiser",
+        "Sundered Sky Rush",
+        "Anti-Tank",
+        "Shojin Hull",
+        "VS Jax (Iceborn)",
+        "VS Irelia"
+      ],
+      "Grasp-2": [
+        "Default BBC",
+        "Iceborn Cleaver",
+        "Titanic Breaker",
+        "Sundered Sky Rush",
+        "Anti-AP"
+      ],
+      "Grasp-3": [
+        "Default BBC",
+        "Iceborn Cleaver",
+        "Anti-AP",
+        "Sundered Sky Rush",
+        "Anti-Tank"
+      ],
+      "Grasp-4": [
+        "Default BBC",
+        "Speed Rick",
+        "Shojin Hull",
+        "Anti-AP"
+      ],
+      "Conqueror": [
+        "Default BBC",
+        "Conqueror Bruiser",
+        "Anti-Tank",
+        "Liandry Tank Shred",
+        "Titanic Breaker",
+        "Anti-AP",
+        "Iceborn Cleaver",
+        "VS Trundle",
+        "VS Trynd (Conqueror)",
+        "VS Morde",
+        "Default Titanic Path"
+      ],
+      "Comet": [
+        "Default BBC",
+        "Shojin Hull",
+        "Eclipse Poke",
+        "Liandry Tank Shred",
+        "Anti-AP",
+        "Anti-Tank",
+        "VS Jax (Shojin)"
+      ],
+      "Aery": [
+        "Default BBC",
+        "Shojin Hull",
+        "Eclipse Poke",
+        "Anti-AP",
+        "VS Ranged Top"
+      ],
+      "Phase Rush": [
+        "Speed Rick",
+        "Default BBC",
+        "Iceborn Cleaver",
+        "Anti-AP",
+        "VS Morde"
+      ],
+      "First Strike": [
+        "Default BBC",
+        "Shojin Hull",
+        "Lethal Splitpush",
+        "Anti-Tank"
+      ],
+      "Hail of Blades": [
+        "Default BBC",
+        "Lethal Splitpush",
+        "Titanic Breaker",
+        "Iceborn Cleaver"
+      ]
+    },
+    "resolve_overrides": {
+      "Volibear": {
+        "row2": 8444,
+        "row3": 8242,
+        "code": "B+C"
+      }
+    },
+    "resolve_mappings": {
+      "primary": {
+        "A": {
+          "row2": 8473,
+          "row3": 8453
+        },
+        "B": {
+          "row2": 8444,
+          "row3": 8453
+        },
+        "C": {
+          "row2": 8473,
+          "row3": 8242
+        }
+      },
+      "secondary": {
+        "A": {
+          "row2": 8453
+        },
+        "B": {
+          "row2": 8444
+        },
+        "C": {
+          "row2": 8473
+        }
+      }
+    }
+  },
+  "root": {
+    "id": "n_0",
+    "type": "ROOT",
+    "label": "Yorick",
+    "children": [
+      {
+        "id": "n_9",
+        "type": "GROUP",
+        "label": "Summoner Spells",
+        "collapsed": false,
+        "children": [
+          {
+            "id": "n_8",
+            "type": "IF",
+            "condition": {
+              "field": "matchup_summoner_spells",
+              "op": "is_not_null",
+              "value": null
+            },
+            "label": "Matchup has spell override?",
+            "children_true": [
+              {
+                "id": "n_0",
+                "type": "SET",
+                "assignments": [
+                  {
+                    "key": "summoners",
+                    "value": "matchup.summoner_spells",
+                    "ref_type": "lookup"
+                  }
+                ],
+                "children": []
+              }
+            ],
+            "children_false": [
+              {
+                "id": "n_7",
+                "type": "IF",
+                "condition": {
+                  "field": "enemy_bucket",
+                  "op": "in",
+                  "value": [
+                    "EXHAUST_PRIMARY"
+                  ]
+                },
+                "label": "Exhaust primary? (Tryndamere)",
+                "children_true": [
+                  {
+                    "id": "n_1",
+                    "type": "SET",
+                    "assignments": [
+                      {
+                        "key": "summoners",
+                        "value": "Exhaust/TP",
+                        "ref_type": "literal"
+                      }
+                    ],
+                    "children": []
+                  }
+                ],
+                "children_false": [
+                  {
+                    "id": "n_6",
+                    "type": "IF",
+                    "condition": {
+                      "field": "enemy_bucket",
+                      "op": "in",
+                      "value": [
+                        "EXHAUST_WITH_GHOST"
+                      ]
+                    },
+                    "label": "Exhaust + Ghost? (Riven, Renekton)",
+                    "children_true": [
+                      {
+                        "id": "n_2",
+                        "type": "SET",
+                        "assignments": [
+                          {
+                            "key": "summoners",
+                            "value": "Exhaust/Ghost",
+                            "ref_type": "literal"
+                          }
+                        ],
+                        "children": []
+                      }
+                    ],
+                    "children_false": [
+                      {
+                        "id": "n_5",
+                        "type": "IF",
+                        "condition": {
+                          "field": "enemy_bucket",
+                          "op": "in",
+                          "value": [
+                            "EXHAUST_SECONDARY"
+                          ]
+                        },
+                        "label": "Exhaust viable? (Yasuo, Yone, Jax...)",
+                        "children_true": [
+                          {
+                            "id": "n_3",
+                            "type": "SET",
+                            "assignments": [
+                              {
+                                "key": "summoners",
+                                "value": "Exhaust viable (Ghost/Ignite default)",
+                                "ref_type": "literal"
+                              }
+                            ],
+                            "children": []
+                          }
+                        ],
+                        "children_false": [
+                          {
+                            "id": "n_4",
+                            "type": "SET",
+                            "assignments": [
+                              {
+                                "key": "summoners",
+                                "value": "Ghost/Ignite",
+                                "ref_type": "literal"
+                              }
+                            ],
+                            "children": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "n_23",
+        "type": "GROUP",
+        "label": "Resolve Adaptation",
+        "collapsed": false,
+        "children": [
+          {
+            "id": "n_22",
+            "type": "IF",
+            "condition": {
+              "field": "enemy_has_resolve_override",
+              "op": "eq",
+              "value": true
+            },
+            "label": "Has per-champ resolve override? (e.g. Volibear)",
+            "children_true": [
+              {
+                "id": "n_20",
+                "type": "SET",
+                "assignments": [
+                  {
+                    "key": "resolve_code",
+                    "value": "override",
+                    "ref_type": "literal"
+                  }
+                ],
+                "children": []
+              }
+            ],
+            "children_false": [
+              {
+                "id": "n_21",
+                "type": "IF",
+                "condition": {
+                  "field": "current_keystone",
+                  "op": "starts_with",
+                  "value": "Grasp"
+                },
+                "label": "Is Grasp? (primary = 2 slots)",
+                "children_true": [
+                  {
+                    "id": "n_14",
+                    "type": "IF",
+                    "condition": {
+                      "field": "enemy_bucket",
+                      "op": "in",
+                      "value": [
+                        "RANGED_POKE_CHAMPS"
+                      ]
+                    },
+                    "label": "Poke matchup?",
+                    "children_true": [
+                      {
+                        "id": "n_10",
+                        "type": "SET",
+                        "assignments": [
+                          {
+                            "key": "resolve_code",
+                            "value": "B",
+                            "ref_type": "literal"
+                          }
+                        ],
+                        "children": []
+                      }
+                    ],
+                    "children_false": [
+                      {
+                        "id": "n_13",
+                        "type": "IF",
+                        "condition": {
+                          "field": "enemy_bucket",
+                          "op": "in",
+                          "value": [
+                            "BURST_CC_CHAMPS"
+                          ]
+                        },
+                        "label": "Burst/CC?",
+                        "children_true": [
+                          {
+                            "id": "n_11",
+                            "type": "SET",
+                            "assignments": [
+                              {
+                                "key": "resolve_code",
+                                "value": "C",
+                                "ref_type": "literal"
+                              }
+                            ],
+                            "children": []
+                          }
+                        ],
+                        "children_false": [
+                          {
+                            "id": "n_12",
+                            "type": "SET",
+                            "assignments": [
+                              {
+                                "key": "resolve_code",
+                                "value": "A",
+                                "ref_type": "literal"
+                              }
+                            ],
+                            "children": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "children_false": [
+                  {
+                    "id": "n_19",
+                    "type": "IF",
+                    "condition": {
+                      "field": "enemy_bucket",
+                      "op": "in",
+                      "value": [
+                        "RANGED_POKE_CHAMPS"
+                      ]
+                    },
+                    "label": "Poke matchup? (secondary)",
+                    "children_true": [
+                      {
+                        "id": "n_15",
+                        "type": "SET",
+                        "assignments": [
+                          {
+                            "key": "resolve_code",
+                            "value": "B",
+                            "ref_type": "literal"
+                          }
+                        ],
+                        "children": []
+                      }
+                    ],
+                    "children_false": [
+                      {
+                        "id": "n_18",
+                        "type": "IF",
+                        "condition": {
+                          "field": "enemy_bucket",
+                          "op": "in",
+                          "value": [
+                            "BURST_CHAMPS"
+                          ]
+                        },
+                        "label": "Burst? (secondary)",
+                        "children_true": [
+                          {
+                            "id": "n_16",
+                            "type": "SET",
+                            "assignments": [
+                              {
+                                "key": "resolve_code",
+                                "value": "C",
+                                "ref_type": "literal"
+                              }
+                            ],
+                            "children": []
+                          }
+                        ],
+                        "children_false": [
+                          {
+                            "id": "n_17",
+                            "type": "SET",
+                            "assignments": [
+                              {
+                                "key": "resolve_code",
+                                "value": "A",
+                                "ref_type": "literal"
+                              }
+                            ],
+                            "children": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "n_30",
+        "type": "GROUP",
+        "label": "Shard Selection",
+        "collapsed": false,
+        "children": [
+          {
+            "id": "n_29",
+            "type": "IF",
+            "condition": {
+              "field": "matchup_shard_override",
+              "op": "is_not_null",
+              "value": null
+            },
+            "label": "Matchup has shard override?",
+            "children_true": [
+              {
+                "id": "n_24",
+                "type": "SET",
+                "assignments": [
+                  {
+                    "key": "shard_override",
+                    "value": "matchup.shard_override",
+                    "ref_type": "lookup"
+                  }
+                ],
+                "children": []
+              }
+            ],
+            "children_false": [
+              {
+                "id": "n_28",
+                "type": "SWITCH",
+                "field": "enemy_bucket",
+                "label": "Shard by enemy type",
+                "cases": [
+                  {
+                    "label": "MS champs (Jax, Tryndamere, Yone...)",
+                    "match": "MS_SHARD_CHAMPS",
+                    "children": [
+                      {
+                        "id": "n_25",
+                        "type": "SET",
+                        "assignments": [
+                          {
+                            "key": "shards",
+                            "value": "AS / MS / Tenacity",
+                            "ref_type": "literal"
+                          }
+                        ],
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Adaptive champs (Vayne, Gwen, Kayle...)",
+                    "match": "ADAPTIVE_SHARD_CHAMPS",
+                    "children": [
+                      {
+                        "id": "n_26",
+                        "type": "SET",
+                        "assignments": [
+                          {
+                            "key": "shards",
+                            "value": "AS / AF / Tenacity",
+                            "ref_type": "literal"
+                          }
+                        ],
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Default",
+                    "match": "*",
+                    "children": [
+                      {
+                        "id": "n_27",
+                        "type": "SET",
+                        "assignments": [
+                          {
+                            "key": "shards",
+                            "value": "AS / HP / Tenacity",
+                            "ref_type": "literal"
+                          }
+                        ],
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "n_40",
+        "type": "GROUP",
+        "label": "Starter Items",
+        "collapsed": false,
+        "children": [
+          {
+            "id": "n_39",
+            "type": "SWITCH",
+            "field": "enemy_bucket",
+            "label": "Starter by enemy type",
+            "cases": [
+              {
+                "label": "Bad AD (Riven, Jax, Irelia...)",
+                "match": "BAD_AD_MATCHUPS",
+                "children": [
+                  {
+                    "id": "n_31",
+                    "type": "SET",
+                    "assignments": [
+                      {
+                        "key": "starter_items",
+                        "value": "Cloth Armor + Refillable",
+                        "ref_type": "literal"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "label": "AP Melee (Gwen, Morde, Sylas)",
+                "match": "AP_MELEE_CHAMPS",
+                "children": [
+                  {
+                    "id": "n_32",
+                    "type": "SET",
+                    "assignments": [
+                      {
+                        "key": "starter_items",
+                        "value": "Long Sword + Refillable",
+                        "ref_type": "literal"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "label": "AP Poke (Teemo, Gragas...)",
+                "match": "AP_POKE_CHAMPS",
+                "children": [
+                  {
+                    "id": "n_33",
+                    "type": "SET",
+                    "assignments": [
+                      {
+                        "key": "starter_items",
+                        "value": "Doran's Shield",
+                        "ref_type": "literal"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "label": "Ranged AD (Vayne, Quinn...)",
+                "match": "RANGED_AD_CHAMPS",
+                "children": [
+                  {
+                    "id": "n_34",
+                    "type": "SET",
+                    "assignments": [
+                      {
+                        "key": "starter_items",
+                        "value": "Doran's Shield",
+                        "ref_type": "literal"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "label": "Ranged AP (Aurora, Akali...)",
+                "match": "RANGED_AP_CHAMPS",
+                "children": [
+                  {
+                    "id": "n_35",
+                    "type": "SET",
+                    "assignments": [
+                      {
+                        "key": "starter_items",
+                        "value": "Doran's Shield",
+                        "ref_type": "literal"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "label": "AD Tank (Shen, Sion)",
+                "match": "AD_TANK_AGGRO",
+                "children": [
+                  {
+                    "id": "n_36",
+                    "type": "SET",
+                    "assignments": [
+                      {
+                        "key": "starter_items",
+                        "value": "Cloth Armor + Refillable",
+                        "ref_type": "literal"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "label": "AP Tank (Malphite, Ornn...)",
+                "match": "AP_TANK_CHAMPS",
+                "children": [
+                  {
+                    "id": "n_37",
+                    "type": "SET",
+                    "assignments": [
+                      {
+                        "key": "starter_items",
+                        "value": "Doran's Shield",
+                        "ref_type": "literal"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "label": "Default",
+                "match": "*",
+                "children": [
+                  {
+                    "id": "n_38",
+                    "type": "SET",
+                    "assignments": [
+                      {
+                        "key": "starter_items",
+                        "value": "Doran's Blade + HP Pot",
+                        "ref_type": "literal"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "n_50",
+        "type": "GROUP",
+        "label": "Item Path",
+        "collapsed": false,
+        "children": [
+          {
+            "id": "n_49",
+            "type": "IF",
+            "condition": {
+              "field": "matchup_item_category",
+              "op": "is_not_null",
+              "value": null
+            },
+            "label": "Matchup has item category override?",
+            "children_true": [
+              {
+                "id": "n_41",
+                "type": "SET",
+                "assignments": [
+                  {
+                    "key": "item_build",
+                    "value": "matchup.item_category",
+                    "ref_type": "lookup"
+                  }
+                ],
+                "children": []
+              }
+            ],
+            "children_false": [
+              {
+                "id": "n_48",
+                "type": "SWITCH",
+                "field": "enemy_bucket",
+                "label": "Item path by enemy type",
+                "cases": [
+                  {
+                    "label": "Sheen/Iceborn (Jax, Fiora, Riven...)",
+                    "match": "SHEEN_ICEBORN_CHAMPS",
+                    "children": [
+                      {
+                        "id": "n_42",
+                        "type": "SET",
+                        "assignments": [
+                          {
+                            "key": "item_build",
+                            "value": "Iceborn Cleaver",
+                            "ref_type": "literal"
+                          }
+                        ],
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Tiamat/Titanic (Tryndamere, Trundle...)",
+                    "match": "TIAMAT_TITANIC_CHAMPS",
+                    "children": [
+                      {
+                        "id": "n_43",
+                        "type": "SET",
+                        "assignments": [
+                          {
+                            "key": "item_build",
+                            "value": "Titanic Breaker",
+                            "ref_type": "literal"
+                          }
+                        ],
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Eclipse Poke (Teemo, Quinn...)",
+                    "match": "ECLIPSE_POKE_CHAMPS",
+                    "children": [
+                      {
+                        "id": "n_44",
+                        "type": "SET",
+                        "assignments": [
+                          {
+                            "key": "item_build",
+                            "value": "Eclipse Poke",
+                            "ref_type": "literal"
+                          }
+                        ],
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Sundered Sky (Jayce, Gragas...)",
+                    "match": "SUNDERED_SKY_CHAMPS",
+                    "children": [
+                      {
+                        "id": "n_45",
+                        "type": "SET",
+                        "assignments": [
+                          {
+                            "key": "item_build",
+                            "value": "Sundered Sky Rush",
+                            "ref_type": "literal"
+                          }
+                        ],
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Liandry Shred (Cho, Mundo, Sion...)",
+                    "match": "LIANDRY_SHRED_CHAMPS",
+                    "children": [
+                      {
+                        "id": "n_46",
+                        "type": "SET",
+                        "assignments": [
+                          {
+                            "key": "item_build",
+                            "value": "Liandry Tank Shred",
+                            "ref_type": "literal"
+                          }
+                        ],
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Default",
+                    "match": "*",
+                    "children": [
+                      {
+                        "id": "n_47",
+                        "type": "SET",
+                        "assignments": [
+                          {
+                            "key": "item_build",
+                            "value": "Default BBC",
+                            "ref_type": "literal"
+                          }
+                        ],
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

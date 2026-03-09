@@ -178,7 +178,12 @@ async def get_matchups():
 @app.post("/api/build/query")
 async def build_query(req: BuildQueryRequest):
     """Run the decision tree and return build options."""
-    options = recommend_builds(req.champion, req.enemy)
+    # Try guide-based execution first, fall back to legacy Python engine
+    active_guide = guide_manager.get_active_guide(req.champion)
+    if active_guide:
+        options = recommend_from_guide(active_guide, req.champion, req.enemy)
+    else:
+        options = recommend_builds(req.champion, req.enemy)
 
     matchup = get_matchup(req.enemy)
 
@@ -569,6 +574,91 @@ async def get_all_items():
     # Sort by name for UI convenience
     items.sort(key=lambda x: x["name"])
     return {"items": items, "count": len(items)}
+
+
+# --- Guide Endpoints ---
+
+import guide_manager
+from tree_executor import recommend_from_guide
+
+
+@app.get("/api/guides")
+async def get_guides(champion: str = None):
+    """List all guides, optionally filtered by champion."""
+    if champion:
+        return {"guides": guide_manager.list_guides_for_champion(champion)}
+    return {"guides": guide_manager.list_guides()}
+
+
+@app.get("/api/guides/{guide_id}")
+async def get_guide(guide_id: str):
+    """Get full guide JSON (tree + data)."""
+    guide = guide_manager.load_guide(guide_id)
+    if not guide:
+        return JSONResponse({"error": "Guide not found"}, status_code=404)
+    return guide
+
+
+@app.put("/api/guides/{guide_id}")
+async def save_guide(guide_id: str, request: Request):
+    """Save/update a guide."""
+    body = await request.json()
+    body["guide_id"] = guide_id
+    saved_id = guide_manager.save_guide(body)
+    return {"guide_id": saved_id, "ok": True}
+
+
+@app.delete("/api/guides/{guide_id}")
+async def delete_guide(guide_id: str):
+    """Delete a guide."""
+    if guide_manager.delete_guide(guide_id):
+        return {"ok": True}
+    return JSONResponse({"error": "Guide not found"}, status_code=404)
+
+
+@app.post("/api/guides/import")
+async def import_guide(request: Request):
+    """Import a guide from JSON."""
+    body = await request.json()
+    try:
+        guide_id = guide_manager.import_guide(body)
+        return {"guide_id": guide_id, "ok": True}
+    except ValueError as e:
+        return JSONResponse({"error": str(e)}, status_code=400)
+
+
+@app.get("/api/guides/{guide_id}/export")
+async def export_guide(guide_id: str):
+    """Export a guide as downloadable JSON."""
+    guide = guide_manager.export_guide(guide_id)
+    if not guide:
+        return JSONResponse({"error": "Guide not found"}, status_code=404)
+    return guide
+
+
+@app.put("/api/guides/{guide_id}/active")
+async def set_active_guide(guide_id: str):
+    """Set a guide as the active one for its champion."""
+    guide = guide_manager.load_guide(guide_id)
+    if not guide:
+        return JSONResponse({"error": "Guide not found"}, status_code=404)
+    guide_manager.set_active_guide(guide["champion"], guide_id)
+    return {"ok": True, "champion": guide["champion"], "guide_id": guide_id}
+
+
+@app.post("/api/guides/{guide_id}/execute")
+async def execute_guide(guide_id: str, request: Request):
+    """Execute a guide tree for a matchup. Body: {"enemy": "Jax"}"""
+    guide = guide_manager.load_guide(guide_id)
+    if not guide:
+        return JSONResponse({"error": "Guide not found"}, status_code=404)
+    body = await request.json()
+    enemy = body.get("enemy", "")
+    if not enemy:
+        return JSONResponse({"error": "Missing 'enemy' field"}, status_code=400)
+    from engine import build_option_to_dict
+    results = recommend_from_guide(guide, guide["champion"], enemy)
+    return {"builds": [build_option_to_dict(r) for r in results]}
 
 
 # --- Static Files ---

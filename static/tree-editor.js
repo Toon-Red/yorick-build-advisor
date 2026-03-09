@@ -808,21 +808,36 @@ function importTree() {
 async function loadTreeForChampion(champion) {
     treeChampion = champion;
     try {
-        const r = await fetch(`/api/config/decision-tree/${encodeURIComponent(champion)}`);
+        // Find guides for this champion
+        const r = await fetch('/api/guides');
         if (r.ok) {
-            const json = await r.json();
-            if (json && json.root) {
-                treeFromJSON(json);
-                treeDirty = false;
-                renderTree();
-                return;
+            const data = await r.json();
+            const guides = (data.guides || []).filter(g =>
+                g.champion.toLowerCase() === champion.toLowerCase()
+            );
+            if (guides.length > 0) {
+                // Load the first (active) guide's tree
+                const gr = await fetch(`/api/guides/${encodeURIComponent(guides[0].guide_id)}`);
+                if (gr.ok) {
+                    const guide = await gr.json();
+                    if (guide && guide.root) {
+                        treeFromJSON(guide);
+                        treeDirty = false;
+                        renderTree();
+                        return;
+                    }
+                }
             }
         }
     } catch {}
 
-    // No tree exists — create empty root
+    // No guide exists — generate default for Yorick, empty for others
     nodeIdCounter = 0;
-    treeData = createNode('ROOT', { label: champion });
+    if (champion === 'Yorick') {
+        generateYorickTree();
+    } else {
+        treeData = createNode('ROOT', { label: champion });
+    }
     treeDirty = false;
     renderTree();
 }
@@ -830,14 +845,45 @@ async function loadTreeForChampion(champion) {
 async function saveTree() {
     if (!treeChampion || !treeData) return;
     try {
-        const r = await fetch(`/api/config/decision-tree/${encodeURIComponent(treeChampion)}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(treeToJSON()),
-        });
-        if (r.ok) {
-            treeDirty = false;
-            showTreeToast('Saved!');
+        // Find existing guide for this champion
+        const lr = await fetch('/api/guides');
+        const ld = await lr.json();
+        const guides = (ld.guides || []).filter(g =>
+            g.champion.toLowerCase() === treeChampion.toLowerCase()
+        );
+
+        if (guides.length > 0) {
+            // Update existing guide's tree
+            const gr = await fetch(`/api/guides/${encodeURIComponent(guides[0].guide_id)}`);
+            const guide = await gr.json();
+            guide.root = treeToJSON().root;
+            const r = await fetch(`/api/guides/${encodeURIComponent(guides[0].guide_id)}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(guide),
+            });
+            if (r.ok) {
+                treeDirty = false;
+                showTreeToast('Saved to guide!');
+            }
+        } else {
+            // Create new guide with just the tree
+            const newGuide = {
+                champion: treeChampion,
+                guide_name: `${treeChampion} Guide`,
+                author: 'Custom',
+                root: treeToJSON().root,
+                data: { matchups: {}, rune_pages: {}, item_builds: {}, buckets: {} },
+            };
+            const r = await fetch('/api/guides/import', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(newGuide),
+            });
+            if (r.ok) {
+                treeDirty = false;
+                showTreeToast('Guide created!');
+            }
         }
     } catch (err) {
         showTreeToast('Save failed: ' + err.message, true);

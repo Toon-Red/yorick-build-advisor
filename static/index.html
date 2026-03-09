@@ -10,47 +10,6 @@
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <div class="titlebar" id="titlebar">
-        <div class="titlebar-drag" id="titlebar-drag"></div>
-        <div class="titlebar-controls">
-            <button class="titlebar-btn minimize" id="btn-min" title="Minimize">
-                <svg viewBox="0 0 10 10"><line x1="0" y1="5" x2="10" y2="5"/></svg>
-            </button>
-            <button class="titlebar-btn maximize" id="btn-max" title="Maximize">
-                <svg viewBox="0 0 10 10"><rect x="0.5" y="0.5" width="9" height="9" rx="1"/></svg>
-            </button>
-            <button class="titlebar-btn close" id="btn-close" title="Close">
-                <svg viewBox="0 0 10 10"><line x1="0" y1="0" x2="10" y2="10"/><line x1="10" y1="0" x2="0" y2="10"/></svg>
-            </button>
-        </div>
-    </div>
-    <script>
-    function winCmd(action, data) {
-        fetch('/api/window/' + action, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: data ? JSON.stringify(data) : '{}'
-        }).catch(() => {});
-    }
-    document.getElementById('btn-min').addEventListener('click', () => winCmd('minimize'));
-    document.getElementById('btn-max').addEventListener('click', () => winCmd('maximize'));
-    document.getElementById('btn-close').addEventListener('click', () => winCmd('close'));
-    (function() {
-        const drag = document.getElementById('titlebar-drag');
-        let dragging = false;
-        drag.addEventListener('mousedown', (e) => {
-            if (e.button !== 0) return;
-            dragging = true;
-            winCmd('start_drag', {x: e.screenX, y: e.screenY});
-        });
-        document.addEventListener('mousemove', (e) => {
-            if (!dragging) return;
-            winCmd('do_drag', {x: e.screenX, y: e.screenY});
-        });
-        document.addEventListener('mouseup', () => { dragging = false; });
-        drag.addEventListener('dblclick', () => winCmd('maximize'));
-    })();
-    </script>
     <div class="container">
         <header>
             <h1>Yorick Build Advisor</h1>

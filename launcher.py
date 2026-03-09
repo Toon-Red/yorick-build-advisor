@@ -1,7 +1,7 @@
 """Standalone launcher for Yorick Build Advisor.
 
-Opens a native WebView2 window with the app — pinnable to taskbar like Porofessor.
-Window controls (min/max/close) go through HTTP endpoints on the local server.
+Starts the API server, then opens Edge in app mode (no address bar, looks native).
+Pinnable to taskbar like Porofessor.
 """
 import sys
 import os
@@ -15,12 +15,10 @@ if getattr(sys, 'frozen', False) and not sys.stderr:
     sys.stderr = _log
 
 import ctypes
-import asyncio
 import socket
 import subprocess
 import threading
 import time
-import queue
 import shutil
 
 # Hide subprocess console windows on Windows
@@ -51,7 +49,6 @@ def ensure_installed():
     if not getattr(sys, 'frozen', False):
         return  # Dev mode, skip
     current_dir = os.path.normcase(os.path.dirname(sys.executable))
-    # Skip if already in Program Files or LocalAppData install location
     if 'program files' in current_dir or os.path.normcase(get_install_dir()) == current_dir:
         return
 
@@ -78,15 +75,13 @@ def ensure_shortcut():
     )
     shortcut_path = os.path.join(start_menu, 'Yorick Build Advisor.lnk')
 
-    # Get the installed exe path (permanent location)
     install_dir = get_install_dir()
     exe_path = os.path.join(install_dir, 'YorickBuildAdvisor.exe')
     if not os.path.exists(exe_path):
-        exe_path = sys.executable  # Fallback to current
+        exe_path = sys.executable
 
-    icon_path = exe_path  # Use the exe's embedded icon
+    icon_path = exe_path
 
-    # Create the .lnk
     sl = pythoncom.CoCreateInstance(
         shell.CLSID_ShellLink, None,
         pythoncom.CLSCTX_INPROC_SERVER, shell.IID_IShellLink
@@ -99,7 +94,6 @@ def ensure_shortcut():
     pf = sl.QueryInterface(pythoncom.IID_IPersistFile)
     pf.Save(shortcut_path, 0)
 
-    # Stamp AppUserModelID on the shortcut
     store = propsys.SHGetPropertyStoreFromParsingName(
         shortcut_path, None,
         shellcon.GPS_READWRITE, propsys.IID_IPropertyStore
@@ -109,9 +103,6 @@ def ensure_shortcut():
         propsys.PROPVARIANTType(APP_ID, pythoncom.VT_LPWSTR)
     )
     store.Commit()
-
-# Shared queue for window commands (thread-safe)
-window_commands = queue.Queue()
 
 
 def is_port_listening(port):
@@ -126,7 +117,6 @@ def is_port_listening(port):
         )
         return int(result.stdout.strip() or '0') > 0
     except Exception:
-        # Fallback to connect check
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             return s.connect_ex((API_HOST, port)) == 0
 
@@ -163,22 +153,11 @@ def kill_existing_server():
 
 def start_server():
     """Start uvicorn with retry logic for TIME_WAIT ports."""
-    # Inject window control endpoints into the FastAPI app before starting
     from app import app as fastapi_app
-    from fastapi.responses import JSONResponse
-
-    @fastapi_app.post("/api/window/{action}")
-    async def window_control(action: str, body: dict = None):
-        """Handle window control commands from the UI."""
-        if action in ("minimize", "maximize", "close", "native_drag"):
-            window_commands.put(action)
-            return JSONResponse({"ok": True})
-        return JSONResponse({"ok": False}, status_code=400)
 
     import uvicorn.config
     import uvicorn.server
 
-    # Monkey-patch socket to always set SO_REUSEADDR (handles TIME_WAIT from previous instance)
     _orig_bind = socket.socket.bind
 
     def _reuse_bind(self, address):
@@ -220,6 +199,40 @@ def wait_for_server(timeout=30):
     return False
 
 
+def find_edge():
+    """Find Microsoft Edge executable."""
+    candidates = [
+        os.path.join(os.environ.get('PROGRAMFILES(X86)', ''), 'Microsoft', 'Edge', 'Application', 'msedge.exe'),
+        os.path.join(os.environ.get('PROGRAMFILES', ''), 'Microsoft', 'Edge', 'Application', 'msedge.exe'),
+        os.path.join(os.environ.get('LOCALAPPDATA', ''), 'Microsoft', 'Edge', 'Application', 'msedge.exe'),
+    ]
+    for path in candidates:
+        if os.path.exists(path):
+            return path
+    return None
+
+
+def open_app_window(url):
+    """Open the app in Edge --app mode (no address bar, looks native)."""
+    edge = find_edge()
+    if edge:
+        # Separate user data dir so it doesn't conflict with normal Edge
+        app_data = os.path.join(os.environ.get('LOCALAPPDATA', ''), 'YorickBuildAdvisor', 'edge-data')
+        subprocess.Popen([
+            edge,
+            f"--app={url}",
+            f"--user-data-dir={app_data}",
+            "--new-window",
+            f"--window-size=1050,800",
+        ], creationflags=_SUBPROCESS_FLAGS)
+        return True
+
+    # Fallback: open in default browser
+    import webbrowser
+    webbrowser.open(url)
+    return True
+
+
 if __name__ == "__main__":
     # Install exe to permanent location + create Start Menu shortcut for taskbar pinning
     try:
@@ -234,99 +247,16 @@ if __name__ == "__main__":
     server_thread = threading.Thread(target=start_server, daemon=True)
     server_thread.start()
     if not wait_for_server():
+        print("Failed to start server", file=sys.stderr)
         sys.exit(1)
 
-    import win32gui
-    import win32con
-    import win32api
-    from webview2 import Window
-    from webview2.base import dll
+    url = f"http://{API_HOST}:{API_PORT}/"
+    open_app_window(url)
 
-    icon_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static", "icon.ico")
-    if getattr(sys, '_MEIPASS', None):
-        icon_path = os.path.join(sys._MEIPASS, "static", "icon.ico")
-
-    w = Window(
-        title="Yorick Build Advisor",
-        url=f"http://{API_HOST}:{API_PORT}/",
-        size="1050x800",
-        icon=icon_path if os.path.exists(icon_path) else None,
-    )
-
-    # Remove native title bar after window builds
-    def remove_native_frame():
-        time.sleep(0.8)
-        try:
-            hwnd = dll.get_window()
-            if hwnd:
-                style = win32api.GetWindowLong(hwnd, win32con.GWL_STYLE)
-                style = style & ~win32con.WS_CAPTION
-                style = style | win32con.WS_THICKFRAME
-                win32api.SetWindowLong(hwnd, win32con.GWL_STYLE, style)
-                win32gui.SetWindowPos(
-                    hwnd, None, 0, 0, 0, 0,
-                    win32con.SWP_NOMOVE | win32con.SWP_NOSIZE |
-                    win32con.SWP_NOZORDER | win32con.SWP_FRAMECHANGED
-                )
-                win32gui.ShowWindow(hwnd, win32con.SW_SHOW)
-        except Exception:
-            pass
-
-    threading.Thread(target=remove_native_frame, daemon=True).start()
-
-    # Process window commands from the queue during the event loop
-
-    async def run_with_commands():
-        import pythoncom
-        pythoncom.OleInitialize()
-        import webview2 as _wv2mod
-        _wv2_dir = os.path.dirname(_wv2mod.__file__)
-        if getattr(sys, '_MEIPASS', None):
-            _wv2_dir = os.path.join(sys._MEIPASS, "webview2")
-        dll.preload(w._build_context(os.path.join(
-            _wv2_dir, "webview2.js"
-        )).encode(encoding='utf-8'))
-        dll.build()
-
+    # Keep the process alive while the server runs
+    # (server thread is daemon, so it'll exit when main exits)
+    try:
         while True:
-            r = win32gui.PeekMessage(None, 0, 0, win32con.PM_REMOVE)
-            code, msg = r
-            if code == 0:
-                # Process any pending window commands
-                try:
-                    while True:
-                        cmd = window_commands.get_nowait()
-                        hwnd = dll.get_window()
-                        if cmd == "close":
-                            win32gui.SendMessage(hwnd, win32con.WM_CLOSE, 0, 0)
-                        elif cmd == "minimize":
-                            win32gui.ShowWindow(hwnd, win32con.SW_MINIMIZE)
-                        elif cmd == "maximize":
-                            placement = win32gui.GetWindowPlacement(hwnd)
-                            if placement[1] == win32con.SW_SHOWMAXIMIZED:
-                                win32gui.ShowWindow(hwnd, win32con.SW_RESTORE)
-                            else:
-                                win32gui.ShowWindow(hwnd, win32con.SW_MAXIMIZE)
-                        elif cmd == "native_drag":
-                            # Release capture and let Windows handle the drag natively
-                            HTCAPTION = 2
-                            WM_NCLBUTTONDOWN = 0x00A1
-                            win32gui.ReleaseCapture()
-                            win32gui.SendMessage(hwnd, WM_NCLBUTTONDOWN, HTCAPTION, 0)
-                except queue.Empty:
-                    pass
-                except Exception:
-                    pass
-
-                await asyncio.sleep(0.005)
-                continue
-            if msg[1] == win32con.WM_QUIT:
-                break
-            win32gui.TranslateMessage(msg)
-            win32gui.DispatchMessage(msg)
-
-        w.close()
-        pythoncom.CoUninitialize()
-
-    asyncio.run(run_with_commands())
-    os._exit(0)
+            time.sleep(1)
+    except KeyboardInterrupt:
+        pass

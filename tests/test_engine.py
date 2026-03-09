@@ -319,22 +319,15 @@ class TestUpdateCheck:
 # Titlebar / UI Tests
 # ============================================================================
 
-class TestTitlebarUI:
-    def test_titlebar_no_grab_cursor(self):
-        """Title bar should use default cursor, not grab (causes OS conflict)."""
+class TestNoCustomTitlebar:
+    def test_no_custom_titlebar_in_index(self):
+        """index.html should not have custom titlebar (Edge app mode provides one)."""
         from pathlib import Path
-        html = (Path(__file__).parent.parent / "static" / "flow.html").read_text()
-        assert "cursor: grab" not in html
+        html = (Path(__file__).parent.parent / "static" / "index.html").read_text()
+        assert 'class="titlebar"' not in html
 
-    def test_titlebar_has_native_drag(self):
-        """Title bar drag should use native_drag command, not JS-based drag."""
+    def test_no_custom_titlebar_in_flow(self):
+        """flow.html should not have custom titlebar (Edge app mode provides one)."""
         from pathlib import Path
         html = (Path(__file__).parent.parent / "static" / "flow.html").read_text()
-        assert "native_drag" in html
-        assert "do_drag" not in html  # Old JS drag should be removed
-
-    def test_titlebar_has_app_title(self):
-        """Title bar should show app name."""
-        from pathlib import Path
-        html = (Path(__file__).parent.parent / "static" / "flow.html").read_text()
-        assert "Yorick Build Advisor" in html
+        assert 'class="titlebar"' not in html

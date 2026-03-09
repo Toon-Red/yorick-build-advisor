@@ -8,14 +8,6 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', sans-serif; background: #0a0a0f; color: #c8c8d0; line-height: 1.6; }
 
-        /* Custom Title Bar */
-        .titlebar { display: flex; align-items: center; justify-content: flex-end; height: 32px; background: #06060a; border-bottom: 1px solid #2a2a3e; user-select: none; position: sticky; top: 0; z-index: 9999; }
-        .titlebar-drag { flex: 1; height: 100%; cursor: default; -webkit-app-region: drag; }
-        .titlebar-controls { display: flex; height: 100%; }
-        .titlebar-btn { width: 46px; height: 32px; border: none; background: transparent; color: #8888a0; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.1s; }
-        .titlebar-btn:hover { background: #1a1a2e; color: #c8c8d0; }
-        .titlebar-btn.close:hover { background: #e81123; color: #fff; }
-        .titlebar-btn svg { width: 10px; height: 10px; stroke: currentColor; fill: none; stroke-width: 1.5; }
         .page { max-width: 1200px; margin: 0 auto; padding: 24px 20px 80px; }
 
         /* Header */
@@ -688,41 +680,6 @@
     </style>
 </head>
 <body>
-<div class="titlebar" id="titlebar">
-    <span style="padding-left:12px;color:#6a6a80;font-size:12px;pointer-events:none;">Yorick Build Advisor</span>
-    <div class="titlebar-drag" id="titlebar-drag"></div>
-    <div class="titlebar-controls">
-        <button class="titlebar-btn minimize" id="btn-min" title="Minimize">
-            <svg viewBox="0 0 10 10"><line x1="0" y1="5" x2="10" y2="5"/></svg>
-        </button>
-        <button class="titlebar-btn maximize" id="btn-max" title="Maximize">
-            <svg viewBox="0 0 10 10"><rect x="0.5" y="0.5" width="9" height="9" rx="1"/></svg>
-        </button>
-        <button class="titlebar-btn close" id="btn-close" title="Close">
-            <svg viewBox="0 0 10 10"><line x1="0" y1="0" x2="10" y2="10"/><line x1="10" y1="0" x2="0" y2="10"/></svg>
-        </button>
-    </div>
-</div>
-<script>
-function winCmd(action, data) {
-    fetch('/api/window/' + action, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: data ? JSON.stringify(data) : '{}'
-    }).catch(() => {});
-}
-document.getElementById('btn-min').addEventListener('click', () => winCmd('minimize'));
-document.getElementById('btn-max').addEventListener('click', () => winCmd('maximize'));
-document.getElementById('btn-close').addEventListener('click', () => winCmd('close'));
-(function() {
-    const drag = document.getElementById('titlebar-drag');
-    drag.addEventListener('mousedown', (e) => {
-        if (e.button !== 0) return;
-        winCmd('native_drag');
-    });
-    drag.addEventListener('dblclick', () => winCmd('maximize'));
-})();
-</script>
 <div class="page">
 
     <!-- Header -->

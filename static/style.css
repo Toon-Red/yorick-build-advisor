@@ -35,66 +35,6 @@ body {
 }
 
 /* Custom Title Bar */
-.titlebar {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    height: 32px;
-    background: #06060a;
-    border-bottom: 1px solid #2a2a3e;
-    user-select: none;
-    position: sticky;
-    top: 0;
-    z-index: 9999;
-}
-
-.titlebar-drag {
-    flex: 1;
-    height: 100%;
-    cursor: grab;
-}
-
-.titlebar-drag:active {
-    cursor: grabbing;
-}
-
-.titlebar-controls {
-    display: flex;
-    height: 100%;
-    -webkit-app-region: no-drag;
-}
-
-.titlebar-btn {
-    width: 46px;
-    height: 32px;
-    border: none;
-    background: transparent;
-    color: #8888a0;
-    font-size: 12px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.1s;
-}
-
-.titlebar-btn:hover {
-    background: #1a1a2e;
-    color: #c8c8d0;
-}
-
-.titlebar-btn.close:hover {
-    background: #e81123;
-    color: #fff;
-}
-
-.titlebar-btn svg {
-    width: 10px;
-    height: 10px;
-    stroke: currentColor;
-    fill: none;
-    stroke-width: 1.5;
-}
 
 .container {
     max-width: 900px;
