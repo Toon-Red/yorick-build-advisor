@@ -490,6 +490,29 @@ async def delete_config_item_build(name: str):
     return {"success": True, "removed": removed is not None, "name": name}
 
 
+@app.get("/api/config/decision-tree/{champion}")
+async def get_decision_tree(champion: str):
+    """Get decision tree for a champion."""
+    cfg = load_user_config()
+    trees = cfg.get("decision_trees", {})
+    tree = trees.get(champion)
+    if tree:
+        return tree
+    return JSONResponse({"root": None}, status_code=200)
+
+
+@app.put("/api/config/decision-tree/{champion}")
+async def put_decision_tree(champion: str, request: Request):
+    """Save decision tree for a champion."""
+    body = await request.json()
+    cfg = load_user_config()
+    if "decision_trees" not in cfg:
+        cfg["decision_trees"] = {}
+    cfg["decision_trees"][champion] = body
+    save_user_config(cfg)
+    return {"success": True, "champion": champion}
+
+
 @app.post("/api/config/reset")
 async def reset_config():
     """Delete user_config.json entirely."""
