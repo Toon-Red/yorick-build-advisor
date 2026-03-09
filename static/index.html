@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yorick Build Advisor</title>
+    <link rel="manifest" href="/static/manifest.json">
+    <link rel="icon" href="/static/icon-192.png">
+    <meta name="theme-color" content="#c89b3c">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="titlebar" id="titlebar">
+        <div class="titlebar-drag" id="titlebar-drag"></div>
+        <div class="titlebar-controls">
+            <button class="titlebar-btn minimize" id="btn-min" title="Minimize">
+                <svg viewBox="0 0 10 10"><line x1="0" y1="5" x2="10" y2="5"/></svg>
+            </button>
+            <button class="titlebar-btn maximize" id="btn-max" title="Maximize">
+                <svg viewBox="0 0 10 10"><rect x="0.5" y="0.5" width="9" height="9" rx="1"/></svg>
+            </button>
+            <button class="titlebar-btn close" id="btn-close" title="Close">
+                <svg viewBox="0 0 10 10"><line x1="0" y1="0" x2="10" y2="10"/><line x1="10" y1="0" x2="0" y2="10"/></svg>
+            </button>
+        </div>
+    </div>
+    <script>
+    function winCmd(action, data) {
+        fetch('/api/window/' + action, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: data ? JSON.stringify(data) : '{}'
+        }).catch(() => {});
+    }
+    document.getElementById('btn-min').addEventListener('click', () => winCmd('minimize'));
+    document.getElementById('btn-max').addEventListener('click', () => winCmd('maximize'));
+    document.getElementById('btn-close').addEventListener('click', () => winCmd('close'));
+    (function() {
+        const drag = document.getElementById('titlebar-drag');
+        let dragging = false;
+        drag.addEventListener('mousedown', (e) => {
+            if (e.button !== 0) return;
+            dragging = true;
+            winCmd('start_drag', {x: e.screenX, y: e.screenY});
+        });
+        document.addEventListener('mousemove', (e) => {
+            if (!dragging) return;
+            winCmd('do_drag', {x: e.screenX, y: e.screenY});
+        });
+        document.addEventListener('mouseup', () => { dragging = false; });
+        drag.addEventListener('dblclick', () => winCmd('maximize'));
+    })();
+    </script>
+    <div class="container">
+        <header>
+            <h1>Yorick Build Advisor</h1>
+            <div class="header-right">
+                <a href="/flow" class="nav-link" id="nav-flow">Build Editor</a>
+                <span id="lcu-status" class="lcu-badge lcu-off">LCU: Off</span>
+                <span id="ddragon-version" class="version-badge"></span>
+            </div>
+        </header>
+
+        <!-- Live Detection Panel -->
+        <section id="live-section" class="live-section">
+            <div class="live-header">
+                <h2>Live Detection</h2>
+                <span id="detect-status" class="detect-badge detect-idle">Waiting for champ select...</span>
+            </div>
+            <div id="enemy-list" class="enemy-list">
+                <div class="enemy-placeholder">Not in champ select</div>
+            </div>
+            <div class="auto-import-toggles">
+                <label><input type="checkbox" id="auto-runes"> Auto-import Runes</label>
+                <label><input type="checkbox" id="auto-items"> Auto-import Items</label>
+                <label><input type="checkbox" id="auto-spells"> Auto-import Spells</label>
+            </div>
+        </section>
+
+        <!-- Manual Query Section -->
+        <section class="query-section">
+            <div class="section-label">Manual Override</div>
+            <div class="dropdowns">
+                <div class="dropdown-group">
+                    <label for="champion-select">Your Champion</label>
+                    <select id="champion-select">
+                        <option value="Yorick" selected>Yorick</option>
+                    </select>
+                </div>
+                <span class="vs-label">vs</span>
+                <div class="dropdown-group">
+                    <label for="enemy-select">Lane Opponent</label>
+                    <select id="enemy-select">
+                        <option value="">Select enemy...</option>
+                    </select>
+                </div>
+            </div>
+            <button id="generate-btn" class="btn-primary">Generate Build</button>
+        </section>
+
+        <section id="results-section" class="results-section hidden">
+            <div id="results-header" class="results-header"></div>
+            <div id="results-list" class="results-list"></div>
+        </section>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

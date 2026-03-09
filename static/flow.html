@@ -1,0 +1,2169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Builds Work — Yorick Build Advisor</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #0a0a0f; color: #c8c8d0; line-height: 1.6; }
+
+        /* Custom Title Bar */
+        .titlebar { display: flex; align-items: center; justify-content: flex-end; height: 32px; background: #06060a; border-bottom: 1px solid #2a2a3e; user-select: none; position: sticky; top: 0; z-index: 9999; }
+        .titlebar-drag { flex: 1; height: 100%; cursor: grab; }
+        .titlebar-drag:active { cursor: grabbing; }
+        .titlebar-controls { display: flex; height: 100%; }
+        .titlebar-btn { width: 46px; height: 32px; border: none; background: transparent; color: #8888a0; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.1s; }
+        .titlebar-btn:hover { background: #1a1a2e; color: #c8c8d0; }
+        .titlebar-btn.close:hover { background: #e81123; color: #fff; }
+        .titlebar-btn svg { width: 10px; height: 10px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+        .page { max-width: 1200px; margin: 0 auto; padding: 24px 20px 80px; }
+
+        /* Header */
+        .page-header { text-align: center; margin-bottom: 36px; padding-bottom: 20px; border-bottom: 1px solid #1a1a2e; }
+        .page-header h1 { color: #c89b3c; font-size: 1.7rem; margin-bottom: 6px; }
+        .page-header p { color: #6b6b80; font-size: 0.95rem; max-width: 700px; margin: 0 auto; }
+        .back-link {
+            display: inline-block; margin-top: 10px; padding: 6px 16px;
+            background: #1a1a2e; border: 1px solid #2a2a3e; border-radius: 12px;
+            color: #c89b3c; text-decoration: none; font-size: 0.8rem; font-weight: 600;
+            transition: all 0.15s;
+        }
+        .back-link:hover { background: #2a2a3e; border-color: #c89b3c; }
+
+        /* Tabs */
+        .tab-bar {
+            display: flex; gap: 0; margin-bottom: 28px;
+            border-bottom: 2px solid #1a1a2e;
+            overflow-x: auto; -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .tab-bar::-webkit-scrollbar { display: none; }
+        .tab-btn {
+            padding: 10px 18px; font-size: 0.85rem; font-weight: 600;
+            color: #6b6b80; background: none; border: none;
+            border-bottom: 2px solid transparent; margin-bottom: -2px;
+            cursor: pointer; white-space: nowrap; transition: all 0.2s;
+            font-family: inherit;
+        }
+        .tab-btn:hover { color: #c8c8d0; }
+        .tab-btn.active { color: #c89b3c; border-bottom-color: #c89b3c; }
+
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; }
+
+        /* Section */
+        .section { margin-bottom: 48px; }
+        .section-title {
+            font-size: 1.3rem; color: #c89b3c; font-weight: 700; margin-bottom: 6px;
+            padding-bottom: 8px; border-bottom: 1px solid #1a1a2e;
+        }
+        .section-subtitle { color: #8888a0; font-size: 0.9rem; margin-bottom: 20px; }
+
+        /* Rune page cards */
+        .rune-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+        .rune-card {
+            background: #12121a; border: 1px solid #1a1a2e; border-radius: 10px;
+            padding: 16px; transition: border-color 0.2s; position: relative;
+        }
+        .rune-card:hover { border-color: #2a2a4e; }
+        .rune-card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+        .rune-card-name { font-size: 1rem; font-weight: 700; color: #e0e0e8; }
+        .rune-card-trees { font-size: 0.75rem; color: #6b6b80; }
+        .rune-card-desc { font-size: 0.8rem; color: #8888a0; margin-bottom: 12px; }
+
+        .rune-layout { display: flex; gap: 16px; align-items: flex-start; }
+        .rune-tree { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+        .rune-tree-label { font-size: 0.65rem; color: #6b6b80; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
+
+        .rune-icon-wrap { position: relative; display: inline-block; }
+        .rune-icon {
+            width: 36px; height: 36px; border-radius: 50%; border: 2px solid #2a2a3e;
+            background: #0a0a0f; object-fit: cover;
+        }
+        .rune-icon.keystone { width: 48px; height: 48px; border-color: #c89b3c; }
+        .rune-icon.adaptable { border: 2px dashed #c89b3c !important; }
+        .rune-icon-wrap .rune-tooltip {
+            display: none; position: absolute; bottom: calc(100% + 6px); left: 50%;
+            transform: translateX(-50%); background: #1a1a2e; color: #e0e0e8;
+            padding: 4px 8px; border-radius: 4px; font-size: 0.7rem; white-space: nowrap;
+            z-index: 10; pointer-events: none; border: 1px solid #2a2a3e;
+        }
+        .rune-icon-wrap:hover .rune-tooltip { display: block; }
+
+        .shard-row { display: flex; gap: 4px; align-items: center; margin-top: 4px; }
+        .shard-icon {
+            width: 22px; height: 22px; border-radius: 50%; border: 1px solid #2a2a3e;
+            background: #0a0a0f; object-fit: cover;
+        }
+        .shard-icon.adaptable { border: 1px dashed #c89b3c !important; }
+
+        .rune-divider { width: 1px; background: #1a1a2e; align-self: stretch; margin: 0 4px; }
+
+        /* Adaptable legend */
+        .adaptable-legend {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-size: 0.75rem; color: #8888a0; margin-bottom: 16px;
+            background: #12121a; padding: 6px 12px; border-radius: 6px; border: 1px solid #1a1a2e;
+        }
+        .adaptable-legend-swatch {
+            width: 18px; height: 18px; border-radius: 50%;
+            border: 2px dashed #c89b3c; background: #0a0a0f;
+        }
+
+        /* Item build cards */
+        .item-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 16px; }
+        .item-card {
+            background: #12121a; border: 1px solid #1a1a2e; border-radius: 10px;
+            padding: 16px; transition: border-color 0.2s; position: relative;
+        }
+        .item-card:hover { border-color: #2a2a4e; }
+        .item-card-name { font-size: 1rem; font-weight: 700; color: #e0e0e8; margin-bottom: 4px; }
+        .item-card-desc { font-size: 0.78rem; color: #8888a0; margin-bottom: 12px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+        .item-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-bottom: 6px; }
+        .item-row-label { font-size: 0.65rem; color: #6b6b80; text-transform: uppercase; letter-spacing: 0.5px; min-width: 60px; }
+        .item-icon-wrap { position: relative; display: inline-block; }
+        .item-icon {
+            width: 36px; height: 36px; border-radius: 4px; border: 1px solid #2a2a3e;
+            background: #0a0a0f; object-fit: cover;
+        }
+        .item-icon-wrap .item-tooltip {
+            display: none; position: absolute; bottom: calc(100% + 6px); left: 50%;
+            transform: translateX(-50%); background: #1a1a2e; color: #e0e0e8;
+            padding: 4px 8px; border-radius: 4px; font-size: 0.7rem; white-space: nowrap;
+            z-index: 10; pointer-events: none; border: 1px solid #2a2a3e;
+        }
+        .item-icon-wrap:hover .item-tooltip { display: block; }
+        .item-arrow { color: #3a3a4e; font-size: 0.8rem; margin: 0 2px; }
+
+        /* Bucket cards */
+        .bucket-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; }
+        .bucket-card {
+            background: #12121a; border: 1px solid #1a1a2e; border-radius: 10px;
+            padding: 18px; transition: border-color 0.2s;
+        }
+        .bucket-card:hover { border-color: #2a2a4e; }
+        .bucket-card-name { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; color: #c89b3c; }
+
+        .champ-pills { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 12px; }
+        .champ-pill {
+            background: #1a1a2e; color: #a0a0b8; font-size: 0.72rem; padding: 3px 8px;
+            border-radius: 12px; border: 1px solid #2a2a3e;
+        }
+        .champ-pill.removable { cursor: pointer; padding-right: 4px; }
+        .champ-pill.removable:hover { border-color: #e06666; color: #e06666; }
+        .champ-pill .remove-x {
+            display: inline-block; margin-left: 4px; color: #e06666; font-weight: 700;
+            font-size: 0.75rem; cursor: pointer;
+        }
+
+        .bucket-outcome { display: flex; flex-direction: column; gap: 6px; }
+        .bucket-outcome-row { display: flex; align-items: center; gap: 8px; font-size: 0.82rem; }
+        .bucket-outcome-label { color: #6b6b80; min-width: 90px; }
+        .bucket-outcome-value { color: #c8c8d0; }
+        .bucket-outcome-icons { display: flex; gap: 4px; align-items: center; }
+        .bucket-outcome-icons img {
+            width: 24px; height: 24px; border-radius: 50%; border: 1px solid #2a2a3e;
+        }
+
+        /* Matchup override cards */
+        .override-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+        .override-card {
+            background: #12121a; border: 1px solid #1a1a2e; border-radius: 10px;
+            padding: 16px;
+        }
+        .override-card-name { font-size: 1rem; font-weight: 700; color: #e0e0e8; margin-bottom: 6px; }
+        .override-card-note { font-size: 0.82rem; color: #e06666; font-weight: 700; margin-bottom: 6px; }
+        .override-detail { font-size: 0.8rem; color: #8888a0; margin-bottom: 3px; }
+        .override-detail b { color: #c8c8d0; }
+
+        /* Test section */
+        .test-panel {
+            background: #12121a; border: 2px solid #c89b3c; border-radius: 10px;
+            padding: 20px;
+        }
+        .test-controls { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+        .test-controls label { font-size: 0.9rem; color: #c89b3c; font-weight: 700; }
+        .test-controls select {
+            padding: 8px 14px; background: #0a0a0f; border: 1px solid #2a2a3e;
+            border-radius: 6px; color: #c8c8d0; font-size: 0.9rem; min-width: 180px;
+        }
+        .test-controls select:focus { outline: none; border-color: #c89b3c; }
+        .test-controls button {
+            padding: 8px 18px; background: #c89b3c; color: #0a0a0f; border: none;
+            border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 0.9rem;
+        }
+        .test-controls button:hover { background: #d4a94a; }
+
+        .test-result { display: none; }
+        .test-result.active { display: block; }
+
+        .test-result-header { margin-bottom: 16px; }
+        .test-result-enemy { font-size: 1.1rem; color: #e0e0e8; font-weight: 700; }
+        .test-result-diff { font-size: 0.85rem; margin-left: 8px; padding: 2px 10px; border-radius: 10px; font-weight: 600; }
+        .diff-Easy { background: #1a3a1a; color: #4ade80; }
+        .diff-Medium { background: #2a2a1a; color: #ffd966; }
+        .diff-Advanced { background: #2a2a1a; color: #ffa500; }
+        .diff-HARD { background: #3a1a1a; color: #e06666; }
+        .diff-EXTREME { background: #4a0a0a; color: #ff4444; }
+        .test-result-note { font-size: 0.85rem; color: #e06666; font-weight: 700; margin-top: 4px; }
+
+        .test-buckets { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+        .test-bucket-tag {
+            font-size: 0.75rem; padding: 3px 10px; border-radius: 12px;
+            border: 1px solid #2a2a3e; background: #1a1a2e; color: #a0a0b8;
+        }
+        .test-bucket-tag.active { border-color: #c89b3c; color: #c89b3c; background: #1a1a1e; }
+
+        .test-options { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 14px; }
+        .test-option-card {
+            background: #0e0e16; border: 1px solid #1a1a2e; border-radius: 8px;
+            padding: 14px;
+        }
+        .test-option-card:first-child { border-color: #c89b3c; }
+        .test-option-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+        .test-option-keystone { font-size: 0.95rem; font-weight: 700; color: #e0e0e8; }
+        .test-option-build { font-size: 0.8rem; color: #6b6b80; }
+        .test-option-row { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; flex-wrap: wrap; }
+        .test-option-label { font-size: 0.7rem; color: #6b6b80; text-transform: uppercase; min-width: 70px; }
+        .test-option-row img {
+            width: 30px; height: 30px; border-radius: 4px; border: 1px solid #2a2a3e;
+        }
+        .test-option-row img.rune-img { border-radius: 50%; }
+        .test-option-row img.keystone-img { width: 38px; height: 38px; border-color: #c89b3c; }
+        .test-option-summoners { font-size: 0.82rem; color: #8888a0; }
+        .test-option-resolve { font-size: 0.78rem; color: #8888a0; }
+        .test-option-advice { font-size: 0.78rem; color: #6b6b80; margin-top: 8px; font-style: italic; }
+
+        /* Guide section */
+        .guide-steps { counter-reset: step; }
+        .guide-step {
+            background: #12121a; border: 1px solid #1a1a2e; border-radius: 10px;
+            padding: 18px 18px 18px 56px; margin-bottom: 12px; position: relative;
+        }
+        .guide-step::before {
+            counter-increment: step; content: counter(step);
+            position: absolute; left: 18px; top: 18px;
+            width: 28px; height: 28px; border-radius: 50%;
+            background: #c89b3c; color: #0a0a0f; font-weight: 700;
+            display: flex; align-items: center; justify-content: center; font-size: 0.85rem;
+        }
+        .guide-step h3 { font-size: 0.95rem; color: #e0e0e8; margin-bottom: 4px; }
+        .guide-step p { font-size: 0.82rem; color: #8888a0; }
+        .guide-step code {
+            background: #0a0a0f; color: #c89b3c; padding: 1px 6px; border-radius: 3px;
+            font-family: Consolas, monospace; font-size: 0.78rem;
+        }
+        .code-block {
+            background: #0a0a0f; border: 1px solid #1a1a2e; border-radius: 6px;
+            padding: 12px; margin-top: 8px; overflow-x: auto;
+            font-family: Consolas, monospace; font-size: 0.75rem; color: #a0a0b8;
+            line-height: 1.5;
+        }
+
+        /* Loading */
+        .loading-spinner {
+            display: inline-block; width: 16px; height: 16px;
+            border: 2px solid #2a2a3e; border-top-color: #c89b3c;
+            border-radius: 50%; animation: spin 0.6s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ===== Edit Mode Styles ===== */
+        .edit-mode-toggle {
+            padding: 6px 16px; font-size: 0.82rem; font-weight: 600;
+            background: transparent; border: 2px solid #c89b3c; border-radius: 8px;
+            color: #c89b3c; cursor: pointer; transition: all 0.2s; font-family: inherit;
+            margin-bottom: 16px; display: inline-block;
+        }
+        .edit-mode-toggle.active { background: #c89b3c; color: #0a0a0f; }
+        .edit-mode-toggle:hover { background: #c89b3c33; }
+        .edit-mode-toggle.active:hover { background: #d4a94a; }
+
+        .edit-btn {
+            position: absolute; top: 10px; right: 10px;
+            background: #1a1a2e; border: 1px solid #2a2a3e; border-radius: 6px;
+            color: #c89b3c; cursor: pointer; padding: 4px 8px; font-size: 0.8rem;
+            display: none; transition: all 0.15s;
+        }
+        .edit-btn:hover { background: #2a2a3e; border-color: #c89b3c; }
+        .edit-mode .edit-btn { display: inline-block; }
+
+        .add-new-btn {
+            background: #12121a; border: 2px dashed #2a2a3e; border-radius: 10px;
+            padding: 16px; display: none; align-items: center; justify-content: center;
+            color: #6b6b80; font-size: 0.9rem; cursor: pointer; transition: all 0.2s;
+            min-height: 120px; font-family: inherit;
+        }
+        .add-new-btn:hover { border-color: #c89b3c; color: #c89b3c; }
+        .edit-mode .add-new-btn { display: flex; }
+
+        .delete-btn {
+            position: absolute; top: 10px; right: 42px;
+            background: #1a1a2e; border: 1px solid #3a1a1a; border-radius: 6px;
+            color: #e06666; cursor: pointer; padding: 4px 8px; font-size: 0.8rem;
+            display: none; transition: all 0.15s;
+        }
+        .delete-btn:hover { background: #3a1a1a; border-color: #e06666; }
+        .edit-mode .delete-btn { display: inline-block; }
+
+        /* ===== Modal Styles ===== */
+        .modal-overlay {
+            display: none; position: fixed; inset: 0; background: #000000aa;
+            z-index: 1000; align-items: center; justify-content: center;
+            padding: 20px;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-card {
+            background: #12121a; border: 1px solid #2a2a3e; border-radius: 12px;
+            max-width: 750px; width: 100%; max-height: 90vh; overflow-y: auto;
+            padding: 24px; position: relative;
+        }
+        .modal-title { font-size: 1.2rem; color: #c89b3c; font-weight: 700; margin-bottom: 16px; }
+        .modal-close {
+            position: absolute; top: 12px; right: 16px;
+            background: none; border: none; color: #6b6b80; font-size: 1.4rem;
+            cursor: pointer; padding: 4px 8px; line-height: 1;
+        }
+        .modal-close:hover { color: #e0e0e8; }
+
+        .modal-field { margin-bottom: 14px; }
+        .modal-field label {
+            display: block; font-size: 0.8rem; color: #8888a0; font-weight: 600;
+            margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .modal-field input[type="text"],
+        .modal-field textarea,
+        .modal-field select {
+            width: 100%; padding: 8px 12px; background: #0a0a0f; border: 1px solid #2a2a3e;
+            border-radius: 6px; color: #c8c8d0; font-size: 0.88rem; font-family: inherit;
+        }
+        .modal-field input:focus, .modal-field textarea:focus, .modal-field select:focus {
+            outline: none; border-color: #c89b3c;
+        }
+        .modal-field textarea { min-height: 60px; resize: vertical; }
+
+        .modal-actions { display: flex; gap: 10px; margin-top: 20px; justify-content: flex-end; }
+        .btn-save {
+            padding: 8px 20px; background: #c89b3c; color: #0a0a0f; border: none;
+            border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 0.88rem;
+            font-family: inherit;
+        }
+        .btn-save:hover { background: #d4a94a; }
+        .btn-save:disabled { opacity: 0.5; cursor: not-allowed; }
+        .btn-cancel {
+            padding: 8px 20px; background: #1a1a2e; color: #c8c8d0; border: 1px solid #2a2a3e;
+            border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.88rem;
+            font-family: inherit;
+        }
+        .btn-cancel:hover { background: #2a2a3e; }
+        .btn-delete {
+            padding: 8px 20px; background: #3a1a1a; color: #e06666; border: 1px solid #4a1a1a;
+            border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.88rem;
+            font-family: inherit; margin-right: auto;
+        }
+        .btn-delete:hover { background: #4a1a1a; border-color: #e06666; }
+
+        /* Rune picker in modal */
+        .tree-selector { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+        .tree-option {
+            padding: 6px 14px; background: #0a0a0f; border: 2px solid #2a2a3e;
+            border-radius: 8px; color: #8888a0; cursor: pointer; font-size: 0.82rem;
+            font-weight: 600; transition: all 0.15s;
+        }
+        .tree-option:hover { border-color: #4a4a5e; }
+        .tree-option.selected { border-color: #c89b3c; color: #c89b3c; background: #1a1a1e; }
+        .tree-option.disabled { opacity: 0.3; pointer-events: none; }
+
+        .rune-picker-row {
+            display: flex; gap: 8px; margin-bottom: 8px; align-items: center;
+            flex-wrap: wrap;
+        }
+        .rune-picker-row-label {
+            font-size: 0.7rem; color: #6b6b80; min-width: 60px;
+            text-transform: uppercase;
+        }
+        .rune-pick-option {
+            width: 42px; height: 42px; border-radius: 50%; border: 2px solid #2a2a3e;
+            background: #0a0a0f; cursor: pointer; overflow: hidden;
+            transition: all 0.15s; position: relative;
+        }
+        .rune-pick-option:hover { border-color: #4a4a5e; }
+        .rune-pick-option.selected { border-color: #c89b3c; box-shadow: 0 0 8px #c89b3c44; }
+        .rune-pick-option.keystone-pick { width: 52px; height: 52px; }
+        .rune-pick-option img { width: 100%; height: 100%; object-fit: cover; }
+        .rune-pick-option .pick-tooltip {
+            display: none; position: absolute; bottom: calc(100% + 6px); left: 50%;
+            transform: translateX(-50%); background: #1a1a2e; color: #e0e0e8;
+            padding: 3px 8px; border-radius: 4px; font-size: 0.68rem; white-space: nowrap;
+            z-index: 20; pointer-events: none; border: 1px solid #2a2a3e;
+        }
+        .rune-pick-option:hover .pick-tooltip { display: block; }
+
+        .shard-picker-row { display: flex; gap: 6px; align-items: center; margin-bottom: 6px; }
+        .shard-pick-option {
+            width: 28px; height: 28px; border-radius: 50%; border: 2px solid #2a2a3e;
+            background: #1a1a2e; cursor: pointer; display: flex; align-items: center;
+            justify-content: center; font-size: 0.6rem; color: #8888a0; transition: all 0.15s;
+        }
+        .shard-pick-option:hover { border-color: #4a4a5e; }
+        .shard-pick-option.selected { border-color: #c89b3c; color: #c89b3c; }
+
+        /* Item picker in modal */
+        .item-section-edit { margin-bottom: 14px; }
+        .item-section-edit-label {
+            font-size: 0.78rem; color: #8888a0; font-weight: 600;
+            text-transform: uppercase; margin-bottom: 6px;
+        }
+        .item-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; align-items: center; }
+        .item-pill {
+            display: inline-flex; align-items: center; gap: 4px;
+            background: #1a1a2e; border: 1px solid #2a2a3e; border-radius: 6px;
+            padding: 3px 8px; font-size: 0.78rem; color: #c8c8d0;
+        }
+        .item-pill img { width: 22px; height: 22px; border-radius: 3px; }
+        .item-pill .remove-item {
+            color: #e06666; cursor: pointer; font-weight: 700; margin-left: 2px;
+            font-size: 0.85rem;
+        }
+        .item-pill .remove-item:hover { color: #ff4444; }
+        .add-item-btn {
+            padding: 3px 10px; background: #1a1a2e; border: 1px dashed #2a2a3e;
+            border-radius: 6px; color: #6b6b80; cursor: pointer; font-size: 0.78rem;
+            font-family: inherit;
+        }
+        .add-item-btn:hover { border-color: #c89b3c; color: #c89b3c; }
+
+        /* Item picker dropdown */
+        .item-picker-panel {
+            background: #0e0e16; border: 1px solid #2a2a3e; border-radius: 8px;
+            padding: 12px; margin-top: 8px; max-height: 300px; overflow-y: auto;
+        }
+        .item-picker-search {
+            width: 100%; padding: 6px 10px; background: #0a0a0f; border: 1px solid #2a2a3e;
+            border-radius: 4px; color: #c8c8d0; font-size: 0.82rem; margin-bottom: 8px;
+            font-family: inherit;
+        }
+        .item-picker-search:focus { outline: none; border-color: #c89b3c; }
+        .item-picker-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(48px, 1fr)); gap: 4px;
+        }
+        .item-pick-cell {
+            cursor: pointer; text-align: center; padding: 3px; border-radius: 4px;
+            transition: background 0.1s; position: relative;
+        }
+        .item-pick-cell:hover { background: #1a1a2e; }
+        .item-pick-cell img { width: 36px; height: 36px; border-radius: 3px; border: 1px solid #2a2a3e; }
+        .item-pick-cell .pick-tooltip {
+            display: none; position: absolute; bottom: calc(100% + 4px); left: 50%;
+            transform: translateX(-50%); background: #1a1a2e; color: #e0e0e8;
+            padding: 3px 8px; border-radius: 4px; font-size: 0.65rem; white-space: nowrap;
+            z-index: 20; pointer-events: none; border: 1px solid #2a2a3e;
+        }
+        .item-pick-cell:hover .pick-tooltip { display: block; }
+
+        /* ===== Matchup Editor (Tab 4) ===== */
+        .matchup-editor { display: flex; gap: 20px; min-height: 500px; }
+        .matchup-list {
+            width: 280px; min-width: 240px; flex-shrink: 0;
+            background: #0e0e16; border: 1px solid #1a1a2e; border-radius: 10px;
+            padding: 12px; overflow-y: auto; max-height: 700px;
+        }
+        .matchup-list-search {
+            width: 100%; padding: 6px 10px; background: #0a0a0f; border: 1px solid #2a2a3e;
+            border-radius: 6px; color: #c8c8d0; font-size: 0.82rem; margin-bottom: 8px;
+            font-family: inherit;
+        }
+        .matchup-list-search:focus { outline: none; border-color: #c89b3c; }
+        .matchup-list-item {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 6px 10px; border-radius: 6px; cursor: pointer;
+            font-size: 0.85rem; color: #c8c8d0; transition: background 0.1s;
+            margin-bottom: 2px;
+        }
+        .matchup-list-item:hover { background: #1a1a2e; }
+        .matchup-list-item.selected { background: #1a1a2e; border: 1px solid #c89b3c; }
+        .matchup-list-item .diff-badge {
+            font-size: 0.7rem; padding: 1px 8px; border-radius: 8px; font-weight: 600;
+        }
+
+        .matchup-form {
+            flex: 1; background: #0e0e16; border: 1px solid #1a1a2e;
+            border-radius: 10px; padding: 20px; overflow-y: auto; max-height: 700px;
+        }
+        .matchup-form-title { font-size: 1.1rem; color: #c89b3c; font-weight: 700; margin-bottom: 16px; }
+        .matchup-form .modal-field { margin-bottom: 12px; }
+        .matchup-form .modal-field label { font-size: 0.75rem; }
+
+        .keystones-checklist { display: flex; flex-wrap: wrap; gap: 6px; }
+        .keystone-check {
+            display: flex; align-items: center; gap: 4px;
+            padding: 4px 10px; background: #0a0a0f; border: 1px solid #2a2a3e;
+            border-radius: 6px; cursor: pointer; font-size: 0.8rem; color: #8888a0;
+            transition: all 0.15s; user-select: none;
+        }
+        .keystone-check:hover { border-color: #4a4a5e; }
+        .keystone-check.checked { border-color: #c89b3c; color: #c89b3c; background: #1a1a1e; }
+        .keystone-check input { display: none; }
+
+        /* Champion pool for bucket editing */
+        .champ-pool-section { margin-top: 20px; }
+        .champ-pool-section-title {
+            font-size: 0.95rem; color: #c89b3c; font-weight: 600; margin-bottom: 8px;
+        }
+        .champ-pool-controls {
+            display: flex; gap: 10px; align-items: center; margin-bottom: 10px; flex-wrap: wrap;
+        }
+        .champ-pool-controls select {
+            padding: 6px 12px; background: #0a0a0f; border: 1px solid #2a2a3e;
+            border-radius: 6px; color: #c8c8d0; font-size: 0.85rem;
+        }
+        .champ-pool-controls select:focus { outline: none; border-color: #c89b3c; }
+        .champ-pool-search {
+            padding: 6px 12px; background: #0a0a0f; border: 1px solid #2a2a3e;
+            border-radius: 6px; color: #c8c8d0; font-size: 0.85rem; min-width: 200px;
+            font-family: inherit;
+        }
+        .champ-pool-search:focus { outline: none; border-color: #c89b3c; }
+        .champ-pool {
+            display: flex; flex-wrap: wrap; gap: 4px; max-height: 200px; overflow-y: auto;
+            padding: 8px; background: #0e0e16; border: 1px solid #1a1a2e; border-radius: 8px;
+        }
+        .champ-pool-pill {
+            background: #1a1a2e; color: #6b6b80; font-size: 0.72rem; padding: 3px 8px;
+            border-radius: 12px; border: 1px solid #2a2a3e; cursor: pointer;
+            transition: all 0.15s;
+        }
+        .champ-pool-pill:hover { border-color: #c89b3c; color: #c89b3c; }
+
+        .bucket-edit-actions {
+            display: flex; gap: 10px; margin-top: 16px;
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed; bottom: 24px; right: 24px; padding: 10px 20px;
+            background: #1a3a1a; border: 1px solid #4ade80; border-radius: 8px;
+            color: #4ade80; font-size: 0.85rem; font-weight: 600; z-index: 2000;
+            opacity: 0; transform: translateY(10px); transition: all 0.3s;
+            pointer-events: none;
+        }
+        .toast.error { background: #3a1a1a; border-color: #e06666; color: #e06666; }
+        .toast.visible { opacity: 1; transform: translateY(0); }
+
+        /* Add new matchup btn */
+        .matchup-add-btn {
+            width: 100%; padding: 8px; background: #12121a; border: 1px dashed #2a2a3e;
+            border-radius: 6px; color: #6b6b80; cursor: pointer; font-size: 0.82rem;
+            margin-bottom: 8px; font-family: inherit;
+        }
+        .matchup-add-btn:hover { border-color: #c89b3c; color: #c89b3c; }
+
+        .matchup-empty {
+            display: flex; align-items: center; justify-content: center;
+            height: 100%; color: #4a4a5e; font-size: 0.9rem;
+        }
+
+        /* Checkbox style */
+        .check-row {
+            display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: #c8c8d0;
+        }
+        .check-row input[type="checkbox"] {
+            accent-color: #c89b3c; width: 16px; height: 16px;
+        }
+    </style>
+</head>
+<body>
+<div class="titlebar" id="titlebar">
+    <div class="titlebar-drag" id="titlebar-drag"></div>
+    <div class="titlebar-controls">
+        <button class="titlebar-btn minimize" id="btn-min" title="Minimize">
+            <svg viewBox="0 0 10 10"><line x1="0" y1="5" x2="10" y2="5"/></svg>
+        </button>
+        <button class="titlebar-btn maximize" id="btn-max" title="Maximize">
+            <svg viewBox="0 0 10 10"><rect x="0.5" y="0.5" width="9" height="9" rx="1"/></svg>
+        </button>
+        <button class="titlebar-btn close" id="btn-close" title="Close">
+            <svg viewBox="0 0 10 10"><line x1="0" y1="0" x2="10" y2="10"/><line x1="10" y1="0" x2="0" y2="10"/></svg>
+        </button>
+    </div>
+</div>
+<script>
+function winCmd(action, data) {
+    fetch('/api/window/' + action, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: data ? JSON.stringify(data) : '{}'
+    }).catch(() => {});
+}
+document.getElementById('btn-min').addEventListener('click', () => winCmd('minimize'));
+document.getElementById('btn-max').addEventListener('click', () => winCmd('maximize'));
+document.getElementById('btn-close').addEventListener('click', () => winCmd('close'));
+(function() {
+    const drag = document.getElementById('titlebar-drag');
+    let dragging = false;
+    drag.addEventListener('mousedown', (e) => {
+        if (e.button !== 0) return;
+        dragging = true;
+        winCmd('start_drag', {x: e.screenX, y: e.screenY});
+    });
+    document.addEventListener('mousemove', (e) => {
+        if (!dragging) return;
+        winCmd('do_drag', {x: e.screenX, y: e.screenY});
+    });
+    document.addEventListener('mouseup', () => { dragging = false; });
+    drag.addEventListener('dblclick', () => winCmd('maximize'));
+})();
+</script>
+<div class="page">
+
+    <!-- Header -->
+    <div class="page-header">
+        <h1>How Builds Are Generated</h1>
+        <p>A guide creator thinks in toolboxes and buckets. Here's how Kampsycho's Yorick guide translates enemy picks into rune pages, item builds, and summoner spells.</p>
+        <a href="/" class="back-link">Back to Build Advisor</a>
+    </div>
+
+    <!-- Tab Bar -->
+    <div class="tab-bar" id="tab-bar">
+        <button class="tab-btn active" data-tab="tab-runes">Rune Pages</button>
+        <button class="tab-btn" data-tab="tab-items">Item Builds</button>
+        <button class="tab-btn" data-tab="tab-buckets">Buckets</button>
+        <button class="tab-btn" data-tab="tab-overrides">Matchups</button>
+        <button class="tab-btn" data-tab="tab-test">Test It</button>
+        <button class="tab-btn" data-tab="tab-guide">Build Your Own</button>
+    </div>
+
+    <!-- Tab 1: Rune Pages -->
+    <div class="tab-panel active" id="tab-runes">
+    <div class="section" id="sec-runes">
+        <div class="section-title">The Toolbox — Your Rune Pages</div>
+        <p class="section-subtitle">Pre-built rune pages. The system picks one and adapts the flexible slots per matchup.</p>
+        <button class="edit-mode-toggle" id="runes-edit-toggle">Edit Mode</button>
+        <div class="adaptable-legend">
+            <div class="adaptable-legend-swatch"></div>
+            Dashed gold border = adaptable slot (changes per matchup)
+        </div>
+        <div class="rune-gallery" id="rune-gallery">
+            <div style="color:#6b6b80;"><div class="loading-spinner"></div> Loading rune pages...</div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Tab 2: Item Builds -->
+    <div class="tab-panel" id="tab-items">
+    <div class="section" id="sec-items">
+        <div class="section-title">The Toolbox — Your Item Builds</div>
+        <p class="section-subtitle">The most commonly selected item builds. Each bucket or matchup picks from this list.</p>
+        <button class="edit-mode-toggle" id="items-edit-toggle">Edit Mode</button>
+        <div class="item-gallery" id="item-gallery">
+            <div style="color:#6b6b80;"><div class="loading-spinner"></div> Loading item builds...</div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Tab 3: Buckets -->
+    <div class="tab-panel" id="tab-buckets">
+    <div class="section" id="sec-buckets">
+        <div class="section-title">The Buckets — How Enemies Map to Builds</div>
+        <p class="section-subtitle">Every enemy falls into one or more buckets. Each bucket picks resolve runes, starters, keystones, and items.</p>
+        <button class="edit-mode-toggle" id="buckets-edit-toggle">Edit Mode</button>
+        <div class="bucket-grid" id="bucket-grid"></div>
+        <div id="bucket-edit-panel" style="display:none;"></div>
+    </div>
+    </div>
+
+    <!-- Tab 4: Matchups (was Overrides) -->
+    <div class="tab-panel" id="tab-overrides">
+    <div class="section" id="sec-overrides">
+        <div class="section-title">Matchup Editor</div>
+        <p class="section-subtitle">Individual matchups can override the bucket defaults with specific keystones, items, spells, and notes.</p>
+        <div class="matchup-editor" id="matchup-editor">
+            <div class="matchup-list" id="matchup-list">
+                <input type="text" class="matchup-list-search" id="matchup-search" placeholder="Filter matchups...">
+                <button class="matchup-add-btn" id="matchup-add-btn">+ Add New Matchup</button>
+                <div id="matchup-list-items"></div>
+            </div>
+            <div class="matchup-form" id="matchup-form">
+                <div class="matchup-empty">Select a matchup or add a new one</div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Tab 5: Test It -->
+    <div class="tab-panel" id="tab-test">
+    <div class="section" id="sec-test">
+        <div class="section-title">Test It</div>
+        <p class="section-subtitle">Pick an enemy and see the full decision path in action.</p>
+        <div class="test-panel">
+            <div class="test-controls">
+                <label>Enemy:</label>
+                <select id="test-enemy-select">
+                    <option value="">Choose a champion...</option>
+                </select>
+                <button id="test-go-btn">Show Build</button>
+            </div>
+            <div class="test-result" id="test-result"></div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Tab 6: Build Your Own -->
+    <div class="tab-panel" id="tab-guide">
+    <div class="section" id="sec-guide">
+        <div class="section-title">Build Your Own Guide</div>
+        <p class="section-subtitle">Want to make your own version for a different champion? Here's the step-by-step.</p>
+        <div class="guide-steps">
+            <div class="guide-step">
+                <h3>Define your rune pages</h3>
+                <p>Create named rune page templates in <code>rune_pages.py</code>. Each page has a keystone, primary tree, secondary tree, 6 rune slots, and 3 shard slots. Mark which slots are "adaptable" — they'll change per matchup.</p>
+                <div class="code-block">"Grasp-1": RunePageTemplate(
+    name="Grasp-1",
+    primary_style_id=8400,   # Resolve
+    sub_style_id=8000,       # Precision
+    selected_perk_ids=(
+        GRASP, DEMOLISH, BONE_PLATING, REVITALIZE,
+        LEGEND_ALACRITY, PRESENCE_OF_MIND,
+        SHARD_AS, SHARD_HP, SHARD_TENACITY,
+    ),
+)</div>
+            </div>
+            <div class="guide-step">
+                <h3>Define your item builds</h3>
+                <p>Create named item build templates in <code>item_builds.py</code>. Each build has starter items, boot options, a core path (ordered), and situational options.</p>
+                <div class="code-block">"Default BBC": ItemBuildTemplate(
+    name="Default BBC",
+    starter=(DORANS_BLADE, HEALTH_POTION),
+    boots=(PLATED_STEELCAPS, MERCURY_TREADS, IONIAN_BOOTS),
+    core=(SPEAR_OF_SHOJIN, BLACK_CLEAVER, SUNDERED_SKY),
+    situational=(HULLBREAKER, STERAKS_GAGE, DEATHS_DANCE, SPIRIT_VISAGE),
+)</div>
+            </div>
+            <div class="guide-step">
+                <h3>Put enemies into buckets</h3>
+                <p>In <code>rules.py</code>, group enemies by archetype. Define what each bucket means for resolve runes, shards, starters, and item paths.</p>
+                <div class="code-block">RANGED_POKE_CHAMPS = {"Teemo", "Quinn", "Vayne", "Kennen", ...}
+BURST_CC_CHAMPS = {"Riven", "Renekton", "Jax", "Volibear", ...}
+MS_SHARD_CHAMPS = {"Jax", "Tryndamere", "Yone", "Yasuo", ...}
+EXHAUST_PRIMARY = {"Tryndamere", "Riven", "Renekton"}</div>
+            </div>
+            <div class="guide-step">
+                <h3>Add specific matchups</h3>
+                <p>In <code>matchup_table.py</code>, give each enemy a difficulty rating, priority-ordered keystone list, item category override, shard override, exhaust recommendation, and advice text.</p>
+                <div class="code-block">"Jax": MatchupInfo(
+    difficulty="HARD",
+    keystones=("Grasp-1", "Comet", "Aery"),
+    item_category="iceborn_cleaver",
+    shard_override="MS",
+    exhaust_viable=True,
+    advice="Iceborn rush. W him when he Es...",
+)</div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+</div>
+
+<!-- Rune Page Edit Modal -->
+<div class="modal-overlay" id="rune-modal">
+    <div class="modal-card">
+        <button class="modal-close" id="rune-modal-close">&times;</button>
+        <div class="modal-title" id="rune-modal-title">Edit Rune Page</div>
+        <div id="rune-modal-body"></div>
+        <div class="modal-actions">
+            <button class="btn-delete" id="rune-modal-delete" style="display:none;">Delete</button>
+            <button class="btn-cancel" id="rune-modal-cancel">Cancel</button>
+            <button class="btn-save" id="rune-modal-save">Save</button>
+        </div>
+    </div>
+</div>
+
+<!-- Item Build Edit Modal -->
+<div class="modal-overlay" id="item-modal">
+    <div class="modal-card">
+        <button class="modal-close" id="item-modal-close">&times;</button>
+        <div class="modal-title" id="item-modal-title">Edit Item Build</div>
+        <div id="item-modal-body"></div>
+        <div class="modal-actions">
+            <button class="btn-delete" id="item-modal-delete" style="display:none;">Delete</button>
+            <button class="btn-cancel" id="item-modal-cancel">Cancel</button>
+            <button class="btn-save" id="item-modal-save">Save</button>
+        </div>
+    </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ============================================================
+// Icon cache + parallel fetch helpers
+// ============================================================
+const iconCache = {};
+
+async function fetchRuneIcon(runeId) {
+    const key = 'r_' + runeId;
+    if (iconCache[key]) return iconCache[key];
+    try {
+        const r = await fetch('/api/ddragon/rune-icon/' + runeId);
+        const d = await r.json();
+        iconCache[key] = d;
+        return d;
+    } catch { return { url: '', name: 'Unknown' }; }
+}
+
+async function fetchItemIcon(itemId) {
+    const key = 'i_' + itemId;
+    if (iconCache[key]) return iconCache[key];
+    try {
+        const r = await fetch('/api/ddragon/item-icon/' + itemId);
+        const d = await r.json();
+        iconCache[key] = d;
+        return d;
+    } catch { return { url: '', name: 'Unknown' }; }
+}
+
+function runeImg(url, name, cls = '') {
+    const wrap = document.createElement('span');
+    wrap.className = 'rune-icon-wrap';
+    wrap.innerHTML = `<img src="${url}" alt="${name}" class="rune-icon ${cls}" loading="lazy"><span class="rune-tooltip">${name}</span>`;
+    return wrap;
+}
+
+function itemImg(url, name) {
+    const wrap = document.createElement('span');
+    wrap.className = 'item-icon-wrap';
+    wrap.innerHTML = `<img src="${url}" alt="${name}" class="item-icon" loading="lazy"><span class="item-tooltip">${name}</span>`;
+    return wrap;
+}
+
+// ============================================================
+// Toast notifications
+// ============================================================
+function showToast(msg, isError = false) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast' + (isError ? ' error' : '');
+    requestAnimationFrame(() => t.classList.add('visible'));
+    setTimeout(() => t.classList.remove('visible'), 2500);
+}
+
+// ============================================================
+// Shared state
+// ============================================================
+const STYLE_COLORS = {
+    "Sorcery": "#6d9eeb", "Resolve": "#4ade80", "Precision": "#ffd966",
+    "Domination": "#e06666", "Inspiration": "#6dcfcf",
+};
+
+const TREE_IDS = {
+    8000: "Precision", 8100: "Domination", 8200: "Sorcery",
+    8300: "Inspiration", 8400: "Resolve",
+};
+const TREE_NAMES = {};
+for (const [id, name] of Object.entries(TREE_IDS)) TREE_NAMES[name] = parseInt(id);
+
+// Live data from API (replaces hardcoded constants)
+let liveRunePages = {};
+let liveItemBuilds = {};
+let liveBuckets = {};
+let liveMatchups = {};
+let allRuneTreeData = null;
+let allShardData = null;
+let allItemsData = null;
+let allChampions = [];
+
+// ============================================================
+// Data loading from API
+// ============================================================
+async function loadRunePages() {
+    try {
+        const r = await fetch('/api/config/rune-pages');
+        liveRunePages = await r.json();
+    } catch (e) { console.error('Failed to load rune pages:', e); }
+}
+
+async function loadItemBuilds() {
+    try {
+        const r = await fetch('/api/config/item-builds');
+        liveItemBuilds = await r.json();
+    } catch (e) { console.error('Failed to load item builds:', e); }
+}
+
+async function loadBuckets() {
+    try {
+        const r = await fetch('/api/config/buckets');
+        liveBuckets = await r.json();
+    } catch (e) { console.error('Failed to load buckets:', e); }
+}
+
+async function loadMatchups() {
+    try {
+        const r = await fetch('/api/config/matchups');
+        liveMatchups = await r.json();
+    } catch (e) { console.error('Failed to load matchups:', e); }
+}
+
+async function loadAllRunes() {
+    if (allRuneTreeData) return;
+    try {
+        const r = await fetch('/api/ddragon/all-runes');
+        const d = await r.json();
+        allRuneTreeData = d.rune_trees;
+        allShardData = d.shards;
+    } catch (e) { console.error('Failed to load all runes:', e); }
+}
+
+async function loadAllItems() {
+    if (allItemsData) return;
+    try {
+        const r = await fetch('/api/ddragon/all-items');
+        const d = await r.json();
+        allItemsData = d.items;
+    } catch (e) { console.error('Failed to load all items:', e); }
+}
+
+async function loadChampions() {
+    if (allChampions.length) return;
+    try {
+        const r = await fetch('/api/ddragon/champions');
+        const d = await r.json();
+        allChampions = d.champions;
+    } catch (e) { console.error('Failed to load champions:', e); }
+}
+
+// ============================================================
+// Section 1: Render Rune Pages (from API data)
+// ============================================================
+let runesEditMode = false;
+
+async function renderRunePages() {
+    const gallery = document.getElementById('rune-gallery');
+
+    // Collect all unique rune/shard IDs for parallel fetch
+    const allIds = new Set();
+    for (const p of Object.values(liveRunePages)) {
+        // selected_perk_ids is array of 9: 4 primary + 2 secondary + 3 shards
+        if (p.selected_perk_ids) {
+            p.selected_perk_ids.forEach(id => allIds.add(id));
+        }
+    }
+    const fetches = [...allIds].map(id => fetchRuneIcon(id));
+    await Promise.all(fetches);
+
+    gallery.innerHTML = '';
+    if (runesEditMode) gallery.classList.add('edit-mode');
+    else gallery.classList.remove('edit-mode');
+
+    for (const [name, page] of Object.entries(liveRunePages)) {
+        const card = document.createElement('div');
+        card.className = 'rune-card';
+
+        const perks = page.selected_perk_ids || [];
+        const primaryName = TREE_IDS[page.primary_style_id] || 'Unknown';
+        const secondaryName = TREE_IDS[page.sub_style_id] || 'Unknown';
+
+        // Edit button
+        const editBtn = document.createElement('button');
+        editBtn.className = 'edit-btn';
+        editBtn.textContent = 'Edit';
+        editBtn.onclick = () => openRuneModal(name, page);
+        card.appendChild(editBtn);
+
+        // Header
+        const hdr = document.createElement('div');
+        hdr.className = 'rune-card-header';
+        hdr.innerHTML = `<span class="rune-card-name">${name}</span>
+            <span class="rune-card-trees" style="color:${STYLE_COLORS[primaryName] || '#888'}">${primaryName}</span>
+            <span style="color:#3a3a4e">/</span>
+            <span class="rune-card-trees" style="color:${STYLE_COLORS[secondaryName] || '#888'}">${secondaryName}</span>`;
+        card.appendChild(hdr);
+
+        // Desc
+        const desc = document.createElement('div');
+        desc.className = 'rune-card-desc';
+        desc.textContent = page.description || '';
+        card.appendChild(desc);
+
+        // Layout
+        const layout = document.createElement('div');
+        layout.className = 'rune-layout';
+
+        // Primary tree (4 runes: keystone + 3 rows) = perks[0..3]
+        const priTree = document.createElement('div');
+        priTree.className = 'rune-tree';
+        priTree.innerHTML = `<span class="rune-tree-label">${primaryName}</span>`;
+        for (let i = 0; i < 4 && i < perks.length; i++) {
+            const id = perks[i];
+            const info = iconCache['r_' + id] || { url: '', name: 'Unknown' };
+            const cls = i === 0 ? 'keystone' : '';
+            priTree.appendChild(runeImg(info.url, info.name, cls));
+        }
+        layout.appendChild(priTree);
+
+        // Divider
+        const div1 = document.createElement('div');
+        div1.className = 'rune-divider';
+        layout.appendChild(div1);
+
+        // Secondary tree (2 runes) = perks[4..5]
+        const secTree = document.createElement('div');
+        secTree.className = 'rune-tree';
+        secTree.innerHTML = `<span class="rune-tree-label">${secondaryName}</span>`;
+        for (let i = 4; i < 6 && i < perks.length; i++) {
+            const id = perks[i];
+            const info = iconCache['r_' + id] || { url: '', name: 'Unknown' };
+            secTree.appendChild(runeImg(info.url, info.name, ''));
+        }
+        layout.appendChild(secTree);
+
+        // Divider
+        const div2 = document.createElement('div');
+        div2.className = 'rune-divider';
+        layout.appendChild(div2);
+
+        // Shards = perks[6..8]
+        const shardCol = document.createElement('div');
+        shardCol.className = 'rune-tree';
+        shardCol.innerHTML = `<span class="rune-tree-label">Shards</span>`;
+        const shardRow = document.createElement('div');
+        shardRow.className = 'shard-row';
+        for (let i = 6; i < 9 && i < perks.length; i++) {
+            const id = perks[i];
+            const info = iconCache['r_' + id] || { url: '', name: 'Unknown' };
+            const img = document.createElement('img');
+            img.src = info.url;
+            img.alt = info.name;
+            img.className = 'shard-icon';
+            img.title = info.name;
+            shardRow.appendChild(img);
+        }
+        shardCol.appendChild(shardRow);
+        layout.appendChild(shardCol);
+
+        card.appendChild(layout);
+        gallery.appendChild(card);
+    }
+
+    // Add new button
+    const addBtn = document.createElement('button');
+    addBtn.className = 'add-new-btn';
+    addBtn.textContent = '+ Add New Rune Page';
+    addBtn.onclick = () => openRuneModal(null, null);
+    gallery.appendChild(addBtn);
+}
+
+document.getElementById('runes-edit-toggle').addEventListener('click', function() {
+    runesEditMode = !runesEditMode;
+    this.classList.toggle('active', runesEditMode);
+    const gallery = document.getElementById('rune-gallery');
+    gallery.classList.toggle('edit-mode', runesEditMode);
+    // Show/hide edit buttons
+    gallery.querySelectorAll('.edit-btn, .add-new-btn').forEach(el => {
+        el.style.display = runesEditMode ? (el.classList.contains('add-new-btn') ? 'flex' : 'inline-block') : 'none';
+    });
+});
+
+// ============================================================
+// Rune Page Modal
+// ============================================================
+let runeModalState = {};
+
+async function openRuneModal(existingName, existingPage) {
+    await loadAllRunes();
+    const modal = document.getElementById('rune-modal');
+    const body = document.getElementById('rune-modal-body');
+    const title = document.getElementById('rune-modal-title');
+    const deleteBtn = document.getElementById('rune-modal-delete');
+
+    const isNew = !existingName;
+    title.textContent = isNew ? 'New Rune Page' : `Edit: ${existingName}`;
+    deleteBtn.style.display = isNew ? 'none' : 'block';
+
+    // State
+    runeModalState = {
+        originalName: existingName,
+        name: existingName || '',
+        description: existingPage ? (existingPage.description || '') : '',
+        primaryTreeId: existingPage ? existingPage.primary_style_id : null,
+        secondaryTreeId: existingPage ? existingPage.sub_style_id : null,
+        selectedPerks: existingPage ? [...existingPage.selected_perk_ids] : [0,0,0,0,0,0,0,0,0],
+    };
+
+    renderRuneModalBody();
+    modal.classList.add('active');
+}
+
+function renderRuneModalBody() {
+    const body = document.getElementById('rune-modal-body');
+    const s = runeModalState;
+    let html = '';
+
+    // Name + Description
+    html += `<div class="modal-field">
+        <label>Name</label>
+        <input type="text" id="rm-name" value="${escHtml(s.name)}" placeholder="e.g. Grasp-1">
+    </div>`;
+    html += `<div class="modal-field">
+        <label>Description</label>
+        <input type="text" id="rm-desc" value="${escHtml(s.description)}" placeholder="Short description">
+    </div>`;
+
+    // Primary tree selector
+    html += `<div class="modal-field"><label>Primary Tree</label><div class="tree-selector" id="rm-primary-trees">`;
+    for (const tree of (allRuneTreeData || [])) {
+        const sel = s.primaryTreeId === tree.id ? 'selected' : '';
+        const dis = s.secondaryTreeId === tree.id ? 'disabled' : '';
+        html += `<div class="tree-option ${sel} ${dis}" data-tree-id="${tree.id}" data-role="primary">${tree.name}</div>`;
+    }
+    html += `</div></div>`;
+
+    // Primary tree rune rows
+    if (s.primaryTreeId) {
+        const tree = (allRuneTreeData || []).find(t => t.id === s.primaryTreeId);
+        if (tree && tree.slots) {
+            for (let rowIdx = 0; rowIdx < tree.slots.length; rowIdx++) {
+                const slot = tree.slots[rowIdx];
+                const isKeystone = rowIdx === 0;
+                const label = isKeystone ? 'Keystone' : `Row ${rowIdx}`;
+                html += `<div class="rune-picker-row">
+                    <span class="rune-picker-row-label">${label}</span>`;
+                for (const rune of slot.runes) {
+                    const selected = s.selectedPerks[rowIdx] === rune.id ? 'selected' : '';
+                    const sizeClass = isKeystone ? 'keystone-pick' : '';
+                    const iconUrl = rune.icon.startsWith('http') ? rune.icon : `https://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`;
+                    html += `<div class="rune-pick-option ${sizeClass} ${selected}" data-rune-id="${rune.id}" data-perk-idx="${rowIdx}">
+                        <img src="${iconUrl}" alt="${rune.name}">
+                        <span class="pick-tooltip">${rune.name}</span>
+                    </div>`;
+                }
+                html += `</div>`;
+            }
+        }
+    }
+
+    // Secondary tree selector
+    html += `<div class="modal-field" style="margin-top:12px;"><label>Secondary Tree</label><div class="tree-selector" id="rm-secondary-trees">`;
+    for (const tree of (allRuneTreeData || [])) {
+        const sel = s.secondaryTreeId === tree.id ? 'selected' : '';
+        const dis = s.primaryTreeId === tree.id ? 'disabled' : '';
+        html += `<div class="tree-option ${sel} ${dis}" data-tree-id="${tree.id}" data-role="secondary">${tree.name}</div>`;
+    }
+    html += `</div></div>`;
+
+    // Secondary tree rune rows (skip keystone = slot 0; user picks 2 from remaining 3 rows)
+    if (s.secondaryTreeId) {
+        const tree = (allRuneTreeData || []).find(t => t.id === s.secondaryTreeId);
+        if (tree && tree.slots) {
+            // Find which secondary runes are currently selected
+            const secPerks = [s.selectedPerks[4], s.selectedPerks[5]];
+            for (let rowIdx = 1; rowIdx < tree.slots.length; rowIdx++) {
+                const slot = tree.slots[rowIdx];
+                html += `<div class="rune-picker-row">
+                    <span class="rune-picker-row-label">Row ${rowIdx}</span>`;
+                for (const rune of slot.runes) {
+                    const selected = secPerks.includes(rune.id) ? 'selected' : '';
+                    html += `<div class="rune-pick-option ${selected}" data-rune-id="${rune.id}" data-sec-row="${rowIdx}">
+                        <img src="${iconUrl(rune)}" alt="${rune.name}">
+                        <span class="pick-tooltip">${rune.name}</span>
+                    </div>`;
+                }
+                html += `</div>`;
+            }
+        }
+    }
+
+    // Shards
+    const shardRows = [
+        { label: 'Offense', ids: [5008, 5005, 5007] },
+        { label: 'Flex', ids: [5008, 5010, 5001] },
+        { label: 'Defense', ids: [5001, 5002, 5003, 5013] },
+    ];
+    html += `<div class="modal-field" style="margin-top:12px;"><label>Shards</label>`;
+    for (let ri = 0; ri < shardRows.length; ri++) {
+        const row = shardRows[ri];
+        const perkIdx = 6 + ri;
+        html += `<div class="shard-picker-row">
+            <span class="rune-picker-row-label" style="min-width:55px">${row.label}</span>`;
+        for (const sid of row.ids) {
+            const shard = (allShardData || []).find(s => s.id === sid);
+            const name = shard ? shard.short : String(sid);
+            const selected = s.selectedPerks[perkIdx] === sid ? 'selected' : '';
+            html += `<div class="shard-pick-option ${selected}" data-shard-id="${sid}" data-shard-idx="${perkIdx}" title="${shard ? shard.name : ''}">${name}</div>`;
+        }
+        html += `</div>`;
+    }
+    html += `</div>`;
+
+    body.innerHTML = html;
+
+    // Attach events
+    body.querySelectorAll('.tree-option[data-role="primary"]').forEach(el => {
+        el.addEventListener('click', () => {
+            if (el.classList.contains('disabled')) return;
+            s.primaryTreeId = parseInt(el.dataset.treeId);
+            s.selectedPerks[0] = 0; s.selectedPerks[1] = 0;
+            s.selectedPerks[2] = 0; s.selectedPerks[3] = 0;
+            renderRuneModalBody();
+        });
+    });
+    body.querySelectorAll('.tree-option[data-role="secondary"]').forEach(el => {
+        el.addEventListener('click', () => {
+            if (el.classList.contains('disabled')) return;
+            s.secondaryTreeId = parseInt(el.dataset.treeId);
+            s.selectedPerks[4] = 0; s.selectedPerks[5] = 0;
+            renderRuneModalBody();
+        });
+    });
+    body.querySelectorAll('.rune-pick-option[data-perk-idx]').forEach(el => {
+        el.addEventListener('click', () => {
+            const idx = parseInt(el.dataset.perkIdx);
+            s.selectedPerks[idx] = parseInt(el.dataset.runeId);
+            renderRuneModalBody();
+        });
+    });
+    body.querySelectorAll('.rune-pick-option[data-sec-row]').forEach(el => {
+        el.addEventListener('click', () => {
+            const runeId = parseInt(el.dataset.runeId);
+            const secRow = parseInt(el.dataset.secRow);
+            // Determine which rows are used by current selections
+            const tree = (allRuneTreeData || []).find(t => t.id === s.secondaryTreeId);
+            if (!tree) return;
+            // Find which row each current selection belongs to
+            function findRow(perkId) {
+                for (let ri = 1; ri < tree.slots.length; ri++) {
+                    if (tree.slots[ri].runes.some(r => r.id === perkId)) return ri;
+                }
+                return -1;
+            }
+            const row4 = findRow(s.selectedPerks[4]);
+            const row5 = findRow(s.selectedPerks[5]);
+
+            if (row4 === secRow) {
+                // Replace perk 4
+                s.selectedPerks[4] = runeId;
+            } else if (row5 === secRow) {
+                // Replace perk 5
+                s.selectedPerks[5] = runeId;
+            } else {
+                // New row -- need to drop one of the existing. Drop the older one (perk 5).
+                if (s.selectedPerks[4] === 0) {
+                    s.selectedPerks[4] = runeId;
+                } else if (s.selectedPerks[5] === 0) {
+                    s.selectedPerks[5] = runeId;
+                } else {
+                    // Already have 2 from different rows. Replace #5.
+                    s.selectedPerks[5] = runeId;
+                }
+            }
+            renderRuneModalBody();
+        });
+    });
+    body.querySelectorAll('.shard-pick-option').forEach(el => {
+        el.addEventListener('click', () => {
+            const idx = parseInt(el.dataset.shardIdx);
+            s.selectedPerks[idx] = parseInt(el.dataset.shardId);
+            renderRuneModalBody();
+        });
+    });
+    // Sync text inputs
+    const nameInput = document.getElementById('rm-name');
+    const descInput = document.getElementById('rm-desc');
+    if (nameInput) nameInput.addEventListener('input', e => s.name = e.target.value);
+    if (descInput) descInput.addEventListener('input', e => s.description = e.target.value);
+}
+
+function iconUrl(rune) {
+    if (!rune.icon) return '';
+    return rune.icon.startsWith('http') ? rune.icon : `https://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`;
+}
+
+function escHtml(str) {
+    return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+document.getElementById('rune-modal-close').addEventListener('click', () => {
+    document.getElementById('rune-modal').classList.remove('active');
+});
+document.getElementById('rune-modal-cancel').addEventListener('click', () => {
+    document.getElementById('rune-modal').classList.remove('active');
+});
+document.getElementById('rune-modal-save').addEventListener('click', async () => {
+    const s = runeModalState;
+    if (!s.name.trim()) { showToast('Name is required', true); return; }
+    if (!s.primaryTreeId || !s.secondaryTreeId) { showToast('Select both trees', true); return; }
+
+    const payload = {
+        name: s.name.trim(),
+        primary_style_id: s.primaryTreeId,
+        sub_style_id: s.secondaryTreeId,
+        selected_perk_ids: s.selectedPerks,
+        description: s.description,
+    };
+
+    try {
+        // If name changed, delete old one first
+        if (s.originalName && s.originalName !== s.name.trim()) {
+            await fetch('/api/config/rune-pages/' + encodeURIComponent(s.originalName), { method: 'DELETE' });
+        }
+        const r = await fetch('/api/config/rune-pages/' + encodeURIComponent(s.name.trim()), {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+        });
+        if (!r.ok) throw new Error('Save failed');
+        showToast('Rune page saved');
+        document.getElementById('rune-modal').classList.remove('active');
+        await loadRunePages();
+        await renderRunePages();
+        // Re-apply edit mode visuals
+        if (runesEditMode) {
+            const gallery = document.getElementById('rune-gallery');
+            gallery.classList.add('edit-mode');
+            gallery.querySelectorAll('.edit-btn, .add-new-btn').forEach(el => {
+                el.style.display = el.classList.contains('add-new-btn') ? 'flex' : 'inline-block';
+            });
+        }
+    } catch (e) {
+        showToast('Error saving: ' + e.message, true);
+    }
+});
+document.getElementById('rune-modal-delete').addEventListener('click', async () => {
+    const s = runeModalState;
+    if (!s.originalName) return;
+    if (!confirm(`Delete rune page "${s.originalName}"? This cannot be undone.`)) return;
+    try {
+        await fetch('/api/config/rune-pages/' + encodeURIComponent(s.originalName), { method: 'DELETE' });
+        showToast('Rune page deleted');
+        document.getElementById('rune-modal').classList.remove('active');
+        await loadRunePages();
+        await renderRunePages();
+        if (runesEditMode) {
+            const gallery = document.getElementById('rune-gallery');
+            gallery.classList.add('edit-mode');
+            gallery.querySelectorAll('.edit-btn, .add-new-btn').forEach(el => {
+                el.style.display = el.classList.contains('add-new-btn') ? 'flex' : 'inline-block';
+            });
+        }
+    } catch (e) { showToast('Error deleting: ' + e.message, true); }
+});
+
+// ============================================================
+// Section 2: Render Item Builds (from API data)
+// ============================================================
+let itemsEditMode = false;
+
+async function renderItemBuilds() {
+    const gallery = document.getElementById('item-gallery');
+
+    // Collect all unique item IDs
+    const allIds = new Set();
+    for (const b of Object.values(liveItemBuilds)) {
+        (b.starter || []).forEach(id => allIds.add(id));
+        (b.boots || []).forEach(id => allIds.add(id));
+        (b.core || []).forEach(id => allIds.add(id));
+        (b.situational || []).forEach(id => allIds.add(id));
+    }
+    await Promise.all([...allIds].map(id => fetchItemIcon(id)));
+
+    gallery.innerHTML = '';
+    if (itemsEditMode) gallery.classList.add('edit-mode');
+    else gallery.classList.remove('edit-mode');
+
+    for (const [name, build] of Object.entries(liveItemBuilds)) {
+        const card = document.createElement('div');
+        card.className = 'item-card';
+
+        // Edit button
+        const editBtn = document.createElement('button');
+        editBtn.className = 'edit-btn';
+        editBtn.textContent = 'Edit';
+        editBtn.onclick = () => openItemModal(name, build);
+        card.appendChild(editBtn);
+
+        card.innerHTML += `<div class="item-card-name">${name}</div>
+            <div class="item-card-desc">${build.description || ''}</div>`;
+
+        const rows = [
+            { label: 'Starter', ids: build.starter || [] },
+            { label: 'Boots', ids: build.boots || [] },
+            { label: 'Core', ids: build.core || [] },
+            { label: 'Situational', ids: build.situational || [] },
+        ];
+
+        for (const row of rows) {
+            const rowEl = document.createElement('div');
+            rowEl.className = 'item-row';
+            rowEl.innerHTML = `<span class="item-row-label">${row.label}</span>`;
+            for (let i = 0; i < row.ids.length; i++) {
+                const id = row.ids[i];
+                const info = iconCache['i_' + id] || { url: '', name: 'Unknown' };
+                rowEl.appendChild(itemImg(info.url, info.name));
+                if (i < row.ids.length - 1 && row.label === 'Core') {
+                    const arrow = document.createElement('span');
+                    arrow.className = 'item-arrow';
+                    arrow.textContent = '\u203A';
+                    rowEl.appendChild(arrow);
+                }
+            }
+            card.appendChild(rowEl);
+        }
+
+        // Re-add edit btn (innerHTML clobbered it)
+        const editBtn2 = document.createElement('button');
+        editBtn2.className = 'edit-btn';
+        editBtn2.textContent = 'Edit';
+        editBtn2.onclick = () => openItemModal(name, build);
+        card.appendChild(editBtn2);
+
+        gallery.appendChild(card);
+    }
+
+    // Add new button
+    const addBtn = document.createElement('button');
+    addBtn.className = 'add-new-btn';
+    addBtn.textContent = '+ Add New Item Build';
+    addBtn.onclick = () => openItemModal(null, null);
+    gallery.appendChild(addBtn);
+}
+
+document.getElementById('items-edit-toggle').addEventListener('click', function() {
+    itemsEditMode = !itemsEditMode;
+    this.classList.toggle('active', itemsEditMode);
+    const gallery = document.getElementById('item-gallery');
+    gallery.classList.toggle('edit-mode', itemsEditMode);
+    gallery.querySelectorAll('.edit-btn, .add-new-btn').forEach(el => {
+        el.style.display = itemsEditMode ? (el.classList.contains('add-new-btn') ? 'flex' : 'inline-block') : 'none';
+    });
+});
+
+// ============================================================
+// Item Build Modal
+// ============================================================
+let itemModalState = {};
+let activeItemPicker = null; // which section's picker is open
+
+async function openItemModal(existingName, existingBuild) {
+    await loadAllItems();
+    const modal = document.getElementById('item-modal');
+    const title = document.getElementById('item-modal-title');
+    const deleteBtn = document.getElementById('item-modal-delete');
+
+    const isNew = !existingName;
+    title.textContent = isNew ? 'New Item Build' : `Edit: ${existingName}`;
+    deleteBtn.style.display = isNew ? 'none' : 'block';
+
+    itemModalState = {
+        originalName: existingName,
+        name: existingName || '',
+        description: existingBuild ? (existingBuild.description || '') : '',
+        starter: existingBuild ? [...(existingBuild.starter || [])] : [],
+        boots: existingBuild ? [...(existingBuild.boots || [])] : [],
+        core: existingBuild ? [...(existingBuild.core || [])] : [],
+        situational: existingBuild ? [...(existingBuild.situational || [])] : [],
+    };
+    activeItemPicker = null;
+
+    renderItemModalBody();
+    modal.classList.add('active');
+}
+
+function renderItemModalBody() {
+    const body = document.getElementById('item-modal-body');
+    const s = itemModalState;
+    let html = '';
+
+    html += `<div class="modal-field">
+        <label>Name</label>
+        <input type="text" id="im-name" value="${escHtml(s.name)}" placeholder="e.g. Default BBC">
+    </div>`;
+    html += `<div class="modal-field">
+        <label>Description</label>
+        <input type="text" id="im-desc" value="${escHtml(s.description)}" placeholder="Short description">
+    </div>`;
+
+    const sections = ['starter', 'boots', 'core', 'situational'];
+    for (const sec of sections) {
+        html += `<div class="item-section-edit">
+            <div class="item-section-edit-label">${sec}</div>
+            <div class="item-pills" id="im-pills-${sec}">`;
+        for (const id of s[sec]) {
+            const info = iconCache['i_' + id] || { url: '', name: String(id) };
+            html += `<span class="item-pill">
+                <img src="${info.url}" alt="${info.name}">
+                ${info.name}
+                <span class="remove-item" data-section="${sec}" data-item-id="${id}">&times;</span>
+            </span>`;
+        }
+        html += `<button class="add-item-btn" data-section="${sec}">+ Add</button>`;
+        html += `</div>`;
+        if (activeItemPicker === sec) {
+            html += renderItemPickerInline(sec);
+        }
+        html += `</div>`;
+    }
+
+    body.innerHTML = html;
+
+    // Events
+    document.getElementById('im-name').addEventListener('input', e => s.name = e.target.value);
+    document.getElementById('im-desc').addEventListener('input', e => s.description = e.target.value);
+
+    body.querySelectorAll('.remove-item').forEach(el => {
+        el.addEventListener('click', () => {
+            const sec = el.dataset.section;
+            const id = parseInt(el.dataset.itemId);
+            const idx = s[sec].indexOf(id);
+            if (idx >= 0) s[sec].splice(idx, 1);
+            renderItemModalBody();
+        });
+    });
+
+    body.querySelectorAll('.add-item-btn').forEach(el => {
+        el.addEventListener('click', () => {
+            activeItemPicker = activeItemPicker === el.dataset.section ? null : el.dataset.section;
+            renderItemModalBody();
+        });
+    });
+
+    // Item picker click handlers
+    body.querySelectorAll('.item-pick-cell').forEach(el => {
+        el.addEventListener('click', () => {
+            const sec = el.dataset.section;
+            const id = parseInt(el.dataset.itemId);
+            if (!s[sec].includes(id)) s[sec].push(id);
+            activeItemPicker = null;
+            renderItemModalBody();
+        });
+    });
+
+    // Search filter
+    const searchInput = body.querySelector('.item-picker-search');
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const q = e.target.value.toLowerCase();
+            body.querySelectorAll('.item-pick-cell').forEach(cell => {
+                const name = cell.dataset.itemName.toLowerCase();
+                cell.style.display = name.includes(q) ? '' : 'none';
+            });
+        });
+        searchInput.focus();
+    }
+}
+
+function renderItemPickerInline(section) {
+    let html = `<div class="item-picker-panel">
+        <input type="text" class="item-picker-search" placeholder="Search items...">
+        <div class="item-picker-grid">`;
+    for (const item of (allItemsData || [])) {
+        html += `<div class="item-pick-cell" data-section="${section}" data-item-id="${item.id}" data-item-name="${escHtml(item.name)}">
+            <img src="${item.icon}" alt="${item.name}">
+            <span class="pick-tooltip">${item.name}</span>
+        </div>`;
+    }
+    html += `</div></div>`;
+    return html;
+}
+
+document.getElementById('item-modal-close').addEventListener('click', () => {
+    document.getElementById('item-modal').classList.remove('active');
+});
+document.getElementById('item-modal-cancel').addEventListener('click', () => {
+    document.getElementById('item-modal').classList.remove('active');
+});
+document.getElementById('item-modal-save').addEventListener('click', async () => {
+    const s = itemModalState;
+    if (!s.name.trim()) { showToast('Name is required', true); return; }
+
+    const payload = {
+        name: s.name.trim(),
+        starter: s.starter,
+        boots: s.boots,
+        core: s.core,
+        situational: s.situational,
+        description: s.description,
+    };
+
+    try {
+        if (s.originalName && s.originalName !== s.name.trim()) {
+            await fetch('/api/config/item-builds/' + encodeURIComponent(s.originalName), { method: 'DELETE' });
+        }
+        const r = await fetch('/api/config/item-builds/' + encodeURIComponent(s.name.trim()), {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+        });
+        if (!r.ok) throw new Error('Save failed');
+        showToast('Item build saved');
+        document.getElementById('item-modal').classList.remove('active');
+        await loadItemBuilds();
+        await renderItemBuilds();
+        if (itemsEditMode) {
+            const gallery = document.getElementById('item-gallery');
+            gallery.classList.add('edit-mode');
+            gallery.querySelectorAll('.edit-btn, .add-new-btn').forEach(el => {
+                el.style.display = el.classList.contains('add-new-btn') ? 'flex' : 'inline-block';
+            });
+        }
+    } catch (e) {
+        showToast('Error saving: ' + e.message, true);
+    }
+});
+document.getElementById('item-modal-delete').addEventListener('click', async () => {
+    const s = itemModalState;
+    if (!s.originalName) return;
+    if (!confirm(`Delete item build "${s.originalName}"?`)) return;
+    try {
+        await fetch('/api/config/item-builds/' + encodeURIComponent(s.originalName), { method: 'DELETE' });
+        showToast('Item build deleted');
+        document.getElementById('item-modal').classList.remove('active');
+        await loadItemBuilds();
+        await renderItemBuilds();
+        if (itemsEditMode) {
+            const gallery = document.getElementById('item-gallery');
+            gallery.classList.add('edit-mode');
+            gallery.querySelectorAll('.edit-btn, .add-new-btn').forEach(el => {
+                el.style.display = el.classList.contains('add-new-btn') ? 'flex' : 'inline-block';
+            });
+        }
+    } catch (e) { showToast('Error deleting: ' + e.message, true); }
+});
+
+// ============================================================
+// Section 3: Render Buckets (from API data)
+// ============================================================
+let bucketsEditMode = false;
+let bucketEditData = null; // working copy during edit
+
+async function renderBuckets() {
+    const grid = document.getElementById('bucket-grid');
+    grid.innerHTML = '';
+
+    const bucketNames = Object.keys(liveBuckets);
+
+    for (const bucketName of bucketNames) {
+        const champs = liveBuckets[bucketName];
+        const card = document.createElement('div');
+        card.className = 'bucket-card';
+
+        let html = `<div class="bucket-card-name">${bucketName}</div>`;
+        html += `<div class="champ-pills" id="bucket-pills-${bucketName.replace(/\W/g,'_')}">`;
+        const sorted = [...champs].sort();
+        for (const c of sorted) {
+            if (bucketsEditMode) {
+                html += `<span class="champ-pill removable" data-bucket="${escHtml(bucketName)}" data-champ="${escHtml(c)}">${c} <span class="remove-x">&times;</span></span>`;
+            } else {
+                html += `<span class="champ-pill">${c}</span>`;
+            }
+        }
+        html += `</div>`;
+        card.innerHTML = html;
+        grid.appendChild(card);
+    }
+
+    if (bucketsEditMode) {
+        // Attach remove events
+        grid.querySelectorAll('.champ-pill.removable').forEach(el => {
+            el.addEventListener('click', () => {
+                const bucket = el.dataset.bucket;
+                const champ = el.dataset.champ;
+                if (!bucketEditData) bucketEditData = JSON.parse(JSON.stringify(liveBuckets));
+                const idx = bucketEditData[bucket].indexOf(champ);
+                if (idx >= 0) bucketEditData[bucket].splice(idx, 1);
+                liveBuckets = bucketEditData;
+                renderBuckets();
+            });
+        });
+
+        renderBucketEditPanel();
+    } else {
+        document.getElementById('bucket-edit-panel').style.display = 'none';
+    }
+}
+
+async function renderBucketEditPanel() {
+    await loadChampions();
+    const panel = document.getElementById('bucket-edit-panel');
+    panel.style.display = 'block';
+
+    if (!bucketEditData) bucketEditData = JSON.parse(JSON.stringify(liveBuckets));
+
+    const bucketNames = Object.keys(bucketEditData);
+    let html = `<div class="champ-pool-section">
+        <div class="champ-pool-section-title">Add Champions to Buckets</div>
+        <div class="champ-pool-controls">
+            <select id="bucket-target-select">`;
+    for (const bn of bucketNames) {
+        html += `<option value="${escHtml(bn)}">${bn}</option>`;
+    }
+    html += `</select>
+            <input type="text" class="champ-pool-search" id="bucket-champ-search" placeholder="Filter champions...">
+        </div>
+        <div class="champ-pool" id="bucket-champ-pool"></div>
+        <div class="bucket-edit-actions">
+            <button class="btn-save" id="bucket-save-btn">Save All Buckets</button>
+            <button class="btn-delete" id="bucket-reset-btn">Reset to Defaults</button>
+        </div>
+    </div>`;
+    panel.innerHTML = html;
+
+    renderChampPool();
+
+    document.getElementById('bucket-champ-search').addEventListener('input', renderChampPool);
+    document.getElementById('bucket-target-select').addEventListener('change', renderChampPool);
+
+    document.getElementById('bucket-save-btn').addEventListener('click', async () => {
+        try {
+            const r = await fetch('/api/config/buckets', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(bucketEditData),
+            });
+            if (!r.ok) throw new Error('Save failed');
+            showToast('Buckets saved');
+            liveBuckets = JSON.parse(JSON.stringify(bucketEditData));
+        } catch (e) { showToast('Error: ' + e.message, true); }
+    });
+
+    document.getElementById('bucket-reset-btn').addEventListener('click', async () => {
+        if (!confirm('Reset ALL buckets to defaults? This removes all your bucket customizations.')) return;
+        try {
+            await fetch('/api/config/reset', { method: 'POST' });
+            showToast('Config reset to defaults');
+            await loadBuckets();
+            bucketEditData = JSON.parse(JSON.stringify(liveBuckets));
+            renderBuckets();
+        } catch (e) { showToast('Error: ' + e.message, true); }
+    });
+}
+
+function renderChampPool() {
+    const pool = document.getElementById('bucket-champ-pool');
+    if (!pool) return;
+    const search = (document.getElementById('bucket-champ-search').value || '').toLowerCase();
+    const targetBucket = document.getElementById('bucket-target-select').value;
+
+    let html = '';
+    for (const champ of allChampions) {
+        if (search && !champ.toLowerCase().includes(search)) continue;
+        // Show all champs; champs can be in multiple buckets
+        html += `<span class="champ-pool-pill" data-champ="${escHtml(champ)}">${champ}</span>`;
+    }
+    pool.innerHTML = html;
+
+    pool.querySelectorAll('.champ-pool-pill').forEach(el => {
+        el.addEventListener('click', () => {
+            const champ = el.dataset.champ;
+            const bucket = document.getElementById('bucket-target-select').value;
+            if (!bucketEditData[bucket]) bucketEditData[bucket] = [];
+            if (!bucketEditData[bucket].includes(champ)) {
+                bucketEditData[bucket].push(champ);
+                liveBuckets = bucketEditData;
+                renderBuckets();
+            } else {
+                showToast(champ + ' already in ' + bucket, true);
+            }
+        });
+    });
+}
+
+document.getElementById('buckets-edit-toggle').addEventListener('click', function() {
+    bucketsEditMode = !bucketsEditMode;
+    this.classList.toggle('active', bucketsEditMode);
+    if (bucketsEditMode) {
+        bucketEditData = JSON.parse(JSON.stringify(liveBuckets));
+    } else {
+        bucketEditData = null;
+    }
+    renderBuckets();
+});
+
+// ============================================================
+// Section 4: Matchup Editor (full editor replacing old Overrides)
+// ============================================================
+let selectedMatchup = null;
+
+async function renderMatchupEditor() {
+    renderMatchupList();
+    if (selectedMatchup && liveMatchups[selectedMatchup]) {
+        renderMatchupForm(selectedMatchup, liveMatchups[selectedMatchup]);
+    } else {
+        document.getElementById('matchup-form').innerHTML = '<div class="matchup-empty">Select a matchup or add a new one</div>';
+    }
+}
+
+function renderMatchupList() {
+    const container = document.getElementById('matchup-list-items');
+    const search = (document.getElementById('matchup-search').value || '').toLowerCase();
+
+    const sorted = Object.keys(liveMatchups).sort();
+    let html = '';
+    for (const enemy of sorted) {
+        if (search && !enemy.toLowerCase().includes(search)) continue;
+        const m = liveMatchups[enemy];
+        const sel = selectedMatchup === enemy ? 'selected' : '';
+        const diffClass = 'diff-' + (m.difficulty || 'Medium');
+        html += `<div class="matchup-list-item ${sel}" data-enemy="${escHtml(enemy)}">
+            <span>${enemy}</span>
+            <span class="diff-badge ${diffClass}">${m.difficulty || 'Medium'}</span>
+        </div>`;
+    }
+    container.innerHTML = html;
+
+    container.querySelectorAll('.matchup-list-item').forEach(el => {
+        el.addEventListener('click', () => {
+            selectedMatchup = el.dataset.enemy;
+            renderMatchupEditor();
+        });
+    });
+}
+
+function renderMatchupForm(enemy, matchup) {
+    const form = document.getElementById('matchup-form');
+
+    const difficulties = ['Easy', 'Medium', 'Advanced', 'HARD', 'EXTREME'];
+    const itemCategories = ['default', 'iceborn_cleaver', 'titanic_breaker', 'eclipse_poke', 'sundered_sky', 'liandry_shred', 'vs_morde'];
+    const shardOptions = ['', 'MS', 'AF'];
+
+    const runePageNames = Object.keys(liveRunePages);
+
+    let html = `<div class="matchup-form-title">Editing: ${enemy}</div>`;
+
+    // Difficulty
+    html += `<div class="modal-field"><label>Difficulty</label>
+        <select id="mf-difficulty">`;
+    for (const d of difficulties) {
+        html += `<option value="${d}" ${matchup.difficulty === d ? 'selected' : ''}>${d}</option>`;
+    }
+    html += `</select></div>`;
+
+    // Keystones
+    html += `<div class="modal-field"><label>Keystones (check to include, order matters)</label>
+        <div class="keystones-checklist" id="mf-keystones">`;
+    const currentKeystones = matchup.keystones || [];
+    for (const name of runePageNames) {
+        const checked = currentKeystones.includes(name) ? 'checked' : '';
+        html += `<label class="keystone-check ${checked}">
+            <input type="checkbox" value="${escHtml(name)}" ${checked}> ${name}
+        </label>`;
+    }
+    html += `</div></div>`;
+
+    // Item Category
+    html += `<div class="modal-field"><label>Item Category</label>
+        <select id="mf-item-cat">`;
+    for (const cat of itemCategories) {
+        html += `<option value="${cat}" ${matchup.item_category === cat ? 'selected' : ''}>${cat}</option>`;
+    }
+    html += `</select></div>`;
+
+    // Shard Override
+    html += `<div class="modal-field"><label>Shard Override</label>
+        <select id="mf-shard">`;
+    for (const so of shardOptions) {
+        const label = so || 'None';
+        html += `<option value="${so}" ${(matchup.shard_override || '') === so ? 'selected' : ''}>${label}</option>`;
+    }
+    html += `</select></div>`;
+
+    // Exhaust Viable
+    html += `<div class="modal-field">
+        <div class="check-row">
+            <input type="checkbox" id="mf-exhaust" ${matchup.exhaust_viable ? 'checked' : ''}>
+            <label for="mf-exhaust" style="text-transform:none;font-size:0.88rem;">Exhaust Viable</label>
+        </div>
+    </div>`;
+
+    // Summoner Spells
+    html += `<div class="modal-field"><label>Summoner Spells</label>
+        <input type="text" id="mf-summoners" value="${escHtml(matchup.summoner_spells || '')}" placeholder="e.g. Ghost/Ignite">
+    </div>`;
+
+    // Special Note
+    html += `<div class="modal-field"><label>Special Note</label>
+        <input type="text" id="mf-special" value="${escHtml(matchup.special_note || '')}" placeholder="e.g. BAN HER">
+    </div>`;
+
+    // Advice
+    html += `<div class="modal-field"><label>Advice</label>
+        <textarea id="mf-advice" rows="3" placeholder="Matchup tips...">${escHtml(matchup.advice || '')}</textarea>
+    </div>`;
+
+    // Actions
+    html += `<div class="modal-actions">
+        <button class="btn-delete" id="mf-delete-btn">Delete Matchup</button>
+        <button class="btn-save" id="mf-save-btn">Save</button>
+    </div>`;
+
+    form.innerHTML = html;
+
+    // Keystone toggle styling
+    form.querySelectorAll('.keystone-check input').forEach(inp => {
+        inp.addEventListener('change', () => {
+            inp.parentElement.classList.toggle('checked', inp.checked);
+        });
+    });
+
+    // Save
+    document.getElementById('mf-save-btn').addEventListener('click', async () => {
+        const keystones = [];
+        form.querySelectorAll('.keystone-check input:checked').forEach(inp => {
+            keystones.push(inp.value);
+        });
+
+        const payload = {
+            difficulty: document.getElementById('mf-difficulty').value,
+            keystones: keystones,
+            item_category: document.getElementById('mf-item-cat').value,
+            tags: matchup.tags || [],
+            shard_override: document.getElementById('mf-shard').value || null,
+            exhaust_viable: document.getElementById('mf-exhaust').checked,
+            summoner_spells: document.getElementById('mf-summoners').value,
+            special_note: document.getElementById('mf-special').value,
+            advice: document.getElementById('mf-advice').value,
+        };
+
+        try {
+            const r = await fetch('/api/config/matchups/' + encodeURIComponent(enemy), {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
+            });
+            if (!r.ok) throw new Error('Save failed');
+            showToast('Matchup saved');
+            await loadMatchups();
+            renderMatchupEditor();
+        } catch (e) { showToast('Error: ' + e.message, true); }
+    });
+
+    // Delete
+    document.getElementById('mf-delete-btn').addEventListener('click', async () => {
+        if (!confirm(`Delete matchup for "${enemy}"?`)) return;
+        try {
+            await fetch('/api/config/matchups/' + encodeURIComponent(enemy), { method: 'DELETE' });
+            showToast('Matchup deleted');
+            selectedMatchup = null;
+            await loadMatchups();
+            renderMatchupEditor();
+        } catch (e) { showToast('Error: ' + e.message, true); }
+    });
+}
+
+// Add new matchup
+document.getElementById('matchup-add-btn').addEventListener('click', async () => {
+    await loadChampions();
+    const name = prompt('Enter enemy champion name:');
+    if (!name || !name.trim()) return;
+
+    const enemy = name.trim();
+    // Create a default matchup
+    const payload = {
+        difficulty: 'Medium',
+        keystones: [],
+        item_category: 'default',
+        tags: [],
+        shard_override: null,
+        exhaust_viable: false,
+        summoner_spells: 'Ghost/Ignite',
+        special_note: '',
+        advice: '',
+    };
+
+    try {
+        const r = await fetch('/api/config/matchups/' + encodeURIComponent(enemy), {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+        });
+        if (!r.ok) throw new Error('Save failed');
+        showToast('Matchup added');
+        await loadMatchups();
+        selectedMatchup = enemy;
+        renderMatchupEditor();
+    } catch (e) { showToast('Error: ' + e.message, true); }
+});
+
+document.getElementById('matchup-search').addEventListener('input', () => {
+    renderMatchupList();
+});
+
+// ============================================================
+// Section 5: Test It
+// ============================================================
+async function loadChampionDropdown() {
+    await loadChampions();
+    const select = document.getElementById('test-enemy-select');
+    for (const name of allChampions) {
+        const opt = document.createElement('option');
+        opt.value = name;
+        opt.textContent = name;
+        select.appendChild(opt);
+    }
+}
+
+function getEnemyBuckets(enemy) {
+    const tags = [];
+    for (const [name, champs] of Object.entries(liveBuckets)) {
+        if (champs.includes(enemy)) tags.push(name);
+    }
+    return tags;
+}
+
+async function testBuild() {
+    const enemy = document.getElementById('test-enemy-select').value;
+    if (!enemy) return;
+
+    const resultEl = document.getElementById('test-result');
+    resultEl.className = 'test-result active';
+    resultEl.innerHTML = '<div class="loading-spinner"></div> Fetching build...';
+
+    try {
+        const r = await fetch('/api/build/query', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ champion: 'Yorick', enemy }),
+        });
+        const data = await r.json();
+
+        const buckets = getEnemyBuckets(enemy);
+        const allBucketNames = Object.keys(liveBuckets);
+
+        let html = `<div class="test-result-header">
+            <span class="test-result-enemy">vs ${data.enemy}</span>
+            <span class="test-result-diff diff-${data.difficulty}">${data.difficulty}</span>`;
+        if (data.special_note) {
+            html += `<div class="test-result-note">${data.special_note}</div>`;
+        }
+        html += `</div>`;
+
+        html += `<div class="test-buckets">`;
+        for (const bn of allBucketNames) {
+            const isActive = buckets.includes(bn);
+            html += `<span class="test-bucket-tag ${isActive ? 'active' : ''}">${bn}</span>`;
+        }
+        html += `</div>`;
+
+        html += `<div class="test-options">`;
+        for (let i = 0; i < data.options.length; i++) {
+            const opt = data.options[i];
+            html += `<div class="test-option-card">`;
+            html += `<div class="test-option-header">
+                <span class="test-option-keystone">${opt.keystone}</span>
+                <span class="test-option-build">${opt.build_name || opt.item_build_name || ''}</span>
+            </div>`;
+
+            html += `<div class="test-option-row"><span class="test-option-label">Runes</span>`;
+            if (opt.rune_details) {
+                for (let j = 0; j < opt.rune_details.length; j++) {
+                    const rd = opt.rune_details[j];
+                    const cls = j === 0 ? 'rune-img keystone-img' : 'rune-img';
+                    html += `<img src="${rd.icon}" alt="${rd.name}" title="${rd.name}" class="${cls}">`;
+                }
+            }
+            html += `</div>`;
+
+            if (opt.starter && opt.item_details) {
+                html += `<div class="test-option-row"><span class="test-option-label">Starter</span>`;
+                for (const sid of opt.starter) {
+                    const info = opt.item_details[String(sid)];
+                    if (info) html += `<img src="${info.icon}" alt="${info.name}" title="${info.name}">`;
+                }
+                html += `</div>`;
+            }
+
+            if (opt.boots && opt.item_details) {
+                html += `<div class="test-option-row"><span class="test-option-label">Boots</span>`;
+                for (const bid of opt.boots) {
+                    const info = opt.item_details[String(bid)];
+                    if (info) html += `<img src="${info.icon}" alt="${info.name}" title="${info.name}">`;
+                }
+                html += `</div>`;
+            }
+
+            if (opt.core && opt.item_details) {
+                html += `<div class="test-option-row"><span class="test-option-label">Core</span>`;
+                for (const cid of opt.core) {
+                    const info = opt.item_details[String(cid)];
+                    if (info) html += `<img src="${info.icon}" alt="${info.name}" title="${info.name}">`;
+                }
+                html += `</div>`;
+            }
+
+            if (opt.situational && opt.item_details) {
+                html += `<div class="test-option-row"><span class="test-option-label">Situational</span>`;
+                for (const sid of opt.situational) {
+                    const info = opt.item_details[String(sid)];
+                    if (info) html += `<img src="${info.icon}" alt="${info.name}" title="${info.name}">`;
+                }
+                html += `</div>`;
+            }
+
+            html += `<div class="test-option-summoners">Summoners: ${opt.summoners || 'Ghost/Ignite'}</div>`;
+            if (opt.resolve_code) {
+                html += `<div class="test-option-resolve">Resolve: ${opt.resolve_code} &nbsp; Shards: ${opt.shard_info || ''}</div>`;
+            }
+
+            if (opt.reasoning) {
+                html += `<div class="test-option-advice">${opt.reasoning}</div>`;
+            }
+
+            html += `</div>`;
+        }
+        html += `</div>`;
+
+        resultEl.innerHTML = html;
+    } catch (e) {
+        resultEl.innerHTML = `<div style="color:#e06666;">Error: ${e.message}</div>`;
+    }
+}
+
+document.getElementById('test-go-btn').addEventListener('click', testBuild);
+document.getElementById('test-enemy-select').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') testBuild();
+});
+
+// ============================================================
+// Tab switching
+// ============================================================
+document.getElementById('tab-bar').addEventListener('click', (e) => {
+    const btn = e.target.closest('.tab-btn');
+    if (!btn) return;
+    const tabId = btn.dataset.tab;
+
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+
+    btn.classList.add('active');
+    document.getElementById(tabId).classList.add('active');
+});
+
+// ============================================================
+// Init
+// ============================================================
+async function init() {
+    // Load all config data from API in parallel
+    await Promise.all([
+        loadRunePages(),
+        loadItemBuilds(),
+        loadBuckets(),
+        loadMatchups(),
+        loadChampions(),
+    ]);
+
+    // Render all tabs
+    await Promise.all([
+        renderRunePages(),
+        renderItemBuilds(),
+        loadChampionDropdown(),
+    ]);
+    await renderBuckets();
+    renderMatchupEditor();
+}
+
+init();
+</script>
+</body>
+</html>
