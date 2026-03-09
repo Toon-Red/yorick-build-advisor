@@ -10,8 +10,7 @@
 
         /* Custom Title Bar */
         .titlebar { display: flex; align-items: center; justify-content: flex-end; height: 32px; background: #06060a; border-bottom: 1px solid #2a2a3e; user-select: none; position: sticky; top: 0; z-index: 9999; }
-        .titlebar-drag { flex: 1; height: 100%; cursor: grab; }
-        .titlebar-drag:active { cursor: grabbing; }
+        .titlebar-drag { flex: 1; height: 100%; cursor: default; -webkit-app-region: drag; }
         .titlebar-controls { display: flex; height: 100%; }
         .titlebar-btn { width: 46px; height: 32px; border: none; background: transparent; color: #8888a0; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.1s; }
         .titlebar-btn:hover { background: #1a1a2e; color: #c8c8d0; }
@@ -690,6 +689,7 @@
 </head>
 <body>
 <div class="titlebar" id="titlebar">
+    <span style="padding-left:12px;color:#6a6a80;font-size:12px;pointer-events:none;">Yorick Build Advisor</span>
     <div class="titlebar-drag" id="titlebar-drag"></div>
     <div class="titlebar-controls">
         <button class="titlebar-btn minimize" id="btn-min" title="Minimize">
@@ -716,17 +716,10 @@ document.getElementById('btn-max').addEventListener('click', () => winCmd('maxim
 document.getElementById('btn-close').addEventListener('click', () => winCmd('close'));
 (function() {
     const drag = document.getElementById('titlebar-drag');
-    let dragging = false;
     drag.addEventListener('mousedown', (e) => {
         if (e.button !== 0) return;
-        dragging = true;
-        winCmd('start_drag', {x: e.screenX, y: e.screenY});
+        winCmd('native_drag');
     });
-    document.addEventListener('mousemove', (e) => {
-        if (!dragging) return;
-        winCmd('do_drag', {x: e.screenX, y: e.screenY});
-    });
-    document.addEventListener('mouseup', () => { dragging = false; });
     drag.addEventListener('dblclick', () => winCmd('maximize'));
 })();
 </script>

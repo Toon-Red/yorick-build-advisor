@@ -170,14 +170,8 @@ def start_server():
     @fastapi_app.post("/api/window/{action}")
     async def window_control(action: str, body: dict = None):
         """Handle window control commands from the UI."""
-        if action in ("minimize", "maximize", "close"):
+        if action in ("minimize", "maximize", "close", "native_drag"):
             window_commands.put(action)
-            return JSONResponse({"ok": True})
-        elif action == "start_drag" and body:
-            window_commands.put(("start_drag", body.get("x", 0), body.get("y", 0)))
-            return JSONResponse({"ok": True})
-        elif action == "do_drag" and body:
-            window_commands.put(("do_drag", body.get("x", 0), body.get("y", 0)))
             return JSONResponse({"ok": True})
         return JSONResponse({"ok": False}, status_code=400)
 
@@ -281,7 +275,6 @@ if __name__ == "__main__":
     threading.Thread(target=remove_native_frame, daemon=True).start()
 
     # Process window commands from the queue during the event loop
-    drag_state = [0, 0]  # [start_x, start_y]
 
     async def run_with_commands():
         import pythoncom
@@ -314,17 +307,12 @@ if __name__ == "__main__":
                                 win32gui.ShowWindow(hwnd, win32con.SW_RESTORE)
                             else:
                                 win32gui.ShowWindow(hwnd, win32con.SW_MAXIMIZE)
-                        elif isinstance(cmd, tuple) and cmd[0] == "start_drag":
-                            rect = win32gui.GetWindowRect(hwnd)
-                            drag_state[0] = cmd[1] - rect[0]
-                            drag_state[1] = cmd[2] - rect[1]
-                        elif isinstance(cmd, tuple) and cmd[0] == "do_drag":
-                            new_x = int(cmd[1] - drag_state[0])
-                            new_y = int(cmd[2] - drag_state[1])
-                            rect = win32gui.GetWindowRect(hwnd)
-                            w2 = rect[2] - rect[0]
-                            h2 = rect[3] - rect[1]
-                            win32gui.MoveWindow(hwnd, new_x, new_y, w2, h2, True)
+                        elif cmd == "native_drag":
+                            # Release capture and let Windows handle the drag natively
+                            HTCAPTION = 2
+                            WM_NCLBUTTONDOWN = 0x00A1
+                            win32gui.ReleaseCapture()
+                            win32gui.SendMessage(hwnd, WM_NCLBUTTONDOWN, HTCAPTION, 0)
                 except queue.Empty:
                     pass
                 except Exception:

@@ -12,7 +12,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from engine import recommend_builds, BuildOption
 from data.matchup_table import MATCHUP_TABLE, get_matchup
-from data.rune_pages import RUNE_PAGES, SHARD_MS, SHARD_AF, SHARD_HP, SHARD_AS, SHARD_TENACITY
+from data.rune_pages import RUNE_PAGES, SHARD_MS, SHARD_AF, SHARD_HP, SHARD_AS, SHARD_TENACITY, SECOND_WIND, UNFLINCHING, BONE_PLATING
 from data.item_builds import ITEM_BUILDS
 
 
@@ -231,3 +231,110 @@ class TestItemPaths:
         results = recommend_builds("Yorick", "Mordekaiser")
         build_names = [r.item_build_name for r in results]
         assert "VS Morde" in build_names
+
+
+# ============================================================================
+# Video Audit Bug Fix Tests
+# ============================================================================
+
+class TestVideoAuditFixes:
+    """Tests for the 7 bugs found during video transcript audit."""
+
+    def test_yasuo_gets_second_wind(self):
+        """Bug #1: Yasuo should get resolve B (Second Wind) — video says 'Grasp-B'."""
+        from data.rules import resolve_adaptation
+        r = resolve_adaptation("Grasp-1", "Yasuo")
+        assert r["code"] == "B"
+        assert r["row2"] == SECOND_WIND
+
+    def test_fiora_nongrasp_gets_second_wind(self):
+        """Bug #2: Fiora should get Second Wind when on non-Grasp keystone."""
+        from data.rules import resolve_adaptation
+        r = resolve_adaptation("Conqueror", "Fiora")
+        assert r["code"] == "B"
+        assert r["row2"] == SECOND_WIND
+
+    def test_volibear_gets_second_wind_plus_unflinching(self):
+        """Bug #3: Volibear needs special resolve combo (Second Wind + Unflinching)."""
+        from data.rules import resolve_adaptation
+        r = resolve_adaptation("Grasp-2", "Volibear")
+        assert r["row2"] == SECOND_WIND
+        assert r["row3"] == UNFLINCHING
+
+    def test_riven_gets_exhaust_ghost(self):
+        """Bug #4: Riven should get Exhaust/Ghost, not Exhaust/TP."""
+        from data.rules import summoner_spells
+        assert summoner_spells("Riven") == "Exhaust/Ghost"
+
+    def test_renekton_gets_exhaust_ghost(self):
+        """Bug #4b: Renekton should get Exhaust/Ghost, not Exhaust/TP."""
+        from data.rules import summoner_spells
+        assert summoner_spells("Renekton") == "Exhaust/Ghost"
+
+    def test_tryndamere_still_gets_exhaust_tp(self):
+        """Tryndamere should still get Exhaust/TP (unchanged)."""
+        from data.rules import summoner_spells
+        assert summoner_spells("Tryndamere") == "Exhaust/TP"
+
+    def test_gangplank_has_aery(self):
+        """Bug #5: Gangplank should have Aery as a keystone option."""
+        results = recommend_builds("Yorick", "Gangplank")
+        keystones = [r.keystone for r in results]
+        assert "Aery" in keystones
+
+    def test_nocturne_has_hob(self):
+        """Bug #6: Nocturne should have Hail of Blades as a keystone option."""
+        results = recommend_builds("Yorick", "Nocturne")
+        keystones = [r.keystone for r in results]
+        assert "Hail of Blades" in keystones
+
+    def test_urgot_has_aery(self):
+        """Bug #7: Urgot should have Aery as a keystone option."""
+        results = recommend_builds("Yorick", "Urgot")
+        keystones = [r.keystone for r in results]
+        assert "Aery" in keystones
+
+
+# ============================================================================
+# Update Check Tests
+# ============================================================================
+
+class TestUpdateCheck:
+    def test_is_newer_detects_update(self):
+        from updater import is_newer
+        assert is_newer("1.1.0", "1.0.0") is True
+        assert is_newer("2.0.0", "1.9.9") is True
+        assert is_newer("1.0.1", "1.0.0") is True
+
+    def test_is_newer_same_version(self):
+        from updater import is_newer
+        assert is_newer("1.0.0", "1.0.0") is False
+
+    def test_is_newer_older_version(self):
+        from updater import is_newer
+        assert is_newer("1.0.0", "1.1.0") is False
+
+
+# ============================================================================
+# Titlebar / UI Tests
+# ============================================================================
+
+class TestTitlebarUI:
+    def test_titlebar_no_grab_cursor(self):
+        """Title bar should use default cursor, not grab (causes OS conflict)."""
+        from pathlib import Path
+        html = (Path(__file__).parent.parent / "static" / "flow.html").read_text()
+        assert "cursor: grab" not in html
+
+    def test_titlebar_has_native_drag(self):
+        """Title bar drag should use native_drag command, not JS-based drag."""
+        from pathlib import Path
+        html = (Path(__file__).parent.parent / "static" / "flow.html").read_text()
+        assert "native_drag" in html
+        assert "do_drag" not in html  # Old JS drag should be removed
+
+    def test_titlebar_has_app_title(self):
+        """Title bar should show app name."""
+        from pathlib import Path
+        html = (Path(__file__).parent.parent / "static" / "flow.html").read_text()
+        assert "Yorick Build Advisor" in html
