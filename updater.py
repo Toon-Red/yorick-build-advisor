@@ -7,7 +7,7 @@ import tempfile
 import threading
 import urllib.request
 
-APP_VERSION = "1.0.0"
+APP_VERSION = "1.1.0"
 GITHUB_REPO = "Toon-Red/yorick-build-advisor"
 RELEASES_URL = f"https://api.github.com/repos/{GITHUB_REPO}/releases/latest"
 

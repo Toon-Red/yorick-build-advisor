@@ -1,7 +1,7 @@
 [Setup]
 AppId={{E4B2A1C0-7D3F-4A8E-B5C6-9F1D2E3A4B5C}
 AppName=Yorick Build Advisor
-AppVersion=1.0.0
+AppVersion=1.1.0
 AppPublisher=Yorick Build Advisor
 AppPublisherURL=https://github.com/yorick-build-advisor
 DefaultDirName={localappdata}\YorickBuildAdvisor
