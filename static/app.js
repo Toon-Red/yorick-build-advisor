@@ -774,6 +774,7 @@ function renderOptionBody(opt, profileIdx, optIdx) {
             <span class="detail-label">Situational</span>
             <div class="detail-value icon-row">${sitIcons}</div>
         </div>
+        ${renderSkillOrder(opt)}
         <div class="reasoning-text">"${opt.reasoning}"</div>
         <div class="import-buttons" data-pi="${profileIdx}" data-oi="${optIdx}">
             <button class="btn-import" onclick="importRunes(${profileIdx},${optIdx})">Import Runes</button>
@@ -781,6 +782,47 @@ function renderOptionBody(opt, profileIdx, optIdx) {
             <button class="btn-import" onclick="importSpells(${profileIdx},${optIdx})">Import Spells</button>
         </div>
     `;
+}
+
+function renderSkillOrder(opt) {
+    const so = opt.skill_order;
+    if (!so || !so.levels || so.levels.length < 18) return '';
+
+    const abilities = ['Q', 'W', 'E', 'R'];
+    const abilityNames = {Q: 'Q', W: 'W', E: 'E', R: 'R'};
+    const maxLabel = so.max_order ? so.max_order.join(' > ') + ' max' : '';
+
+    let html = `<div class="skill-order-section">
+        <div class="detail-row">
+            <span class="detail-label">Skills</span>
+            <div class="detail-value">
+                <span class="skill-order-name">${so.name}</span>
+                <span class="skill-order-max">${maxLabel}</span>
+            </div>
+        </div>
+        <div class="skill-grid">
+            <div class="skill-grid-header">
+                <div class="skill-grid-label"></div>`;
+
+    for (let lvl = 1; lvl <= 18; lvl++) {
+        html += `<div class="skill-grid-lvl">${lvl}</div>`;
+    }
+    html += '</div>';
+
+    for (const ability of abilities) {
+        html += `<div class="skill-grid-row">
+            <div class="skill-grid-label">${abilityNames[ability]}</div>`;
+        for (let i = 0; i < 18; i++) {
+            const isActive = so.levels[i] === ability;
+            html += `<div class="skill-grid-cell${isActive ? ' active' : ''}">${isActive ? (i + 1) : ''}</div>`;
+        }
+        html += '</div>';
+    }
+
+    html += `</div>
+        <div class="skill-order-desc">${so.description}</div>
+    </div>`;
+    return html;
 }
 
 const SPELL_KEYS = {

@@ -532,6 +532,78 @@ header h1 {
     border-color: var(--accent);
 }
 
+/* Skill Order Grid */
+.skill-order-section {
+    margin: 8px 0;
+}
+
+.skill-order-name {
+    font-weight: 600;
+    color: #e0e0e8;
+    font-size: 0.85rem;
+}
+
+.skill-order-max {
+    margin-left: 10px;
+    font-size: 0.78rem;
+    color: #6b6b80;
+}
+
+.skill-grid {
+    margin: 6px 0;
+    font-size: 0.7rem;
+    line-height: 1;
+    display: inline-block;
+}
+
+.skill-grid-header,
+.skill-grid-row {
+    display: flex;
+    align-items: center;
+}
+
+.skill-grid-label {
+    width: 22px;
+    text-align: center;
+    font-weight: 700;
+    color: #a0a0b0;
+    font-size: 0.75rem;
+}
+
+.skill-grid-lvl {
+    width: 22px;
+    height: 18px;
+    text-align: center;
+    color: #6b6b80;
+    font-size: 0.65rem;
+    line-height: 18px;
+}
+
+.skill-grid-cell {
+    width: 22px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    border: 1px solid #1a1a2e;
+    background: #0e0e1a;
+    color: transparent;
+    font-size: 0.65rem;
+    font-weight: 600;
+}
+
+.skill-grid-cell.active {
+    background: #1a5c28;
+    border-color: #2a8c3e;
+    color: #e0e0e8;
+}
+
+.skill-order-desc {
+    font-size: 0.75rem;
+    color: #6b6b80;
+    margin-top: 4px;
+    font-style: italic;
+}
+
 .reasoning-text {
     font-size: 0.85rem;
     color: #a0a0b0;

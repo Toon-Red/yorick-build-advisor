@@ -18,6 +18,7 @@ from data.rules import (
     starter_items,
     item_path,
 )
+from data.skill_orders import resolve_skill_order, get_skill_order
 
 
 @dataclass
@@ -40,6 +41,12 @@ class BuildOption:
     reasoning: str = ""                     # Static advice text from guide
     special_note: str = ""                  # "BAN HER", etc.
     item_build_description: str = ""        # Item build template description
+    skill_order_id: str = "standard"        # Skill order template ID
+    skill_order_name: str = ""              # Display name
+    skill_order_levels: list[str] = field(default_factory=list)  # 18 entries: Q/W/E/R per level
+    skill_order_max: list[str] = field(default_factory=list)     # Max priority: ["Q","E","W"]
+    skill_order_description: str = ""       # When/why to use this order
+    skill_order_condition: str = ""         # Condition text
 
 
 def _shard_display(shards: tuple[int, int, int]) -> str:
@@ -130,6 +137,10 @@ def recommend_builds(champion: str, enemy: str) -> list[BuildOption]:
         # Step 7: Apply overrides to rune template
         final_perks = _apply_resolve_overrides(rune_template, resolve, shards)
 
+        # Step 8: Skill order
+        skill_id = resolve_skill_order(enemy, keystone_name, matchup.tags)
+        skill = get_skill_order(skill_id)
+
         options.append(BuildOption(
             keystone=keystone_name,
             rune_page_name=keystone_name,
@@ -149,6 +160,12 @@ def recommend_builds(champion: str, enemy: str) -> list[BuildOption]:
             reasoning=matchup.advice,
             special_note=matchup.special_note,
             item_build_description=item_template.description,
+            skill_order_id=skill.id,
+            skill_order_name=skill.name,
+            skill_order_levels=list(skill.levels),
+            skill_order_max=list(skill.max_order),
+            skill_order_description=skill.description,
+            skill_order_condition=skill.condition,
         ))
 
     # Also add compatible alternative builds for the primary keystone
@@ -174,6 +191,9 @@ def recommend_builds(champion: str, enemy: str) -> list[BuildOption]:
 
             final_perks = _apply_resolve_overrides(rune_template, resolve, shards)
 
+            alt_skill_id = resolve_skill_order(enemy, primary_keystone, matchup.tags)
+            alt_skill = get_skill_order(alt_skill_id)
+
             options.append(BuildOption(
                 keystone=primary_keystone,
                 rune_page_name=primary_keystone,
@@ -193,6 +213,12 @@ def recommend_builds(champion: str, enemy: str) -> list[BuildOption]:
                 reasoning=f"Alternative build: {alt_template.description[:100]}",
                 special_note=matchup.special_note,
                 item_build_description=alt_template.description,
+                skill_order_id=alt_skill.id,
+                skill_order_name=alt_skill.name,
+                skill_order_levels=list(alt_skill.levels),
+                skill_order_max=list(alt_skill.max_order),
+                skill_order_description=alt_skill.description,
+                skill_order_condition=alt_skill.condition,
             ))
 
     return options
@@ -219,6 +245,14 @@ def build_option_to_dict(option: BuildOption) -> dict:
         "reasoning": option.reasoning,
         "special_note": option.special_note,
         "item_build_description": option.item_build_description,
+        "skill_order": {
+            "id": option.skill_order_id,
+            "name": option.skill_order_name,
+            "levels": option.skill_order_levels,
+            "max_order": option.skill_order_max,
+            "description": option.skill_order_description,
+            "condition": option.skill_order_condition,
+        },
     }
 
 
@@ -321,6 +355,12 @@ def recommend_builds_multi(champion: str, enemies: list[dict]) -> list[BuildOpti
         reasoning=reasoning,
         special_note=ref_option.special_note,
         item_build_description=best_item_template.description,
+        skill_order_id=ref_option.skill_order_id,
+        skill_order_name=ref_option.skill_order_name,
+        skill_order_levels=list(ref_option.skill_order_levels),
+        skill_order_max=list(ref_option.skill_order_max),
+        skill_order_description=ref_option.skill_order_description,
+        skill_order_condition=ref_option.skill_order_condition,
     )
 
     options = [primary_option]
@@ -353,6 +393,12 @@ def recommend_builds_multi(champion: str, enemies: list[dict]) -> list[BuildOpti
             reasoning=f"Alt item build ({alt_item_name}, score {item_build_scores[alt_item_name]:.0%})",
             special_note="",
             item_build_description=alt_template.description,
+            skill_order_id=ref_option.skill_order_id,
+            skill_order_name=ref_option.skill_order_name,
+            skill_order_levels=list(ref_option.skill_order_levels),
+            skill_order_max=list(ref_option.skill_order_max),
+            skill_order_description=ref_option.skill_order_description,
+            skill_order_condition=ref_option.skill_order_condition,
         ))
         break  # Only 1 alt item build
 
@@ -393,6 +439,12 @@ def recommend_builds_multi(champion: str, enemies: list[dict]) -> list[BuildOpti
             reasoning=f"Alt keystone ({alt_ks}, score {keystone_scores[alt_ks]:.0%})",
             special_note="",
             item_build_description=best_item_template.description,
+            skill_order_id=ref_option.skill_order_id,
+            skill_order_name=ref_option.skill_order_name,
+            skill_order_levels=list(ref_option.skill_order_levels),
+            skill_order_max=list(ref_option.skill_order_max),
+            skill_order_description=ref_option.skill_order_description,
+            skill_order_condition=ref_option.skill_order_condition,
         ))
         break  # Only 1 alt keystone
 

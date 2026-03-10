@@ -53,6 +53,7 @@ a = Analysis(
         'data.matchup_table',
         'data.role_rates',
         'data.rules',
+        'data.skill_orders',
         'data.user_config',
         'scrapers',
         'scrapers.ddragon',
