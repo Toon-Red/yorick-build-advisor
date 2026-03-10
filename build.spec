@@ -29,6 +29,7 @@ a = Analysis(
         'win32com.propsys',
         'win32com.propsys.propsys',
         'win32com.propsys.pscon',
+        'uvicorn',
         'uvicorn.logging',
         'uvicorn.loops',
         'uvicorn.loops.auto',

@@ -35,7 +35,6 @@ if sys.platform == 'win32':
 if getattr(sys, '_MEIPASS', None):
     os.chdir(sys._MEIPASS)
 
-import uvicorn
 from config import API_HOST, API_PORT
 
 
