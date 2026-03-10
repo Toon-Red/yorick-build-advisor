@@ -18,3 +18,4 @@ test_installer.ps1
 test_relaunch.ps1
 yorick_advisor.ico
 data/youtube_transcript.txt
+dev-builds/

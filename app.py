@@ -111,30 +111,70 @@ class MultiBuildRequest(BaseModel):
 
 @app.get("/api/health")
 async def health():
-    return {"status": "ok", "ddragon_version": ddragon.version}
+    from version import __version__, DEV_MODE
+    return {"status": "ok", "ddragon_version": ddragon.version,
+            "version": __version__, "dev_mode": DEV_MODE}
 
 
 @app.get("/api/update/check")
 async def check_update():
-    """Check GitHub for a newer release."""
-    from updater import get_latest_release, is_newer, APP_VERSION
+    """Check GitHub for a newer release and staged update status."""
+    from updater import (get_latest_release, is_newer, get_current_version,
+                         is_update_staged, get_staged_version)
+    current = get_current_version()
     result = get_latest_release()
-    if result and is_newer(result[0], APP_VERSION):
-        return {"update_available": True, "latest_version": result[0],
-                "current_version": APP_VERSION, "download_url": result[1]}
-    return {"update_available": False, "current_version": APP_VERSION}
+    staged = is_update_staged()
+    staged_ver = get_staged_version() if staged else None
+    resp = {
+        "current_version": current,
+        "update_available": False,
+        "staged": staged,
+        "staged_version": staged_ver,
+    }
+    if result and is_newer(result["version"], current):
+        resp["update_available"] = True
+        resp["latest_version"] = result["version"]
+        resp["release_name"] = result["name"]
+        resp["release_notes"] = result["notes"]
+        resp["exe_url"] = result["exe_url"]
+    return resp
 
 
-@app.post("/api/update/install")
-async def install_update():
-    """Download and run the latest installer, then exit."""
-    from updater import get_latest_release, is_newer, APP_VERSION, download_and_run_installer
-    result = get_latest_release()
-    if result and is_newer(result[0], APP_VERSION):
-        import threading
-        threading.Thread(target=download_and_run_installer, args=(result[1],), daemon=True).start()
-        return {"ok": True, "message": "Downloading update..."}
-    return {"ok": False, "message": "No update available"}
+@app.get("/api/releases")
+async def list_releases():
+    """Get recent releases with notes for the changelog."""
+    from updater import get_all_releases
+    return {"releases": get_all_releases(limit=10)}
+
+
+@app.post("/api/update/download")
+async def download_update_endpoint():
+    """Start downloading the update exe in the background."""
+    from updater import get_latest_release, is_newer, get_current_version, update_manager
+    release = get_latest_release()
+    if not release or not is_newer(release["version"], get_current_version()):
+        return {"ok": False, "error": "No update available"}
+    if not release.get("exe_url"):
+        return {"ok": False, "error": "No exe asset in release"}
+    started = update_manager.start_download(release["exe_url"], release["version"])
+    return {"ok": started, "error": "Download already in progress" if not started else None}
+
+
+@app.get("/api/update/status")
+async def update_status():
+    """Poll download progress."""
+    from updater import update_manager
+    return update_manager.get_status()
+
+
+@app.post("/api/update/apply")
+async def apply_update():
+    """Apply staged update — spawns batch script and exits."""
+    from updater import apply_update_and_restart, is_update_staged
+    if not is_update_staged():
+        return {"ok": False, "error": "No staged update"}
+    apply_update_and_restart()
+    return {"ok": True}
 
 
 @app.get("/api/ddragon/champions")

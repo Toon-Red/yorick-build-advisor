@@ -239,6 +239,13 @@ def open_app_window(url):
 
 
 if __name__ == "__main__":
+    # Apply staged update before anything else (may exit + relaunch)
+    try:
+        from updater import check_and_apply_staged
+        check_and_apply_staged()
+    except Exception:
+        pass
+
     # Install exe to permanent location + create Start Menu shortcut for taskbar pinning
     try:
         ensure_installed()
