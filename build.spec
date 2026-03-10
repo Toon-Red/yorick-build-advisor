@@ -8,16 +8,6 @@ a = Analysis(
     binaries=[],
     datas=[
         ('static', 'static'),
-        ('data', 'data'),
-        ('scrapers', 'scrapers'),
-        ('lcu', 'lcu'),
-        ('config.py', '.'),
-        ('engine.py', '.'),
-        ('app.py', '.'),
-        ('updater.py', '.'),
-        ('version.py', '.'),
-        ('tree_executor.py', '.'),
-        ('guide_manager.py', '.'),
     ],
     hiddenimports=[
         'pythoncom',
