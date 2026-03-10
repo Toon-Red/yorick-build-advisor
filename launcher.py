@@ -37,6 +37,11 @@ if getattr(sys, '_MEIPASS', None):
 
 from config import API_HOST, API_PORT
 
+# Explicit imports so PyInstaller traces the full dependency chain.
+# These are used dynamically in start_server() but PyInstaller can't see that.
+import app  # noqa: F401
+import uvicorn  # noqa: F401
+
 
 def get_install_dir():
     """Permanent install location for the exe."""
