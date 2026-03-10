@@ -25,6 +25,7 @@ async function init() {
     document.getElementById('auto-items').checked = false;
     document.getElementById('auto-spells').checked = false;
 
+    await applyDevMode();
     await loadChampions();
     await checkLCU();
     setupEventListeners();
@@ -34,25 +35,270 @@ async function init() {
     setInterval(checkLCU, 10000);
 }
 
-async function checkForUpdates() {
+// --- Update system state ---
+let updateData = null;
+let downloadPollInterval = null;
+
+async function applyDevMode() {
     try {
-        const r = await fetch(API + '/api/update/check');
+        const r = await fetch(API + '/api/health');
         const data = await r.json();
-        if (data.update_available) {
-            const banner = document.createElement('div');
-            banner.className = 'update-banner';
-            banner.innerHTML = `Update v${data.latest_version} available! <button onclick="installUpdate(this)">Update Now</button>`;
-            document.querySelector('.container').prepend(banner);
+        if (data.dev_mode) {
+            document.body.classList.add('dev-mode');
+            const badge = document.getElementById('app-version');
+            if (badge) {
+                badge.textContent = `DEV v${data.version}`;
+                badge.style.borderColor = 'var(--accent)';
+                badge.style.color = 'var(--accent)';
+            }
         }
     } catch {}
 }
 
-async function installUpdate(btn) {
-    btn.disabled = true;
-    btn.textContent = 'Downloading...';
+async function checkForUpdates() {
     try {
-        await fetch(API + '/api/update/install', {method: 'POST'});
+        const r = await fetch(API + '/api/update/check');
+        const data = await r.json();
+        // Show app version
+        const verEl = document.getElementById('app-version');
+        if (verEl && !document.body.classList.contains('dev-mode')) verEl.textContent = `v${data.current_version}`;
+
+        if (data.staged && data.staged_version) {
+            updateData = data;
+            showUpdateBanner('restart', data);
+        } else if (data.update_available) {
+            updateData = data;
+            showUpdateBanner('available', data);
+        }
     } catch {}
+}
+
+function showUpdateBanner(type, data) {
+    const slot = document.getElementById('update-banner-slot');
+    if (!slot) return;
+    if (type === 'restart') {
+        slot.innerHTML = `<div class="update-banner update-ready">
+            Update v${data.staged_version} downloaded!
+            <button onclick="applyUpdate()">Restart Now</button>
+        </div>`;
+    } else {
+        slot.innerHTML = `<div class="update-banner">
+            Update v${data.latest_version} available!
+            <button onclick="showUpdateScreen()">View Update</button>
+        </div>`;
+    }
+}
+
+// --- Update Screen ---
+
+async function showUpdateScreen() {
+    document.getElementById('main-content').classList.add('hidden');
+    document.getElementById('update-screen').classList.remove('hidden');
+
+    const hero = document.getElementById('update-hero');
+    const notes = document.getElementById('update-notes');
+    const actions = document.getElementById('update-actions');
+
+    hero.innerHTML = '<div class="update-loading">Loading release info...</div>';
+    notes.innerHTML = '';
+    actions.innerHTML = '';
+
+    // Fetch full release list
+    let releases = [];
+    try {
+        const r = await fetch(API + '/api/releases');
+        releases = (await r.json()).releases || [];
+    } catch {}
+
+    // Also check current status (may already be staged/downloading)
+    let status = {};
+    try {
+        const r = await fetch(API + '/api/update/status');
+        status = await r.json();
+    } catch {}
+
+    // Render hero
+    const current = updateData?.current_version || '?';
+    const latest = updateData?.latest_version || releases[0]?.version || '?';
+    hero.innerHTML = `
+        <div class="update-versions">
+            <span class="ver-current">v${current}</span>
+            <span class="ver-arrow">&#10132;</span>
+            <span class="ver-new">v${latest}</span>
+        </div>
+        <h2>${updateData?.release_name || 'Update Available'}</h2>
+    `;
+
+    // Render actions based on state
+    if (status.staged) {
+        actions.innerHTML = `
+            <div class="update-status-text">Download complete!</div>
+            <button class="btn-update-action" onclick="applyUpdate()">Restart to Apply</button>
+        `;
+    } else if (status.downloading) {
+        renderDownloadProgress(actions, status);
+        startProgressPoll();
+    } else {
+        actions.innerHTML = `
+            <button class="btn-update-action" id="download-btn" onclick="startDownload()">Download Update</button>
+        `;
+    }
+
+    // Render release notes for latest version
+    const latestNotes = updateData?.release_notes || releases[0]?.notes || '';
+    notes.innerHTML = `
+        <h3>What's New in v${latest}</h3>
+        <div class="release-notes-body">${renderMarkdown(latestNotes)}</div>
+    `;
+
+    // Render sidebar
+    renderReleaseSidebar(releases);
+}
+
+function renderReleaseSidebar(releases) {
+    const list = document.getElementById('release-list');
+    if (!list) return;
+    list.innerHTML = releases.map(r => `
+        <div class="release-entry ${r.current ? 'release-current' : ''}" onclick="showReleaseNotes('${r.version}', this)">
+            <span class="release-dot">${r.current ? '&#9679;' : '&#9675;'}</span>
+            <div class="release-info">
+                <span class="release-ver">${r.name || 'v' + r.version}</span>
+                <span class="release-date">${formatDate(r.published)}</span>
+            </div>
+            ${r.current ? '<span class="release-you">current</span>' : ''}
+        </div>
+    `).join('');
+
+    // Store releases for sidebar click
+    window._releases = releases;
+}
+
+function showReleaseNotes(version) {
+    const r = (window._releases || []).find(x => x.version === version);
+    if (!r) return;
+    const notes = document.getElementById('update-notes');
+    notes.innerHTML = `
+        <h3>${r.name || 'v' + r.version}</h3>
+        <div class="release-notes-body">${renderMarkdown(r.notes)}</div>
+    `;
+}
+
+async function startDownload() {
+    const btn = document.getElementById('download-btn');
+    if (btn) { btn.disabled = true; btn.textContent = 'Starting...'; }
+
+    try {
+        const r = await fetch(API + '/api/update/download', { method: 'POST' });
+        const data = await r.json();
+        if (!data.ok) {
+            if (btn) { btn.disabled = false; btn.textContent = data.error || 'Failed'; }
+            return;
+        }
+    } catch {
+        if (btn) { btn.disabled = false; btn.textContent = 'Error'; }
+        return;
+    }
+
+    startProgressPoll();
+}
+
+function startProgressPoll() {
+    if (downloadPollInterval) clearInterval(downloadPollInterval);
+    downloadPollInterval = setInterval(async () => {
+        try {
+            const r = await fetch(API + '/api/update/status');
+            const status = await r.json();
+            const actions = document.getElementById('update-actions');
+
+            if (status.staged) {
+                clearInterval(downloadPollInterval);
+                downloadPollInterval = null;
+                actions.innerHTML = `
+                    <div class="update-status-text">Download complete!</div>
+                    <button class="btn-update-action" onclick="applyUpdate()">Restart to Apply</button>
+                `;
+                // Update banner too
+                showUpdateBanner('restart', { staged_version: status.staged_version });
+                return;
+            }
+
+            if (status.error) {
+                clearInterval(downloadPollInterval);
+                downloadPollInterval = null;
+                actions.innerHTML = `
+                    <div class="update-status-text update-error">${status.error}</div>
+                    <button class="btn-update-action" onclick="startDownload()">Retry</button>
+                `;
+                return;
+            }
+
+            renderDownloadProgress(actions, status);
+        } catch {}
+    }, 500);
+}
+
+function renderDownloadProgress(container, status) {
+    const pct = status.progress;
+    const mb = status.received_mb || 0;
+    const totalMb = status.total_mb || 0;
+    const indeterminate = pct < 0;
+    container.innerHTML = `
+        <div class="update-progress-wrap">
+            <div class="update-progress-bar ${indeterminate ? 'indeterminate' : ''}">
+                <div class="update-progress-fill" style="width:${indeterminate ? 100 : pct}%"></div>
+            </div>
+            <div class="update-progress-text">${indeterminate ? `Downloading... (${mb} MB)` : `${pct}% (${mb} / ${totalMb} MB)`}</div>
+        </div>
+    `;
+}
+
+async function applyUpdate() {
+    const actions = document.getElementById('update-actions');
+    if (actions) actions.innerHTML = '<div class="update-status-text">Restarting...</div>';
+    // Also update banner
+    const slot = document.getElementById('update-banner-slot');
+    if (slot) slot.innerHTML = '<div class="update-banner update-ready">Restarting...</div>';
+
+    try {
+        await fetch(API + '/api/update/apply', { method: 'POST' });
+    } catch {}
+    // Server will exit — the page will lose connection
+    setTimeout(() => {
+        if (actions) actions.innerHTML = '<div class="update-status-text">App is restarting. This window will close.</div>';
+    }, 2000);
+}
+
+function goBackToApp() {
+    document.getElementById('update-screen').classList.add('hidden');
+    document.getElementById('main-content').classList.remove('hidden');
+}
+
+// --- Markdown-lite renderer ---
+
+function renderMarkdown(text) {
+    if (!text) return '<p style="color:#6b6b80">No release notes available.</p>';
+    let html = text
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/^### (.+)$/gm, '<h4>$1</h4>')
+        .replace(/^## (.+)$/gm, '<h3>$1</h3>')
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.+?)\*/g, '<em>$1</em>')
+        .replace(/`(.+?)`/g, '<code>$1</code>')
+        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>')
+        .replace(/^- (.+)$/gm, '<li>$1</li>')
+        .replace(/(<li>.*<\/li>)/gs, '<ul>$1</ul>')
+        .replace(/<\/ul>\s*<ul>/g, '')
+        .replace(/\n{2,}/g, '</p><p>')
+        .replace(/\n/g, '<br>');
+    return '<p>' + html + '</p>';
+}
+
+function formatDate(isoStr) {
+    if (!isoStr) return '';
+    try {
+        const d = new Date(isoStr);
+        return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    } catch { return ''; }
 }
 
 async function loadChampions() {
@@ -241,7 +487,7 @@ function renderEnemyList(enemies, predictedOpponent) {
         <div class="enemy-row enemy-all ${selectedAllEnemies ? 'selected' : ''}" onclick="selectAllEnemies()">
             <span class="all-icon">ALL</span>
             <span class="enemy-name">Averaged Build</span>
-            <span class="prob-pct" style="color:#c89b3c">Multi</span>
+            <span class="prob-pct" style="color:var(--accent)">Multi</span>
         </div>
     `;
 
@@ -528,6 +774,7 @@ function renderOptionBody(opt, profileIdx, optIdx) {
             <span class="detail-label">Situational</span>
             <div class="detail-value icon-row">${sitIcons}</div>
         </div>
+        ${renderSkillOrder(opt)}
         <div class="reasoning-text">"${opt.reasoning}"</div>
         <div class="import-buttons" data-pi="${profileIdx}" data-oi="${optIdx}">
             <button class="btn-import" onclick="importRunes(${profileIdx},${optIdx})">Import Runes</button>
@@ -535,6 +782,47 @@ function renderOptionBody(opt, profileIdx, optIdx) {
             <button class="btn-import" onclick="importSpells(${profileIdx},${optIdx})">Import Spells</button>
         </div>
     `;
+}
+
+function renderSkillOrder(opt) {
+    const so = opt.skill_order;
+    if (!so || !so.levels || so.levels.length < 18) return '';
+
+    const abilities = ['Q', 'W', 'E', 'R'];
+    const abilityNames = {Q: 'Q', W: 'W', E: 'E', R: 'R'};
+    const maxLabel = so.max_order ? so.max_order.join(' > ') + ' max' : '';
+
+    let html = `<div class="skill-order-section">
+        <div class="detail-row">
+            <span class="detail-label">Skills</span>
+            <div class="detail-value">
+                <span class="skill-order-name">${so.name}</span>
+                <span class="skill-order-max">${maxLabel}</span>
+            </div>
+        </div>
+        <div class="skill-grid">
+            <div class="skill-grid-header">
+                <div class="skill-grid-label"></div>`;
+
+    for (let lvl = 1; lvl <= 18; lvl++) {
+        html += `<div class="skill-grid-lvl">${lvl}</div>`;
+    }
+    html += '</div>';
+
+    for (const ability of abilities) {
+        html += `<div class="skill-grid-row">
+            <div class="skill-grid-label">${abilityNames[ability]}</div>`;
+        for (let i = 0; i < 18; i++) {
+            const isActive = so.levels[i] === ability;
+            html += `<div class="skill-grid-cell${isActive ? ' active' : ''}">${isActive ? (i + 1) : ''}</div>`;
+        }
+        html += '</div>';
+    }
+
+    html += `</div>
+        <div class="skill-order-desc">${so.description}</div>
+    </div>`;
+    return html;
 }
 
 const SPELL_KEYS = {

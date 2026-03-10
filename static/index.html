@@ -7,18 +7,49 @@
     <link rel="manifest" href="/static/manifest.json">
     <link rel="icon" href="/static/icon-192.png">
     <meta name="theme-color" content="#c89b3c">
-    <link rel="stylesheet" href="/static/style.css?v=4">
+    <link rel="stylesheet" href="/static/style.css?v=5">
 </head>
 <body>
-    <div class="container">
+    <!-- Update Screen (hidden by default) -->
+    <div id="update-screen" class="update-screen hidden">
+        <div class="update-topbar">
+            <button id="update-back-btn" onclick="goBackToApp()">Back to App</button>
+            <span class="update-topbar-title">Yorick Build Advisor</span>
+        </div>
+        <div class="update-layout">
+            <div class="update-main">
+                <div id="update-hero" class="update-hero">
+                    <!-- Filled by JS -->
+                </div>
+                <div id="update-actions" class="update-actions">
+                    <!-- Download / Restart buttons filled by JS -->
+                </div>
+                <div id="update-notes" class="update-notes">
+                    <!-- Release notes filled by JS -->
+                </div>
+            </div>
+            <div class="update-sidebar">
+                <h3>Release History</h3>
+                <div id="release-list" class="release-list">
+                    <!-- Filled by JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="main-content" class="container">
         <header>
             <h1>Yorick Build Advisor</h1>
             <div class="header-right">
                 <a href="/flow" class="nav-link" id="nav-flow">Build Editor</a>
                 <span id="lcu-status" class="lcu-badge lcu-off">LCU: Off</span>
+                <span id="app-version" class="version-badge"></span>
                 <span id="ddragon-version" class="version-badge"></span>
             </div>
         </header>
+
+        <div id="update-banner-slot"></div>
 
         <!-- Live Detection Panel -->
         <section id="live-section" class="live-section">
@@ -63,6 +94,6 @@
         </section>
     </div>
 
-    <script src="/static/app.js?v=4"></script>
+    <script src="/static/app.js?v=5"></script>
 </body>
 </html>

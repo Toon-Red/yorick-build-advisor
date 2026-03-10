@@ -1,0 +1,88 @@
+name: Dev Build
+
+on:
+  push:
+    branches-ignore:
+      - master
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build test image
+        run: docker build -t yorick-tests .
+
+      - name: Run tests
+        run: docker run --rm yorick-tests
+
+  build:
+    needs: test
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Set dev version
+        shell: bash
+        run: |
+          SHORT_SHA=$(echo "$GITHUB_SHA" | head -c 7)
+          BRANCH=$(echo "$GITHUB_REF_NAME" | sed 's/[^a-zA-Z0-9_-]/-/g')
+          DEV_VERSION="0.0.0-dev+${BRANCH}.${SHORT_SHA}"
+          cat > version.py << EOF
+          """App version — dev build from branch ${BRANCH}."""
+          __version__ = "${DEV_VERSION}"
+          DEV_MODE = True
+          EOF
+          # Fix indentation (heredoc adds leading spaces)
+          sed -i 's/^          //' version.py
+          echo "Dev version: ${DEV_VERSION}"
+          echo "SAFE_BRANCH=${BRANCH}" >> "$GITHUB_ENV"
+          cat version.py
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install pyinstaller pywin32 webview2 voxe
+
+      - name: Build exe
+        run: python -m PyInstaller build.spec --noconfirm
+
+      - name: Smoke test
+        shell: bash
+        run: |
+          ./dist/YorickBuildAdvisor.exe &
+          EXE_PID=$!
+          echo "Launched exe (PID $EXE_PID), waiting for health endpoint..."
+          for i in $(seq 1 30); do
+            RESP=$(curl -s http://127.0.0.1:5001/api/health 2>/dev/null || true)
+            if echo "$RESP" | grep -q '"status":"ok"'; then
+              echo "Health check passed: $RESP"
+              # Verify dev_mode flag
+              if echo "$RESP" | grep -q '"dev_mode":true'; then
+                echo "DEV_MODE confirmed!"
+              else
+                echo "WARNING: dev_mode not set in health response"
+              fi
+              kill $EXE_PID 2>/dev/null || true
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "FAIL: health endpoint never responded"
+          kill $EXE_PID 2>/dev/null || true
+          exit 1
+
+      - name: Upload dev artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: YorickBuildAdvisor-dev-${{ env.SAFE_BRANCH }}-${{ github.sha }}
+          path: dist/YorickBuildAdvisor.exe
+          retention-days: 14

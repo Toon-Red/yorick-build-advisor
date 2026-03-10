@@ -13,6 +13,7 @@ Core functions:
 from __future__ import annotations
 
 from engine import BuildOption, _shard_display, build_option_to_dict
+from data.skill_orders import resolve_skill_order, get_skill_order
 
 # Shard name-to-ID mapping (mirrors data/rune_pages.py constants)
 _SHARD_IDS = {
@@ -630,6 +631,9 @@ def recommend_from_guide(guide_json: dict, champion: str, enemy: str) -> list[Bu
             item_template = item_builds.get("Default BBC", {})
             primary_build_name = "Default BBC"
 
+        skill_id = resolve_skill_order(enemy, keystone_name, tuple(ctx.tags))
+        skill = get_skill_order(skill_id)
+
         options.append(BuildOption(
             keystone=keystone_name,
             rune_page_name=keystone_name,
@@ -649,6 +653,12 @@ def recommend_from_guide(guide_json: dict, champion: str, enemy: str) -> list[Bu
             reasoning=ctx.advice,
             special_note=ctx.special_note,
             item_build_description=item_template.get("description", ""),
+            skill_order_id=skill.id,
+            skill_order_name=skill.name,
+            skill_order_levels=list(skill.levels),
+            skill_order_max=list(skill.max_order),
+            skill_order_description=skill.description,
+            skill_order_condition=skill.condition,
         ))
 
     # Step 10: Add alternative builds from rune_build_compat
@@ -686,6 +696,9 @@ def recommend_from_guide(guide_json: dict, champion: str, enemy: str) -> list[Bu
 
             final_perks = _apply_resolve_overrides(rune_template, resolve, shards)
 
+            alt_skill_id = resolve_skill_order(enemy, primary_keystone, tuple(ctx.tags))
+            alt_skill = get_skill_order(alt_skill_id)
+
             options.append(BuildOption(
                 keystone=primary_keystone,
                 rune_page_name=primary_keystone,
@@ -705,6 +718,12 @@ def recommend_from_guide(guide_json: dict, champion: str, enemy: str) -> list[Bu
                 reasoning=f"Alternative build: {alt_template.get('description', '')[:100]}",
                 special_note=ctx.special_note,
                 item_build_description=alt_template.get("description", ""),
+                skill_order_id=alt_skill.id,
+                skill_order_name=alt_skill.name,
+                skill_order_levels=list(alt_skill.levels),
+                skill_order_max=list(alt_skill.max_order),
+                skill_order_description=alt_skill.description,
+                skill_order_condition=alt_skill.condition,
             ))
 
     return options
@@ -928,6 +947,12 @@ def recommend_from_guide_multi(
         reasoning=reasoning,
         special_note=ref_option.special_note,
         item_build_description=best_item_template.get("description", ""),
+        skill_order_id=ref_option.skill_order_id,
+        skill_order_name=ref_option.skill_order_name,
+        skill_order_levels=list(ref_option.skill_order_levels),
+        skill_order_max=list(ref_option.skill_order_max),
+        skill_order_description=ref_option.skill_order_description,
+        skill_order_condition=ref_option.skill_order_condition,
     )
 
     options = [primary_option]
@@ -959,6 +984,12 @@ def recommend_from_guide_multi(
             reasoning=f"Alt item build ({alt_item_name}, score {item_build_scores[alt_item_name]:.0%})",
             special_note="",
             item_build_description=alt_template.get("description", ""),
+            skill_order_id=ref_option.skill_order_id,
+            skill_order_name=ref_option.skill_order_name,
+            skill_order_levels=list(ref_option.skill_order_levels),
+            skill_order_max=list(ref_option.skill_order_max),
+            skill_order_description=ref_option.skill_order_description,
+            skill_order_condition=ref_option.skill_order_condition,
         ))
         break  # Only 1 alt item build
 
@@ -998,6 +1029,12 @@ def recommend_from_guide_multi(
             reasoning=f"Alt keystone ({alt_ks}, score {keystone_scores[alt_ks]:.0%})",
             special_note="",
             item_build_description=best_item_template.get("description", ""),
+            skill_order_id=ref_option.skill_order_id,
+            skill_order_name=ref_option.skill_order_name,
+            skill_order_levels=list(ref_option.skill_order_levels),
+            skill_order_max=list(ref_option.skill_order_max),
+            skill_order_description=ref_option.skill_order_description,
+            skill_order_condition=ref_option.skill_order_condition,
         ))
         break  # Only 1 alt keystone
 

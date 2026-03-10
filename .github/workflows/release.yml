@@ -30,6 +30,30 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Get version from tag
+        id: version
+        shell: bash
+        run: echo "version=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Set version in source files
+        shell: bash
+        run: |
+          VERSION=${{ steps.version.outputs.version }}
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
+          cat > version.py << EOF
+          """App version — overwritten by CI from git tag during release builds."""
+          __version__ = "$VERSION"
+          DEV_MODE = False
+          EOF
+          sed -i 's/^          //' version.py
+          sed -i "s/^AppVersion=.*/AppVersion=$VERSION/" installer.iss
+          sed -i "s/filevers=(.*)/filevers=($MAJOR, $MINOR, $PATCH, 0)/" version_info.txt
+          sed -i "s/prodvers=(.*)/prodvers=($MAJOR, $MINOR, $PATCH, 0)/" version_info.txt
+          sed -i "s/FileVersion', u'.*'/FileVersion', u'$VERSION'/" version_info.txt
+          sed -i "s/ProductVersion', u'.*'/ProductVersion', u'$VERSION'/" version_info.txt
+          echo "=== version.py ==="
+          cat version.py
+
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
@@ -44,15 +68,59 @@ jobs:
       - name: Build installer
         run: iscc installer.iss
 
-      - name: Get version from tag
-        id: version
+      - name: Smoke test
         shell: bash
-        run: echo "version=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+        run: |
+          ./dist/YorickBuildAdvisor.exe &
+          EXE_PID=$!
+          echo "Launched exe (PID $EXE_PID), waiting for health endpoint..."
+          for i in $(seq 1 30); do
+            RESP=$(curl -s http://127.0.0.1:5001/api/health 2>/dev/null || true)
+            if echo "$RESP" | grep -q '"status":"ok"'; then
+              echo "Health check passed: $RESP"
+              # Verify version matches tag
+              TAG_VER="${{ steps.version.outputs.version }}"
+              if echo "$RESP" | grep -q "\"version\":\"$TAG_VER\""; then
+                echo "Version matches tag: $TAG_VER"
+              else
+                echo "WARNING: version mismatch! Expected $TAG_VER"
+              fi
+              # Verify NOT dev mode
+              if echo "$RESP" | grep -q '"dev_mode":false'; then
+                echo "Production mode confirmed!"
+              else
+                echo "WARNING: dev_mode should be false for release"
+              fi
+              kill $EXE_PID 2>/dev/null || true
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "FAIL: health endpoint never responded"
+          kill $EXE_PID 2>/dev/null || true
+          exit 1
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-artifacts
+          path: |
+            installer_output/YorickBuildAdvisor_Setup.exe
+            dist/YorickBuildAdvisor.exe
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: release-artifacts
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          name: Yorick Build Advisor v${{ steps.version.outputs.version }}
+          name: Yorick Build Advisor v${{ github.ref_name }}
           files: |
             installer_output/YorickBuildAdvisor_Setup.exe
             dist/YorickBuildAdvisor.exe

@@ -35,8 +35,12 @@ if sys.platform == 'win32':
 if getattr(sys, '_MEIPASS', None):
     os.chdir(sys._MEIPASS)
 
-import uvicorn
 from config import API_HOST, API_PORT
+
+# Explicit imports so PyInstaller traces the full dependency chain.
+# These are used dynamically in start_server() but PyInstaller can't see that.
+import app  # noqa: F401
+import uvicorn  # noqa: F401
 
 
 def get_install_dir():
@@ -239,6 +243,13 @@ def open_app_window(url):
 
 
 if __name__ == "__main__":
+    # Apply staged update before anything else (may exit + relaunch)
+    try:
+        from updater import check_and_apply_staged
+        check_and_apply_staged()
+    except Exception:
+        pass
+
     # Install exe to permanent location + create Start Menu shortcut for taskbar pinning
     try:
         ensure_installed()
