@@ -64,16 +64,19 @@ async function loadGuide(guideId) {
 
 function switchTab(tab) {
     currentTab = tab;
-    document.querySelectorAll('.tab-btn').forEach((btn, i) => {
-        btn.classList.toggle('active', btn.textContent.trim().toLowerCase().startsWith(tab));
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.tab === tab);
     });
     document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
     document.getElementById('panel-' + tab).classList.add('active');
 
-    // Lazy-load DDragon data for rune/item tabs
+    // Lazy-load DDragon data for tabs that need it
     if (tab === 'runes' && !runeTreeData.length) loadRuneData();
     if (tab === 'items' && !allItems.length) loadItemData();
-    if (tab === 'preview') populatePreviewDropdown();
+    if (tab === 'preview') {
+        populatePreviewDropdown();
+        if (!runeTreeData.length) loadRuneData();
+    }
 }
 
 // --- Render All ---
@@ -99,6 +102,14 @@ function updateCounts() {
     document.getElementById('count-buckets').textContent = Object.keys(d.buckets || {}).length;
 }
 
+// --- HTML Escaping ---
+
+function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+              .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
 // --- Matchup Table ---
 
 function renderMatchups() {
@@ -108,21 +119,21 @@ function renderMatchups() {
 
     tbody.innerHTML = sorted.map(([enemy, m]) => {
         const keystones = (m.keystones || []).map(k =>
-            `<span class="keystone-chip">${k}</span>`
+            `<span class="keystone-chip">${escapeHtml(k)}</span>`
         ).join('');
         const tags = (m.tags || []).map(t =>
-            `<span class="tag-chip">${t}</span>`
+            `<span class="tag-chip">${escapeHtml(t)}</span>`
         ).join('');
 
-        return `<tr data-enemy="${enemy}">
+        return `<tr data-enemy="${escapeHtml(enemy)}">
             <td><button class="edit-row-btn" onclick="editMatchup('${enemy.replace(/'/g, "\\'")}')" title="Edit">&#9998;</button></td>
-            <td><strong>${enemy}</strong></td>
-            <td><span class="diff-badge diff-${m.difficulty}">${m.difficulty}</span></td>
+            <td><strong>${escapeHtml(enemy)}</strong></td>
+            <td><span class="diff-badge diff-${escapeHtml(m.difficulty)}">${escapeHtml(m.difficulty)}</span></td>
             <td><div class="keystones-list">${keystones}</div></td>
-            <td><span style="font-size:0.8rem;color:#8888a0">${m.item_category || 'default'}</span></td>
+            <td><span style="font-size:0.8rem;color:#8888a0">${escapeHtml(m.item_category || 'default')}</span></td>
             <td>${tags}</td>
-            <td class="advice-cell" title="${(m.advice || '').replace(/"/g, '&quot;')}">${m.advice || ''}</td>
-            <td style="font-size:0.8rem;color:#8888a0">${m.summoner_spells || 'Ghost/Ignite'}</td>
+            <td class="advice-cell" title="${escapeHtml(m.advice || '')}">${escapeHtml(m.advice || '')}</td>
+            <td style="font-size:0.8rem;color:#8888a0">${escapeHtml(m.summoner_spells || 'Ghost/Ignite')}</td>
         </tr>`;
     }).join('');
 }
@@ -366,7 +377,7 @@ function renderRunePages() {
 
         return `<div class="data-card">
             <div class="data-card-header">
-                <span class="data-card-title">${name}</span>
+                <span class="data-card-title">${escapeHtml(name)}</span>
                 <button class="edit-row-btn" onclick="editRunePage('${name.replace(/'/g, "\\'")}')" title="Edit">&#9998;</button>
             </div>
             <div class="icon-row" style="margin-bottom:6px">${mainIcons}</div>
@@ -423,7 +434,7 @@ function renderItemBuilds() {
 
         return `<div class="data-card">
             <div class="data-card-header">
-                <span class="data-card-title">${name}</span>
+                <span class="data-card-title">${escapeHtml(name)}</span>
                 <button class="edit-row-btn" onclick="editItemBuild('${name.replace(/'/g, "\\'")}')" title="Edit">&#9998;</button>
             </div>
             <div class="data-card-body">
