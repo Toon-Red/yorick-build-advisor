@@ -82,13 +82,13 @@ class TestJaxMatchup:
                 f"Jax/{r.keystone}: expected MS shard, got {r.selected_perk_ids[7]}"
             )
 
-    def test_jax_difficulty_is_hard(self):
+    def test_jax_difficulty_is_extreme(self):
         results = recommend_builds("Yorick", "Jax")
-        assert results[0].difficulty == "HARD"
+        assert results[0].difficulty == "EXTREME"
 
-    def test_jax_primary_build_is_iceborn(self):
+    def test_jax_primary_build_is_vs_jax(self):
         results = recommend_builds("Yorick", "Jax")
-        assert results[0].item_build_name == "Iceborn Cleaver"
+        assert results[0].item_build_name == "VS Jax (Iceborn)"
 
     def test_jax_exhaust_mentioned(self):
         results = recommend_builds("Yorick", "Jax")
@@ -127,7 +127,16 @@ class TestTryndamereMatchup:
 
     def test_tryndamere_has_multiple_options(self):
         results = recommend_builds("Yorick", "Tryndamere")
-        assert len(results) >= 4  # Grasp-2, Grasp-1, Grasp-3, Conqueror
+        assert len(results) >= 5  # Grasp-2, Grasp-1, Grasp-3, Conqueror, Phase Rush
+
+    def test_tryndamere_has_phase_rush(self):
+        results = recommend_builds("Yorick", "Tryndamere")
+        keystones = [r.keystone for r in results]
+        assert "Phase Rush" in keystones
+
+    def test_tryndamere_uses_specific_build(self):
+        results = recommend_builds("Yorick", "Tryndamere")
+        assert results[0].item_build_name == "VS Trynd (Conqueror)"
 
 
 class TestIreliaMatchup:
@@ -143,9 +152,9 @@ class TestIreliaMatchup:
         results = recommend_builds("Yorick", "Irelia")
         assert "Exhaust" in results[0].summoners
 
-    def test_irelia_iceborn_build(self):
+    def test_irelia_specific_build(self):
         results = recommend_builds("Yorick", "Irelia")
-        assert results[0].item_build_name == "Iceborn Cleaver"
+        assert results[0].item_build_name == "VS Irelia"
 
 
 class TestTeemoMatchup:
@@ -209,9 +218,9 @@ class TestResolveAdaptation:
 
 
 class TestItemPaths:
-    def test_jax_gets_iceborn(self):
+    def test_jax_gets_vs_jax_build(self):
         results = recommend_builds("Yorick", "Jax")
-        assert results[0].item_build_name == "Iceborn Cleaver"
+        assert results[0].item_build_name == "VS Jax (Iceborn)"
 
     def test_mundo_gets_liandry(self):
         results = recommend_builds("Yorick", "Dr. Mundo")

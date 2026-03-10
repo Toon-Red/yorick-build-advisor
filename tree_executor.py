@@ -286,6 +286,11 @@ def _exec_set(node: dict, ctx: _Context) -> None:
         elif ref_type == "bucket":
             # Store bucket name for later use (value is a bucket name string)
             ctx.set(key, raw_value)
+        elif ref_type == "item_category":
+            # Map item category string to actual build name
+            resolved = ctx.get(raw_value) if "." in raw_value else raw_value
+            build_name = _item_category_to_build_name(resolved or "default")
+            ctx.set(key, build_name)
         elif ref_type == "item_build":
             # Item build reference — store the name string
             ctx.set(key, raw_value)
@@ -821,6 +826,14 @@ def _item_category_to_build_name(category: str) -> str:
         "sundered_sky": "Sundered Sky Rush",
         "liandry_shred": "Liandry Tank Shred",
         "vs_morde": "VS Morde",
+        "vs_trynd_conq": "VS Trynd (Conqueror)",
+        "vs_trynd_iceborn": "VS Trynd (Iceborn Old)",
+        "vs_jax_iceborn": "VS Jax (Iceborn)",
+        "vs_jax_shojin": "VS Jax (Shojin)",
+        "vs_trundle": "VS Trundle",
+        "vs_irelia": "VS Irelia",
+        "vs_ranged": "VS Ranged Top",
+        "default_titanic": "Default Titanic Path",
     }
     return mapping.get(category, "Default BBC")
 

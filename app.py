@@ -21,9 +21,7 @@ import uvicorn
 
 from config import API_PORT, API_HOST
 
-# Enable LCU debug logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(name)s %(levelname)s: %(message)s")
-logging.getLogger("lcu").setLevel(logging.DEBUG)
 
 # Shard icon lookup (DDragon StatMods — CommunityDragon blocks non-browser user agents)
 _DDRAGON_SHARDS = "https://ddragon.leagueoflegends.com/cdn/img/perk-images/StatMods"
@@ -324,12 +322,11 @@ async def build_query_multi(req: MultiBuildRequest):
 async def lcu_status():
     connected = await lcu_client.connect()
     result = {"connected": connected}
-    # Include diagnostic info for debugging
-    creds = lcu_client.read_lockfile()
-    if creds:
-        result["port"] = creds.port
-        result["pid"] = creds.pid
-    else:
+    # Use cached creds from connect() — avoid re-reading lockfile
+    if lcu_client._creds:
+        result["port"] = lcu_client._creds.port
+        result["pid"] = lcu_client._creds.pid
+    elif not connected:
         result["lockfile_exists"] = lcu_client.lockfile_path.exists()
         result["lockfile_path"] = str(lcu_client.lockfile_path)
     return result
@@ -349,9 +346,11 @@ async def champ_select_stream(request: Request):
             connected = await lcu_client.connect()
             if not connected:
                 yield f"data: {json.dumps({'type': 'disconnected'})}\n\n"
-                await asyncio.sleep(5)
+                # Back off: 15s base, up to 30s as idle count grows
+                backoff = min(15 + idle_count, 30)
+                await asyncio.sleep(backoff)
                 idle_count += 1
-                if idle_count > 60:  # 5 minutes of no LCU
+                if idle_count > 20:  # ~5-10 minutes of no LCU
                     break
                 continue
 

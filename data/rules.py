@@ -231,18 +231,24 @@ def item_path(enemy: str, category_override: str | None = None) -> str:
     cat = category_override or "default"
 
     # Category overrides from matchup table
-    if cat == "iceborn_cleaver":
-        return "Iceborn Cleaver"
-    elif cat == "titanic_breaker":
-        return "Titanic Breaker"
-    elif cat == "eclipse_poke":
-        return "Eclipse Poke"
-    elif cat == "sundered_sky":
-        return "Sundered Sky Rush"
-    elif cat == "liandry_shred":
-        return "Liandry Tank Shred"
-    elif cat == "vs_morde":
-        return "VS Morde"
+    CATEGORY_MAP = {
+        "iceborn_cleaver": "Iceborn Cleaver",
+        "titanic_breaker": "Titanic Breaker",
+        "eclipse_poke": "Eclipse Poke",
+        "sundered_sky": "Sundered Sky Rush",
+        "liandry_shred": "Liandry Tank Shred",
+        "vs_morde": "VS Morde",
+        "vs_trynd_conq": "VS Trynd (Conqueror)",
+        "vs_trynd_iceborn": "VS Trynd (Iceborn Old)",
+        "vs_jax_iceborn": "VS Jax (Iceborn)",
+        "vs_jax_shojin": "VS Jax (Shojin)",
+        "vs_trundle": "VS Trundle",
+        "vs_irelia": "VS Irelia",
+        "vs_ranged": "VS Ranged Top",
+        "default_titanic": "Default Titanic Path",
+    }
+    if cat in CATEGORY_MAP:
+        return CATEGORY_MAP[cat]
 
     # Champion-specific fallbacks
     buckets = get_buckets()

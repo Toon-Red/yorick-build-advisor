@@ -57,6 +57,7 @@ class LCUClient:
         self.lockfile_path = lockfile_path
         self._creds: LCUCredentials | None = None
         self._client: httpx.AsyncClient | None = None
+        self._lockfile_missing_logged: bool = False
 
     @property
     def connected(self) -> bool:
@@ -78,9 +79,12 @@ class LCUClient:
                 pid=int(parts[1]),
             )
             log.debug("Lockfile parsed: port=%d pid=%d", creds.port, creds.pid)
+            self._lockfile_missing_logged = False  # Reset so we log again if it disappears later
             return creds
         except FileNotFoundError:
-            log.debug("Lockfile not found: %s", self.lockfile_path)
+            if not self._lockfile_missing_logged:
+                log.info("League client not running (no lockfile at %s)", self.lockfile_path)
+                self._lockfile_missing_logged = True
             return None
         except (ValueError, IndexError) as e:
             log.warning("Lockfile parse error: %s", e)

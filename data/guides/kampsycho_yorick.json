@@ -21,7 +21,7 @@
         "exhaust_viable": false,
         "summoner_spells": "Ghost/Ignite",
         "special_note": "",
-        "advice": "Dodge Q sweetspots. W him when he Qs. Ghouls body-block Q. Post-6 with Maiden you win extended trades if he misses Q."
+        "advice": "Dodge Q sweetspots. W him when he Qs (traps him mid-animation). Ghouls body-block Q. Post-6 with Maiden you win extended trades if he misses Q. Conqueror for sustained DPS."
       },
       "Akali": {
         "difficulty": "Advanced",
@@ -237,7 +237,7 @@
         "advice": "He can't kill you. Dodge Q cleavers. Liandry's burn shreds his HP stacking. Split push wins."
       },
       "Fiora": {
-        "difficulty": "Medium",
+        "difficulty": "HARD",
         "keystones": [
           "Grasp-1",
           "Conqueror"
@@ -251,7 +251,7 @@
         "exhaust_viable": false,
         "summoner_spells": "Ghost/Ignite",
         "special_note": "",
-        "advice": "Iceborn rush. She parries W \u2014 never W predictably. Fight only with 4 ghouls + Maiden. Hug walls to deny vitals."
+        "advice": "Can't outtrade her easily. Q her every time she goes for a vital, don't go for Graves. Just Q her till she stops, back off when she uses W - if your wall shoves her during parry it stuns you. Grasp + Iceborn. She dies unlike Trynd, but riposte is brutal."
       },
       "Gangplank": {
         "difficulty": "Easy",
@@ -324,7 +324,7 @@
         "advice": "Sundered Sky rush + Second Wind. His body slam goes through W. Grasp-2 with Manaflow and Scorch."
       },
       "Gwen": {
-        "difficulty": "EXTREME",
+        "difficulty": "HARD",
         "keystones": [
           "Comet",
           "Aery",
@@ -337,11 +337,11 @@
           "vs_true_damage",
           "vs_ap"
         ],
-        "shard_override": null,
+        "shard_override": "AF",
         "exhaust_viable": false,
         "summoner_spells": "Ghost/Ignite",
         "special_note": "",
-        "advice": "Her W zone makes ghouls useless. Fight OUTSIDE her W. Weak early, strong mid. W her, walk out of W zone. Phase Rush escapes her R slow."
+        "advice": "Her W zone makes ghouls useless inside it. Poke with E from outside W. Phase Rush gives slow resistance vs her ult/Rylai's. Conqueror for extended trades if she W's early."
       },
       "Heimerdinger": {
         "difficulty": "Advanced",
@@ -362,7 +362,7 @@
         "advice": "Turrets zone you hard. Ghouls die to turrets. Farm safely, build MR. He's immobile \u2014 call for ganks."
       },
       "Illaoi": {
-        "difficulty": "Easy",
+        "difficulty": "Medium",
         "keystones": [
           "Conqueror",
           "Comet",
@@ -385,7 +385,7 @@
           "Conqueror",
           "Hail of Blades"
         ],
-        "item_category": "iceborn_cleaver",
+        "item_category": "vs_irelia",
         "tags": [
           "vs_fighter",
           "vs_dash"
@@ -394,16 +394,17 @@
         "exhaust_viable": true,
         "summoner_spells": "Exhaust/TP",
         "special_note": "BAN HER",
-        "advice": "BAN HER. Her Q one-shots ghouls and stacks passive. W to cancel Q chain. Iceborn + anti-heal rush."
+        "advice": "BAN HER. Irelia's Q counts as auto, one-shots Ghouls, stacks passive -> you auto-lose. If not banned: Exhaust + Grasp, Sheen rush into anti-heal (Bramble/Executioner's early), then Iceborn or Triforce into Titanic + Frozen Heart."
       },
       "Jax": {
-        "difficulty": "HARD",
+        "difficulty": "EXTREME",
         "keystones": [
           "Grasp-1",
           "Comet",
-          "Aery"
+          "Aery",
+          "Phase Rush"
         ],
-        "item_category": "iceborn_cleaver",
+        "item_category": "vs_jax_iceborn",
         "tags": [
           "vs_fighter"
         ],
@@ -411,7 +412,7 @@
         "exhaust_viable": true,
         "summoner_spells": "Ghost/Ignite",
         "special_note": "",
-        "advice": "Iceborn rush. W him when he Es to trap him. MS shard critical (350 vs 340). Aery+Bramble trick viable."
+        "advice": "Dodges all our DMG but E. Dashes over wall, out-duels. ALWAYS Grasp + MS shard + Sheen rush into Iceborn. Bait his jump, W him, trade, back off, repeat till he dies. Aery + Bramble trick viable. Phase Rush: wall him as he jumps, kite when counter strike is up, fight when it's down."
       },
       "Jayce": {
         "difficulty": "Medium",
@@ -473,7 +474,7 @@
           "Comet",
           "Aery"
         ],
-        "item_category": "default",
+        "item_category": "vs_ranged",
         "tags": [
           "vs_ranged",
           "vs_ap"
@@ -482,7 +483,7 @@
         "exhaust_viable": false,
         "summoner_spells": "Ghost/Ignite",
         "special_note": "",
-        "advice": "Poke with E+ghouls. Don't stack near ghouls (he stuns everyone). W him when he Es in for R. Bramble+Aery trick."
+        "advice": "Ranged stun + disengage. E max + Comet/Aery. D. Shield start. Don't stack near ghouls (his ult AoE). W him when he E's in for stun."
       },
       "Kled": {
         "difficulty": "HARD",
@@ -499,7 +500,7 @@
         "exhaust_viable": false,
         "summoner_spells": "Ghost/Ignite",
         "special_note": "",
-        "advice": "Iceborn rush. W him when he dismounts to deny remount. Ghouls body-block his Q."
+        "advice": "His E has a bug that one-shots pets, can dash over wall if it already hits you. Q has anti-heal, wins every trade. Can dive you easily. Too weak early to kill before he remounts. Play safe, outscale."
       },
       "Malphite": {
         "difficulty": "Medium",
@@ -551,7 +552,7 @@
         "exhaust_viable": false,
         "summoner_spells": "Ghost/Ignite",
         "special_note": "",
-        "advice": "CRITICAL: His R steals Maiden. Phase Rush escapes Rylai's. Ghouls DON'T follow into Death Realm. Maiden DOES."
+        "advice": "His R steals Maiden stats. Phase Rush escapes Rylai's slow + Death Realm. Long Sword + Null-Magic Mantle start. BC first for armor shred, Force of Nature for MR + MS. Serpent's Fang if he shields."
       },
       "Naafiri": {
         "difficulty": "Medium",
@@ -586,7 +587,7 @@
         "exhaust_viable": false,
         "summoner_spells": "Ghost/Ignite",
         "special_note": "",
-        "advice": "Punish early. WARNING: ghouls give him free Q stacks. Freeze when possible. Phase Rush kites his wither."
+        "advice": "Punish early before he stacks. WARNING: ghouls give free Q stacks. Conqueror for extended fights. Adaptive shard (he's squishy early). Phase Rush to chase him down. Don't let him free-farm."
       },
       "Nocturne": {
         "difficulty": "HARD",
@@ -692,7 +693,7 @@
         "advice": "E max with Eclipse. W her when she vaults in. You outscale massively. Bramble+Aery trick."
       },
       "Renekton": {
-        "difficulty": "EXTREME",
+        "difficulty": "HARD",
         "keystones": [
           "Grasp-2",
           "Grasp-3",
@@ -707,7 +708,7 @@
         "exhaust_viable": true,
         "summoner_spells": "Ghost/Ignite",
         "special_note": "",
-        "advice": "Insane early burst with empowered W. Iceborn rush + Bone Plating mandatory. Don't fight at 50+ fury. Survive to 2 items."
+        "advice": "Lane Bully, dashes over wall, heals off your pets, double dashes so you can't catch him. You outscale but he snowballs harder. Be careful early, give up CS if needed. Exhaust + Unflinching. Iceborn rush for armor + slow."
       },
       "Riven": {
         "difficulty": "HARD",
@@ -796,7 +797,7 @@
         "exhaust_viable": false,
         "summoner_spells": "Ghost/Ignite",
         "special_note": "",
-        "advice": "Dodge W true damage center. Bone Plating + Unflinching mandatory. W him during E pull. Tiamat \u2192 Titanic. HoB outburst viable."
+        "advice": "Dodge W true damage center. Don't stand in grit bar direction. Unflinching + Bone Plating. Tiamat -> Titanic. His E pulls you into W."
       },
       "Shen": {
         "difficulty": "Medium",
@@ -874,7 +875,7 @@
           "Comet",
           "Aery"
         ],
-        "item_category": "default",
+        "item_category": "vs_ranged",
         "tags": [
           "vs_ranged",
           "vs_scaling"
@@ -883,10 +884,10 @@
         "exhaust_viable": false,
         "summoner_spells": "Ghost/Ignite",
         "special_note": "",
-        "advice": "He scales hard \u2014 punish early. Zone with ghouls. Push for plates. E max Eclipse if you want to all-in."
+        "advice": "He scales hard - punish early before stacks. E max + Comet/Aery poke. D. Shield start. He's squishy early, all-in with ghouls + Maiden post-6."
       },
       "Swain": {
-        "difficulty": "Medium",
+        "difficulty": "Easy",
         "keystones": [
           "Aery",
           "Comet",
@@ -904,7 +905,7 @@
         "advice": "Dodge E root. Build MR. Push hard \u2014 poor waveclear early. W him to deny escape."
       },
       "Sylas": {
-        "difficulty": "Easy",
+        "difficulty": "Medium",
         "keystones": [
           "Grasp-2",
           "Grasp-3",
@@ -940,7 +941,7 @@
         "advice": "He's tanky with grey health but can't kill you. Don't get hit by Q tongue 3 times. Push freely."
       },
       "Teemo": {
-        "difficulty": "Advanced",
+        "difficulty": "Medium",
         "keystones": [
           "Aery",
           "Comet"
@@ -964,7 +965,7 @@
           "Conqueror",
           "Phase Rush"
         ],
-        "item_category": "titanic_breaker",
+        "item_category": "vs_trundle",
         "tags": [
           "vs_fighter",
           "vs_stat_steal"
@@ -973,7 +974,7 @@
         "exhaust_viable": false,
         "summoner_spells": "Ghost/Ignite",
         "special_note": "",
-        "advice": "His R steals stats \u2014 don't R first. Tiamat rush into BC. Executioner's if he builds Ravenous Hydra."
+        "advice": "His R steals your stats. Conqueror + MS shard. Tiamat rush for waveclear, then BC for shred. Buy Executioner's if he finishes Ravenous Hydra. Phase Rush viable if he builds Rylai's."
       },
       "Tryndamere": {
         "difficulty": "EXTREME",
@@ -981,9 +982,10 @@
           "Grasp-2",
           "Grasp-1",
           "Grasp-3",
-          "Conqueror"
+          "Conqueror",
+          "Phase Rush"
         ],
-        "item_category": "iceborn_cleaver",
+        "item_category": "vs_trynd_conq",
         "tags": [
           "vs_fighter",
           "vs_crit",
@@ -993,7 +995,7 @@
         "exhaust_viable": true,
         "summoner_spells": "Exhaust/TP",
         "special_note": "",
-        "advice": "Iceborn rush + Titanic. Exhaust mandatory. W him when he spins in. Disengage when he ults (5s)."
+        "advice": "Won't die, dashes over wall, out-DPS/outtrades you. Take Conqueror + Exhaust. Rush Tabis + HP item. If losing early finish Titanic first, then BC + armor (Randuin's/DMP). Phase Rush viable to escape his W slow. W him when he spins in, disengage when he ults (5s)."
       },
       "Udyr": {
         "difficulty": "Medium",
@@ -1053,7 +1055,7 @@
           "Comet",
           "Aery"
         ],
-        "item_category": "default",
+        "item_category": "vs_ranged",
         "tags": [
           "vs_ranged",
           "vs_adc_top",
@@ -1063,10 +1065,10 @@
         "exhaust_viable": false,
         "summoner_spells": "Ghost/Ignite",
         "special_note": "",
-        "advice": "She kites and shreds with %HP true damage. Second Wind + D Shield. Bramble+Aery trick. Outscale at 2 items."
+        "advice": "Ranged + %HP true damage. Adaptive shard (HP helps her deal MORE damage). D. Shield start + Second Wind. Bramble Vest + Aery trick. E max with Comet/Aery. Outscale at 2 items. Don't chase - W her if she tumbles in."
       },
       "Vladimir": {
-        "difficulty": "Medium",
+        "difficulty": "Easy",
         "keystones": [
           "Conqueror",
           "Comet",
@@ -1098,7 +1100,7 @@
         "exhaust_viable": false,
         "summoner_spells": "Ghost/Ignite",
         "special_note": "",
-        "advice": "Wins early all-ins. Don't fight 1-3. His R disables tower. Grasp-2 with Unflinching. Post-6 with Maiden can match."
+        "advice": "Wins early all-ins, don't fight levels 1-3. Grasp-2 + Second Wind + Unflinching. He has stun + burst. Respect his passive damage. Outscale post-6 with Maiden."
       },
       "Warwick": {
         "difficulty": "EXTREME",
@@ -1166,7 +1168,7 @@
         "exhaust_viable": true,
         "summoner_spells": "Ghost/Ignite",
         "special_note": "",
-        "advice": "W where he'll snap back from E. Conqueror + MS shard. Tiamat \u2192 Titanic. Ghouls body-block his R."
+        "advice": "W where he'll snap back from E. MS shard critical. Tiamat -> Titanic rush. Exhaust when he all-ins. HoB viable for burst trades. Do NOT let him stack Lethal Tempo for free."
       },
       "Yorick": {
         "difficulty": "Easy",
@@ -2279,21 +2281,30 @@
         "Anti-Tank",
         "Shojin Hull",
         "VS Jax (Iceborn)",
-        "VS Irelia"
+        "VS Irelia",
+        "VS Trynd (Conqueror)",
+        "VS Trynd (Iceborn Old)",
+        "VS Jax (Shojin)"
       ],
       "Grasp-2": [
         "Default BBC",
         "Iceborn Cleaver",
         "Titanic Breaker",
         "Sundered Sky Rush",
-        "Anti-AP"
+        "Anti-AP",
+        "VS Trynd (Conqueror)",
+        "VS Trynd (Iceborn Old)",
+        "VS Jax (Iceborn)",
+        "VS Jax (Shojin)"
       ],
       "Grasp-3": [
         "Default BBC",
         "Iceborn Cleaver",
         "Anti-AP",
         "Sundered Sky Rush",
-        "Anti-Tank"
+        "Anti-Tank",
+        "VS Trynd (Conqueror)",
+        "VS Trynd (Iceborn Old)"
       ],
       "Grasp-4": [
         "Default BBC",
@@ -2312,7 +2323,9 @@
         "VS Trundle",
         "VS Trynd (Conqueror)",
         "VS Morde",
-        "Default Titanic Path"
+        "Default Titanic Path",
+        "VS Trynd (Iceborn Old)",
+        "VS Irelia"
       ],
       "Comet": [
         "Default BBC",
@@ -2321,21 +2334,30 @@
         "Liandry Tank Shred",
         "Anti-AP",
         "Anti-Tank",
-        "VS Jax (Shojin)"
+        "VS Jax (Shojin)",
+        "VS Jax (Iceborn)",
+        "VS Ranged Top"
       ],
       "Aery": [
         "Default BBC",
         "Shojin Hull",
         "Eclipse Poke",
         "Anti-AP",
-        "VS Ranged Top"
+        "VS Ranged Top",
+        "VS Jax (Iceborn)",
+        "VS Jax (Shojin)"
       ],
       "Phase Rush": [
         "Speed Rick",
         "Default BBC",
         "Iceborn Cleaver",
         "Anti-AP",
-        "VS Morde"
+        "VS Morde",
+        "VS Trynd (Conqueror)",
+        "VS Trynd (Iceborn Old)",
+        "VS Trundle",
+        "VS Jax (Iceborn)",
+        "VS Jax (Shojin)"
       ],
       "First Strike": [
         "Default BBC",
@@ -2347,7 +2369,8 @@
         "Default BBC",
         "Lethal Splitpush",
         "Titanic Breaker",
-        "Iceborn Cleaver"
+        "Iceborn Cleaver",
+        "VS Irelia"
       ]
     },
     "resolve_overrides": {
@@ -2970,9 +2993,9 @@
             "id": "n_49",
             "type": "IF",
             "condition": {
-              "field": "matchup_item_category",
-              "op": "is_not_null",
-              "value": null
+              "field": "matchup.item_category",
+              "op": "neq",
+              "value": "default"
             },
             "label": "Matchup has item category override?",
             "children_true": [
@@ -2983,7 +3006,7 @@
                   {
                     "key": "item_build",
                     "value": "matchup.item_category",
-                    "ref_type": "lookup"
+                    "ref_type": "item_category"
                   }
                 ],
                 "children": []
