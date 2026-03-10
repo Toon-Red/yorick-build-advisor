@@ -25,18 +25,18 @@ from config import API_PORT, API_HOST
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(name)s %(levelname)s: %(message)s")
 logging.getLogger("lcu").setLevel(logging.DEBUG)
 
-# Shard icon lookup (Community Dragon assets)
-_CDRAGON_SHARDS = "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/statmods"
+# Shard icon lookup (DDragon StatMods — CommunityDragon blocks non-browser user agents)
+_DDRAGON_SHARDS = "https://ddragon.leagueoflegends.com/cdn/img/perk-images/StatMods"
 SHARD_INFO = {
-    5008: {"name": "Adaptive Force", "icon": f"{_CDRAGON_SHARDS}/statmodsadaptiveforceicon.png"},
-    5005: {"name": "Attack Speed", "icon": f"{_CDRAGON_SHARDS}/statmodsattackspeedicon.png"},
-    5007: {"name": "Ability Haste", "icon": f"{_CDRAGON_SHARDS}/statmodscdrscalingicon.png"},
-    5010: {"name": "Move Speed", "icon": f"{_CDRAGON_SHARDS}/statmodsmovementspeedicon.png"},
-    5002: {"name": "Armor", "icon": f"{_CDRAGON_SHARDS}/statmodsarmoricon.png"},
-    5003: {"name": "Magic Resist", "icon": f"{_CDRAGON_SHARDS}/statmodsmagicresicon.png"},
-    5001: {"name": "Health (flat)", "icon": f"{_CDRAGON_SHARDS}/statmodshealthplusicon.png"},
-    5011: {"name": "Health (scaling)", "icon": f"{_CDRAGON_SHARDS}/statmodshealthscalingicon.png"},
-    5013: {"name": "Tenacity/Slow Resist", "icon": f"{_CDRAGON_SHARDS}/statmodstenacityicon.png"},
+    5008: {"name": "Adaptive Force", "icon": f"{_DDRAGON_SHARDS}/StatModsAdaptiveForceIcon.png"},
+    5005: {"name": "Attack Speed", "icon": f"{_DDRAGON_SHARDS}/StatModsAttackSpeedIcon.png"},
+    5007: {"name": "Ability Haste", "icon": f"{_DDRAGON_SHARDS}/StatModsCDRScalingIcon.png"},
+    5010: {"name": "Move Speed", "icon": f"{_DDRAGON_SHARDS}/StatModsMovementSpeedIcon.png"},
+    5002: {"name": "Armor", "icon": f"{_DDRAGON_SHARDS}/StatModsArmorIcon.png"},
+    5003: {"name": "Magic Resist", "icon": f"{_DDRAGON_SHARDS}/StatModsMagicResIcon.png"},
+    5001: {"name": "Health (flat)", "icon": f"{_DDRAGON_SHARDS}/StatModsHealthPlusIcon.png"},
+    5011: {"name": "Health (scaling)", "icon": f"{_DDRAGON_SHARDS}/StatModsHealthScalingIcon.png"},
+    5013: {"name": "Tenacity/Slow Resist", "icon": f"{_DDRAGON_SHARDS}/StatModsTenacityIcon.png"},
 }
 from engine import recommend_builds, recommend_builds_multi, build_option_to_dict
 from scrapers.ddragon import DataDragon
