@@ -20,6 +20,11 @@ let lcuConnected = false;
 // --- Init ---
 
 async function init() {
+    // Force auto-import checkboxes off (prevent Edge from restoring cached state)
+    document.getElementById('auto-runes').checked = false;
+    document.getElementById('auto-items').checked = false;
+    document.getElementById('auto-spells').checked = false;
+
     await loadChampions();
     await checkLCU();
     setupEventListeners();
@@ -111,9 +116,17 @@ async function checkLCU() {
         if (data.connected) {
             badge.textContent = 'LCU: Connected';
             badge.className = 'lcu-badge lcu-on';
+            badge.title = `Port ${data.port} | PID ${data.pid}`;
         } else {
             badge.textContent = 'LCU: Off';
             badge.className = 'lcu-badge lcu-off';
+            if (data.port) {
+                badge.title = `Port ${data.port} unreachable (PID ${data.pid})`;
+            } else if (data.lockfile_exists === false) {
+                badge.title = `Lockfile not found: ${data.lockfile_path}`;
+            } else {
+                badge.title = 'League client not detected';
+            }
         }
     } catch {
         lcuConnected = false;
@@ -187,7 +200,7 @@ function handleSSEEvent(data) {
             const enemySelect = document.getElementById('enemy-select');
             enemySelect.value = data.predicted_opponent;
             // Auto-generate build
-            generateBuildForEnemy(data.predicted_opponent);
+            generateBuildForEnemy(data.predicted_opponent, true);
         }
     }
 }
@@ -282,7 +295,7 @@ function selectAllEnemies() {
 
 // --- Build Generation ---
 
-async function generateBuildForEnemy(enemyName) {
+async function generateBuildForEnemy(enemyName, autoImport = false) {
     const champion = document.getElementById('champion-select').value;
     try {
         const resp = await fetch(`${API}/api/build/query`, {
@@ -293,7 +306,7 @@ async function generateBuildForEnemy(enemyName) {
         const data = await resp.json();
         lastBuildData = data;
         renderResults(data);
-        handleAutoImport(data);
+        if (autoImport) handleAutoImport(data);
     } catch (e) {
         console.error('Build query failed:', e);
     }
@@ -317,7 +330,6 @@ async function generateMultiBuild() {
         const data = await resp.json();
         lastBuildData = data;
         renderResults(data);
-        handleAutoImport(data);
     } catch (e) {
         console.error('Multi-build query failed:', e);
     }
@@ -351,11 +363,13 @@ async function generateBuild() {
 // --- Auto Import ---
 
 function handleAutoImport(data) {
-    if (!data || !data.options || !data.options.length) return;
+    // Auto-import from first profile's first option
+    const profiles = data.profiles || [];
+    if (!profiles.length || !profiles[0].options.length) return;
 
     clearTimeout(autoImportDebounce);
     autoImportDebounce = setTimeout(async () => {
-        const opt = data.options[0]; // Import the top recommendation
+        const opt = profiles[0].options[0];
         const doRunes = document.getElementById('auto-runes').checked;
         const doItems = document.getElementById('auto-items').checked;
         const doSpells = document.getElementById('auto-spells').checked;
@@ -363,7 +377,7 @@ function handleAutoImport(data) {
         if (doRunes) await importRunesData(opt);
         if (doItems) await importItemsData(data.champion, opt);
         if (doSpells) await importSpellsData(opt);
-    }, 2000); // 2s debounce to avoid spam during rapid picks
+    }, 2000);
 }
 
 // --- Render Results ---
@@ -382,27 +396,83 @@ function renderResults(data) {
     const list = document.getElementById('results-list');
     list.innerHTML = '';
 
-    data.options.forEach((opt, i) => {
-        const card = document.createElement('div');
-        card.className = 'build-option' + (i === 0 ? ' expanded' : '');
+    const profiles = data.profiles || [];
 
-        card.innerHTML = `
-            <div class="option-header" onclick="toggleOption(this)">
-                <span class="option-number">${i === 0 ? '<span class="option-star">★</span>' : '#' + (i + 1)}</span>
-                <span class="option-keystone">${opt.keystone}</span>
-                <span class="option-build-name">— ${opt.item_build_name}</span>
-                <span class="option-expand">${i === 0 ? '▼' : '▶'}</span>
-            </div>
-            <div class="option-body">
-                ${renderOptionBody(opt, i)}
-            </div>
+    // Backwards compat: if old format (data.options), wrap it
+    if (!profiles.length && data.options) {
+        profiles.push({
+            guide_id: '_legacy', guide_name: 'Built-in Engine',
+            author: 'System', options: data.options, count: data.options.length,
+        });
+    }
+
+    let globalIdx = 0;
+    profiles.forEach((profile, pi) => {
+        const profileDiv = document.createElement('div');
+        profileDiv.className = 'profile-group';
+        profileDiv.dataset.profileId = profile.guide_id;
+
+        const profileHeader = document.createElement('div');
+        profileHeader.className = 'profile-header';
+        profileHeader.innerHTML = `
+            <button class="profile-toggle" onclick="toggleProfile(this)" title="Minimize/Expand">▼</button>
+            <span class="profile-name">${profile.guide_name}</span>
+            <span class="profile-author">by ${profile.author}</span>
+            <span class="profile-count">${profile.count} option${profile.count !== 1 ? 's' : ''}</span>
+            <label class="profile-hide-label"><input type="checkbox" class="profile-hide-check" onchange="toggleProfileVisibility(this)"> Hide</label>
         `;
+        profileDiv.appendChild(profileHeader);
 
-        list.appendChild(card);
+        const profileBody = document.createElement('div');
+        profileBody.className = 'profile-body';
+
+        profile.options.forEach((opt, i) => {
+            const card = document.createElement('div');
+            const isFirst = (pi === 0 && i === 0);
+            card.className = 'build-option' + (isFirst ? ' expanded' : '');
+
+            card.innerHTML = `
+                <div class="option-header" onclick="toggleOption(this)">
+                    <span class="option-number">${isFirst ? '<span class="option-star">★</span>' : '#' + (globalIdx + 1)}</span>
+                    <span class="option-keystone">${opt.keystone}</span>
+                    <span class="option-build-name">— ${opt.item_build_name}</span>
+                    <span class="option-expand">${isFirst ? '▼' : '▶'}</span>
+                </div>
+                <div class="option-body">
+                    ${renderOptionBody(opt, pi, i)}
+                </div>
+            `;
+
+            profileBody.appendChild(card);
+            globalIdx++;
+        });
+
+        profileDiv.appendChild(profileBody);
+        list.appendChild(profileDiv);
     });
 }
 
-function renderOptionBody(opt, index) {
+function toggleProfile(btn) {
+    const body = btn.closest('.profile-group').querySelector('.profile-body');
+    const isCollapsed = body.style.display === 'none';
+    body.style.display = isCollapsed ? '' : 'none';
+    btn.textContent = isCollapsed ? '▼' : '▶';
+}
+
+function toggleProfileVisibility(checkbox) {
+    const group = checkbox.closest('.profile-group');
+    const body = group.querySelector('.profile-body');
+    const header = group.querySelector('.profile-header');
+    if (checkbox.checked) {
+        body.style.display = 'none';
+        header.classList.add('profile-hidden');
+    } else {
+        body.style.display = '';
+        header.classList.remove('profile-hidden');
+    }
+}
+
+function renderOptionBody(opt, profileIdx, optIdx) {
     const runeIcons = opt.rune_details.map(r =>
         `<img class="rune-icon" src="${r.icon}" alt="${r.name}" title="${r.name}">`
     ).join('');
@@ -437,7 +507,7 @@ function renderOptionBody(opt, index) {
         </div>
         <div class="detail-row">
             <span class="detail-label">Summoners</span>
-            <div class="detail-value">${opt.summoners}</div>
+            <div class="detail-value icon-row">${renderSpellIcons(opt.summoners)}</div>
         </div>
         <div class="detail-row">
             <span class="detail-label">Starter</span>
@@ -459,12 +529,39 @@ function renderOptionBody(opt, index) {
             <div class="detail-value icon-row">${sitIcons}</div>
         </div>
         <div class="reasoning-text">"${opt.reasoning}"</div>
-        <div class="import-buttons">
-            <button class="btn-import" onclick="importRunes(${index})">Import Runes</button>
-            <button class="btn-import" onclick="importItems(${index})">Import Items</button>
-            <button class="btn-import" onclick="importSpells(${index})">Import Spells</button>
+        <div class="import-buttons" data-pi="${profileIdx}" data-oi="${optIdx}">
+            <button class="btn-import" onclick="importRunes(${profileIdx},${optIdx})">Import Runes</button>
+            <button class="btn-import" onclick="importItems(${profileIdx},${optIdx})">Import Items</button>
+            <button class="btn-import" onclick="importSpells(${profileIdx},${optIdx})">Import Spells</button>
         </div>
     `;
+}
+
+const SPELL_KEYS = {
+    'ghost': 'SummonerHaste', 'ignite': 'SummonerDot', 'flash': 'SummonerFlash',
+    'exhaust': 'SummonerExhaust', 'tp': 'SummonerTeleport', 'teleport': 'SummonerTeleport',
+    'barrier': 'SummonerBarrier', 'heal': 'SummonerHeal', 'cleanse': 'SummonerBoost',
+    'smite': 'SummonerSmite',
+};
+
+function renderSpellIcons(summonerText) {
+    if (!summonerText) return '';
+    // Extract spell names: "Ghost/Ignite", "Exhaust viable (Ghost/Ignite default)", etc.
+    // Find the primary pair (first X/Y pattern)
+    const pairMatch = summonerText.match(/(\w+)\s*\/\s*(\w+)/);
+    let spells = [];
+    if (pairMatch) {
+        spells = [pairMatch[1], pairMatch[2]];
+    }
+    const icons = spells.map(s => {
+        const key = SPELL_KEYS[s.toLowerCase()];
+        if (!key) return `<span class="spell-name">${s}</span>`;
+        const url = `https://ddragon.leagueoflegends.com/cdn/${ddragonVersion}/img/spell/${key}.png`;
+        return `<img class="rune-icon" src="${url}" alt="${s}" title="${s}">`;
+    }).join('');
+    // Show the full text too for context (e.g. "Exhaust viable")
+    const extraText = summonerText.replace(/(\w+)\s*\/\s*(\w+)/, '').replace(/[()]/g, '').trim();
+    return icons + (extraText ? `<span style="margin-left:8px;font-size:0.8rem;color:#6b6b80">${extraText}</span>` : '');
 }
 
 function renderItemIcon(opt, itemId) {
@@ -482,25 +579,32 @@ function toggleOption(headerEl) {
 
 // --- LCU Import (manual button clicks) ---
 
-async function importRunes(index) {
-    if (!lastBuildData) return;
-    const opt = lastBuildData.options[index];
+function getOption(pi, oi) {
+    if (!lastBuildData) return null;
+    const profiles = lastBuildData.profiles || [];
+    if (!profiles[pi] || !profiles[pi].options[oi]) return null;
+    return profiles[pi].options[oi];
+}
+
+async function importRunes(pi, oi) {
+    const opt = getOption(pi, oi);
+    if (!opt) { console.error('importRunes: no option at', pi, oi); return; }
     const result = await importRunesData(opt);
-    flashButton(index, 'runes', result);
+    flashButton(pi, oi, 'runes', result);
 }
 
-async function importItems(index) {
-    if (!lastBuildData) return;
-    const opt = lastBuildData.options[index];
+async function importItems(pi, oi) {
+    const opt = getOption(pi, oi);
+    if (!opt) { console.error('importItems: no option at', pi, oi); return; }
     const result = await importItemsData(lastBuildData.champion, opt);
-    flashButton(index, 'items', result);
+    flashButton(pi, oi, 'items', result);
 }
 
-async function importSpells(index) {
-    if (!lastBuildData) return;
-    const opt = lastBuildData.options[index];
+async function importSpells(pi, oi) {
+    const opt = getOption(pi, oi);
+    if (!opt) { console.error('importSpells: no option at', pi, oi); return; }
     const result = await importSpellsData(opt);
-    flashButton(index, 'spells', result);
+    flashButton(pi, oi, 'spells', result);
 }
 
 // --- LCU Import (shared logic) ---
@@ -518,8 +622,10 @@ async function importRunesData(opt) {
             }),
         });
         const result = await resp.json();
+        if (!result.success) console.warn('Rune import failed:', result.error);
         return result.success;
-    } catch {
+    } catch (e) {
+        console.error('Rune import error:', e);
         return false;
     }
 }
@@ -538,8 +644,10 @@ async function importItemsData(champion, opt) {
             }),
         });
         const result = await resp.json();
+        if (!result.success) console.warn('Item import failed:', result.error);
         return result.success;
-    } catch {
+    } catch (e) {
+        console.error('Item import error:', e);
         return false;
     }
 }
@@ -552,16 +660,18 @@ async function importSpellsData(opt) {
             body: JSON.stringify({ spells: opt.summoners.split(' ')[0] }),
         });
         const result = await resp.json();
+        if (!result.success) console.warn('Spell import failed:', result.error);
         return result.success;
-    } catch {
+    } catch (e) {
+        console.error('Spell import error:', e);
         return false;
     }
 }
 
-function flashButton(optIndex, type, success) {
-    const cards = document.querySelectorAll('.build-option');
-    if (!cards[optIndex]) return;
-    const buttons = cards[optIndex].querySelectorAll('.btn-import');
+function flashButton(pi, oi, type, success) {
+    const container = document.querySelector(`.import-buttons[data-pi="${pi}"][data-oi="${oi}"]`);
+    if (!container) return;
+    const buttons = container.querySelectorAll('.btn-import');
     const typeMap = { runes: 0, items: 1, spells: 2 };
     const btn = buttons[typeMap[type]];
     if (!btn) return;

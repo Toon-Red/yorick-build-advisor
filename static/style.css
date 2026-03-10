@@ -561,6 +561,80 @@ header h1 {
     color: #f87171;
 }
 
+/* Profile Groups */
+.profile-group {
+    margin-bottom: 20px;
+    border: 1px solid #1a1a2e;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: #16161e;
+    border-bottom: 1px solid #1a1a2e;
+}
+
+.profile-header.profile-hidden {
+    opacity: 0.45;
+}
+
+.profile-toggle {
+    background: none;
+    border: none;
+    color: #6b6b80;
+    font-size: 0.8rem;
+    cursor: pointer;
+    padding: 2px 4px;
+    line-height: 1;
+}
+
+.profile-toggle:hover { color: #c89b3c; }
+
+.profile-name {
+    font-weight: 600;
+    color: #c89b3c;
+    font-size: 0.95rem;
+}
+
+.profile-author {
+    color: #6b6b80;
+    font-size: 0.8rem;
+}
+
+.profile-count {
+    color: #8888a0;
+    font-size: 0.8rem;
+    margin-left: auto;
+}
+
+.profile-hide-label {
+    font-size: 0.75rem;
+    color: #6b6b80;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    margin-left: 8px;
+}
+
+.profile-hide-label input { accent-color: #c89b3c; }
+
+.profile-body {
+    padding: 8px;
+}
+
+.profile-body .build-option {
+    margin-bottom: 8px;
+}
+
+.profile-body .build-option:last-child {
+    margin-bottom: 0;
+}
+
 /* Arrow separator */
 .arrow-sep {
     color: #6b6b80;

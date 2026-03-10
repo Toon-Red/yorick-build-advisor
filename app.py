@@ -11,6 +11,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 import asyncio
 import json
+import logging
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
@@ -19,6 +20,10 @@ from pydantic import BaseModel
 import uvicorn
 
 from config import API_PORT, API_HOST
+
+# Enable LCU debug logging
+logging.basicConfig(level=logging.INFO, format="%(asctime)s %(name)s %(levelname)s: %(message)s")
+logging.getLogger("lcu").setLevel(logging.DEBUG)
 
 # Shard icon lookup (Community Dragon assets)
 _CDRAGON_SHARDS = "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/statmods"
@@ -175,74 +180,8 @@ async def get_matchups():
     return {"matchups": result, "count": len(result)}
 
 
-@app.post("/api/build/query")
-async def build_query(req: BuildQueryRequest):
-    """Run the decision tree and return build options."""
-    # Try guide-based execution first, fall back to legacy Python engine
-    active_guide = guide_manager.get_active_guide(req.champion)
-    if active_guide:
-        options = recommend_from_guide(active_guide, req.champion, req.enemy)
-    else:
-        options = recommend_builds(req.champion, req.enemy)
-
-    matchup = get_matchup(req.enemy)
-
-    # Enrich with Data Dragon names/icons
-    enriched = []
-    for opt in options:
-        d = build_option_to_dict(opt)
-
-        # Add rune names and icons
-        d["rune_details"] = []
-        for perk_id in opt.selected_perk_ids[:6]:  # First 6 are actual runes
-            d["rune_details"].append({
-                "id": perk_id,
-                "name": ddragon.rune_name(perk_id),
-                "icon": ddragon.rune_icon_url(perk_id),
-            })
-
-        # Add shard details (last 3 perk slots)
-        d["shard_details"] = []
-        for perk_id in opt.selected_perk_ids[6:9]:
-            d["shard_details"].append({
-                "id": perk_id,
-                "name": SHARD_INFO.get(perk_id, {}).get("name", str(perk_id)),
-                "icon": SHARD_INFO.get(perk_id, {}).get("icon", ""),
-            })
-
-        # Add item names and icons
-        d["item_details"] = {}
-        all_item_ids = set(opt.starter + opt.boots + opt.core + opt.situational)
-        for iid in all_item_ids:
-            d["item_details"][str(iid)] = {
-                "id": iid,
-                "name": ddragon.item_name(iid),
-                "icon": ddragon.item_icon_url(iid),
-            }
-
-        # Style icons
-        d["primary_style_icon"] = ddragon.style_icon_url(opt.primary_style_id)
-        d["sub_style_icon"] = ddragon.style_icon_url(opt.sub_style_id)
-
-        enriched.append(d)
-
-    return {
-        "champion": req.champion,
-        "enemy": req.enemy,
-        "difficulty": matchup.difficulty,
-        "special_note": matchup.special_note,
-        "options": enriched,
-        "count": len(enriched),
-    }
-
-
-# --- Multi-Build Endpoint ---
-
-@app.post("/api/build/query-multi")
-async def build_query_multi(req: MultiBuildRequest):
-    """Run weighted multi-enemy build and return options."""
-    options = recommend_builds_multi(req.champion, req.enemies)
-
+def _enrich_options(options):
+    """Add Data Dragon names/icons to a list of BuildOption objects."""
     enriched = []
     for opt in options:
         d = build_option_to_dict(opt)
@@ -271,6 +210,59 @@ async def build_query_multi(req: MultiBuildRequest):
         d["primary_style_icon"] = ddragon.style_icon_url(opt.primary_style_id)
         d["sub_style_icon"] = ddragon.style_icon_url(opt.sub_style_id)
         enriched.append(d)
+    return enriched
+
+
+@app.post("/api/build/query")
+async def build_query(req: BuildQueryRequest):
+    """Run ALL profiles for this champion and return grouped results."""
+    matchup = get_matchup(req.enemy)
+
+    # Find all guides for this champion
+    guides = guide_manager.list_guides_for_champion(req.champion)
+
+    profiles = []
+    for guide_meta in guides:
+        guide = guide_manager.load_guide(guide_meta["guide_id"])
+        if not guide:
+            continue
+        options = recommend_from_guide(guide, req.champion, req.enemy)
+        profiles.append({
+            "guide_id": guide_meta["guide_id"],
+            "guide_name": guide_meta["guide_name"],
+            "author": guide_meta["author"],
+            "options": _enrich_options(options),
+            "count": len(options),
+        })
+
+    # Fallback: if no guides exist, use the legacy Python engine
+    if not profiles:
+        options = recommend_builds(req.champion, req.enemy)
+        profiles.append({
+            "guide_id": "_legacy",
+            "guide_name": "Built-in Engine",
+            "author": "System",
+            "options": _enrich_options(options),
+            "count": len(options),
+        })
+
+    return {
+        "champion": req.champion,
+        "enemy": req.enemy,
+        "difficulty": matchup.difficulty,
+        "special_note": matchup.special_note,
+        "profiles": profiles,
+        "profile_count": len(profiles),
+    }
+
+
+# --- Multi-Build Endpoint ---
+
+@app.post("/api/build/query-multi")
+async def build_query_multi(req: MultiBuildRequest):
+    """Run weighted multi-enemy build and return options."""
+    options = recommend_builds_multi(req.champion, req.enemies)
+    enriched = _enrich_options(options)
 
     # Use the highest-weight enemy for difficulty/special_note
     top_enemy = max(req.enemies, key=lambda e: e.get("weight", 0)) if req.enemies else {"name": "Unknown"}
@@ -291,7 +283,16 @@ async def build_query_multi(req: MultiBuildRequest):
 @app.get("/api/lcu/status")
 async def lcu_status():
     connected = await lcu_client.connect()
-    return {"connected": connected}
+    result = {"connected": connected}
+    # Include diagnostic info for debugging
+    creds = lcu_client.read_lockfile()
+    if creds:
+        result["port"] = creds.port
+        result["pid"] = creds.pid
+    else:
+        result["lockfile_exists"] = lcu_client.lockfile_path.exists()
+        result["lockfile_path"] = str(lcu_client.lockfile_path)
+    return result
 
 
 @app.get("/api/lcu/champ-select-stream")

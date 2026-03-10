@@ -213,24 +213,29 @@ def find_edge():
 
 
 def open_app_window(url):
-    """Open the app in Edge --app mode (no address bar, looks native)."""
+    """Open the app in Edge --app mode (no address bar, looks native).
+
+    Returns the Popen process so the launcher can monitor it.
+    Uses --app-id so Edge registers it as a distinct app for taskbar pinning.
+    """
     edge = find_edge()
     if edge:
         # Separate user data dir so it doesn't conflict with normal Edge
         app_data = os.path.join(os.environ.get('LOCALAPPDATA', ''), 'YorickBuildAdvisor', 'edge-data')
-        subprocess.Popen([
+        proc = subprocess.Popen([
             edge,
             f"--app={url}",
+            f"--app-id=yorickbuildadvisor",
             f"--user-data-dir={app_data}",
             "--new-window",
             f"--window-size=1050,800",
         ], creationflags=_SUBPROCESS_FLAGS)
-        return True
+        return proc
 
     # Fallback: open in default browser
     import webbrowser
     webbrowser.open(url)
-    return True
+    return None
 
 
 if __name__ == "__main__":
@@ -253,8 +258,9 @@ if __name__ == "__main__":
     url = f"http://{API_HOST}:{API_PORT}/"
     open_app_window(url)
 
-    # Keep the process alive while the server runs
-    # (server thread is daemon, so it'll exit when main exits)
+    # Keep the process alive so the server stays running.
+    # Edge --app may exit immediately if Edge is already running (delegates to
+    # existing instance), so we can't rely on edge_proc.wait().
     try:
         while True:
             time.sleep(1)

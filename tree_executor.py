@@ -86,7 +86,12 @@ class _Context:
         return getattr(self, dotted_path, None)
 
     def set(self, key: str, value):
-        """Set a context attribute."""
+        """Set a context attribute. Maps tree-friendly names to Context slots."""
+        # Map tree SET keys to Context attribute names
+        if key == "starter_items":
+            # Tree sets a simple string; wrap into starter_info dict
+            self.starter_info = {"name": value, "note": ""}
+            return
         setattr(self, key, value)
 
 
@@ -576,8 +581,10 @@ def recommend_from_guide(guide_json: dict, champion: str, enemy: str) -> list[Bu
     # we keep the matchup value. Also handle exhaust logic.
     ctx.summoners = _resolve_summoners(ctx, matchup)
 
-    # Step 6: Apply starter item logic from matchup
-    ctx.starter_info = _resolve_starters(ctx, matchup)
+    # Step 6: Apply starter item logic from matchup (only if tree didn't set it)
+    default_starter = "Doran's Blade + Health Potion"
+    if ctx.starter_info.get("name") == default_starter:
+        ctx.starter_info = _resolve_starters(ctx, matchup)
 
     # Step 7: Apply item path from matchup category (if tree didn't set it differently)
     if ctx.item_build == "Default BBC" and ctx.item_category != "default":

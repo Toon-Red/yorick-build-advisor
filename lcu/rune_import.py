@@ -2,6 +2,8 @@
 
 from lcu.client import LCUClient
 
+_V2_TAG = "(v2)"
+
 
 async def import_rune_page(
     client: LCUClient,
@@ -18,19 +20,31 @@ async def import_rune_page(
         return {"success": False, "error": "Failed to get rune pages"}
 
     pages = resp.json()
-    editable_page = None
-    for page in pages:
-        if page.get("isDeletable", False):
-            editable_page = page
-            break
 
-    if editable_page:
-        del_resp = await client.delete(f"/lol-perks/v1/pages/{editable_page['id']}")
+    # Strategy: find a page to replace, prioritizing:
+    # 1. An existing v2-created page (we made it, safe to overwrite)
+    # 2. Any deletable (custom) page
+    v2_page = None
+    deletable_page = None
+    for page in pages:
+        if not page.get("isDeletable", False):
+            continue
+        if deletable_page is None:
+            deletable_page = page
+        if _V2_TAG in page.get("name", ""):
+            v2_page = page
+            break  # Prefer our own page
+
+    page_to_delete = v2_page or deletable_page
+
+    if page_to_delete:
+        del_resp = await client.delete(f"/lol-perks/v1/pages/{page_to_delete['id']}")
         if not del_resp or del_resp.status_code not in (200, 204):
-            return {"success": False, "error": f"Failed to delete page {editable_page['id']}"}
+            return {"success": False, "error": f"Failed to delete page {page_to_delete['id']}"}
+    # If no deletable page exists, try creating anyway (will fail if at max)
 
     new_page = {
-        "name": name,
+        "name": name if _V2_TAG in name else f"{name} {_V2_TAG}",
         "primaryStyleId": primary_style_id,
         "subStyleId": sub_style_id,
         "selectedPerkIds": selected_perk_ids,
