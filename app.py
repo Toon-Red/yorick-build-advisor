@@ -716,6 +716,11 @@ async def flow():
     return FileResponse(static_dir / "flow.html")
 
 
+@app.get("/editor")
+async def editor():
+    return FileResponse(static_dir / "editor.html")
+
+
 # Mount static files AFTER explicit routes
 app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
 

@@ -80,9 +80,22 @@ def save_guide(guide: dict) -> str:
     if "created_at" not in guide:
         guide["created_at"] = guide["updated_at"]
 
-    # Filename from guide_id (sanitize)
-    safe_name = "".join(c if c.isalnum() or c in "-_" else "_" for c in guide_id)
-    path = GUIDES_DIR / f"{safe_name}.json"
+    # Try to find existing file with this guide_id and overwrite it
+    path = None
+    for existing_path in GUIDES_DIR.glob("*.json"):
+        try:
+            with open(existing_path, "r", encoding="utf-8") as f:
+                existing = json.load(f)
+            if existing.get("guide_id") == guide_id:
+                path = existing_path
+                break
+        except (json.JSONDecodeError, OSError):
+            continue
+
+    # Fallback: create new file named by guide_id
+    if path is None:
+        safe_name = "".join(c if c.isalnum() or c in "-_" else "_" for c in guide_id)
+        path = GUIDES_DIR / f"{safe_name}.json"
 
     with open(path, "w", encoding="utf-8") as f:
         json.dump(guide, f, indent=2)
