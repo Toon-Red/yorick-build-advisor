@@ -1,7 +1,8 @@
-"""Standalone launcher for Yorick Build Advisor.
+"""Desktop launcher for Yorick Build Advisor.
 
-Starts the API server, then opens Edge in app mode (no address bar, looks native).
-Pinnable to taskbar like Porofessor.
+Uses pywebview (WebView2) for a native window — not a browser.
+Installs to %LOCALAPPDATA%, creates Start Menu shortcut with AppUserModelID,
+so Windows treats it as a real app you can pin to the taskbar.
 """
 import sys
 import os
@@ -203,46 +204,9 @@ def wait_for_server(timeout=30):
     return False
 
 
-def find_edge():
-    """Find Microsoft Edge executable."""
-    candidates = [
-        os.path.join(os.environ.get('PROGRAMFILES(X86)', ''), 'Microsoft', 'Edge', 'Application', 'msedge.exe'),
-        os.path.join(os.environ.get('PROGRAMFILES', ''), 'Microsoft', 'Edge', 'Application', 'msedge.exe'),
-        os.path.join(os.environ.get('LOCALAPPDATA', ''), 'Microsoft', 'Edge', 'Application', 'msedge.exe'),
-    ]
-    for path in candidates:
-        if os.path.exists(path):
-            return path
-    return None
-
-
-def open_app_window(url):
-    """Open the app in Edge --app mode (no address bar, looks native).
-
-    Returns the Popen process so the launcher can monitor it.
-    Uses --app-id so Edge registers it as a distinct app for taskbar pinning.
-    """
-    edge = find_edge()
-    if edge:
-        # Separate user data dir so it doesn't conflict with normal Edge
-        app_data = os.path.join(os.environ.get('LOCALAPPDATA', ''), 'YorickBuildAdvisor', 'edge-data')
-        proc = subprocess.Popen([
-            edge,
-            f"--app={url}",
-            f"--app-id=yorickbuildadvisor",
-            f"--user-data-dir={app_data}",
-            "--new-window",
-            f"--window-size=1050,800",
-        ], creationflags=_SUBPROCESS_FLAGS)
-        return proc
-
-    # Fallback: open in default browser
-    import webbrowser
-    webbrowser.open(url)
-    return None
-
-
 if __name__ == "__main__":
+    server_only = '--server-only' in sys.argv
+
     # Apply staged update before anything else (may exit + relaunch)
     try:
         from updater import check_and_apply_staged
@@ -266,14 +230,24 @@ if __name__ == "__main__":
         print("Failed to start server", file=sys.stderr)
         sys.exit(1)
 
-    url = f"http://{API_HOST}:{API_PORT}/"
-    open_app_window(url)
+    if server_only:
+        # CI smoke test mode: keep server alive without GUI
+        try:
+            while True:
+                time.sleep(1)
+        except KeyboardInterrupt:
+            pass
+    else:
+        import webview
 
-    # Keep the process alive so the server stays running.
-    # Edge --app may exit immediately if Edge is already running (delegates to
-    # existing instance), so we can't rely on edge_proc.wait().
-    try:
-        while True:
-            time.sleep(1)
-    except KeyboardInterrupt:
-        pass
+        url = f"http://{API_HOST}:{API_PORT}/"
+        window = webview.create_window(
+            'Yorick Build Advisor',
+            url,
+            width=1050,
+            height=800,
+            min_size=(800, 500),
+        )
+
+        # webview.start() blocks until the window is closed, then the process exits
+        webview.start()

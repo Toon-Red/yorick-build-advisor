@@ -57,7 +57,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-          pip install pyinstaller pywin32 webview2 voxe
+          pip install pyinstaller pywin32 pythonnet
 
       - name: Build exe
         run: python -m PyInstaller build.spec --noconfirm
@@ -71,7 +71,7 @@ jobs:
       - name: Smoke test
         shell: bash
         run: |
-          ./dist/YorickBuildAdvisor.exe &
+          ./dist/YorickBuildAdvisor.exe --server-only &
           EXE_PID=$!
           echo "Launched exe (PID $EXE_PID), waiting for health endpoint..."
           for i in $(seq 1 30); do
