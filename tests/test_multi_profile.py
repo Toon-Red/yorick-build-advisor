@@ -289,7 +289,7 @@ class TestMultiProfileAPI:
         data = resp.json()
         assert data["champion"] == "Yorick"
         assert data["enemy"] == "Jax"
-        assert data["difficulty"] == "HARD"
+        assert data["difficulty"] == "EXTREME"
 
     def test_query_irelia_has_special_note(self, client):
         resp = client.post("/api/build/query", json={"champion": "Yorick", "enemy": "Irelia"})
