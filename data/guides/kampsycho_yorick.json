@@ -364,8 +364,8 @@
       "Illaoi": {
         "difficulty": "Medium",
         "keystones": [
-          "Conqueror",
           "Comet",
+          "Conqueror",
           "Aery"
         ],
         "item_category": "default",
@@ -376,7 +376,7 @@
         "exhaust_viable": false,
         "summoner_spells": "Ghost/Ignite",
         "special_note": "",
-        "advice": "DODGE HER E. If she pulls your spirit, walk away. NEVER fight in her R \u2014 walk out and re-engage."
+        "advice": "Comet poke is ideal \u2014 E+ghouls from range. DODGE HER E. If she pulls your spirit, walk away. NEVER fight in her R \u2014 walk out and re-engage."
       },
       "Irelia": {
         "difficulty": "EXTREME",
@@ -399,6 +399,7 @@
       "Jax": {
         "difficulty": "EXTREME",
         "keystones": [
+          "Grasp-2",
           "Grasp-1",
           "Comet",
           "Aery",
@@ -406,13 +407,14 @@
         ],
         "item_category": "vs_jax_iceborn",
         "tags": [
-          "vs_fighter"
+          "vs_fighter",
+          "vs_cc"
         ],
         "shard_override": "MS",
         "exhaust_viable": true,
         "summoner_spells": "Ghost/Ignite",
         "special_note": "",
-        "advice": "Dodges all our DMG but E. Dashes over wall, out-duels. ALWAYS Grasp + MS shard + Sheen rush into Iceborn. Bait his jump, W him, trade, back off, repeat till he dies. Aery + Bramble trick viable. Phase Rush: wall him as he jumps, kite when counter strike is up, fight when it's down."
+        "advice": "Dodges all our DMG but E. Dashes over wall, out-duels. Unflinching for his Counter Strike stun. ALWAYS Grasp + MS shard + Sheen rush into Iceborn. Bait his jump, W him, trade, back off, repeat till he dies. Aery + Bramble trick viable. Phase Rush: wall him as he jumps, kite when counter strike is up, fight when it's down."
       },
       "Jayce": {
         "difficulty": "Medium",
@@ -471,8 +473,8 @@
       "Kennen": {
         "difficulty": "Easy",
         "keystones": [
-          "Comet",
-          "Aery"
+          "Aery",
+          "Comet"
         ],
         "item_category": "vs_ranged",
         "tags": [
@@ -483,7 +485,7 @@
         "exhaust_viable": false,
         "summoner_spells": "Ghost/Ignite",
         "special_note": "",
-        "advice": "Ranged stun + disengage. E max + Comet/Aery. D. Shield start. Don't stack near ghouls (his ult AoE). W him when he E's in for stun."
+        "advice": "Ranged stun + disengage. E max + Aery/Comet. D. Shield start. Don't stack near ghouls (his ult AoE). W him when he E's in for stun."
       },
       "Kled": {
         "difficulty": "HARD",
@@ -785,19 +787,21 @@
       "Sett": {
         "difficulty": "EXTREME",
         "keystones": [
+          "Grasp-2",
           "Grasp-1",
           "Conqueror",
           "Hail of Blades"
         ],
         "item_category": "titanic_breaker",
         "tags": [
-          "vs_fighter"
+          "vs_fighter",
+          "vs_cc"
         ],
         "shard_override": null,
         "exhaust_viable": false,
         "summoner_spells": "Ghost/Ignite",
         "special_note": "",
-        "advice": "Dodge W true damage center. Don't stand in grit bar direction. Unflinching + Bone Plating. Tiamat -> Titanic. His E pulls you into W."
+        "advice": "Dodge W true damage center. Don't stand in grit bar direction. Unflinching mandatory for his E stun. Tiamat -> Titanic. His E pulls you into W."
       },
       "Shen": {
         "difficulty": "Medium",
@@ -1052,8 +1056,8 @@
       "Vayne": {
         "difficulty": "Advanced",
         "keystones": [
-          "Comet",
-          "Aery"
+          "Aery",
+          "Comet"
         ],
         "item_category": "vs_ranged",
         "tags": [
@@ -1065,7 +1069,7 @@
         "exhaust_viable": false,
         "summoner_spells": "Ghost/Ignite",
         "special_note": "",
-        "advice": "Ranged + %HP true damage. Adaptive shard (HP helps her deal MORE damage). D. Shield start + Second Wind. Bramble Vest + Aery trick. E max with Comet/Aery. Outscale at 2 items. Don't chase - W her if she tumbles in."
+        "advice": "Ranged + %HP true damage. Adaptive shard (HP helps her deal MORE damage). D. Shield start + Second Wind. Bramble Vest + Aery trick. E max with Aery/Comet. Outscale at 2 items. Don't chase - W her if she tumbles in."
       },
       "Vladimir": {
         "difficulty": "Easy",
@@ -2133,6 +2137,7 @@
         "Teemo",
         "Varus",
         "Vayne",
+        "Volibear",
         "Yasuo",
         "Yone"
       ],
@@ -2269,6 +2274,10 @@
         "Ornn",
         "Sion",
         "Tahm Kench"
+      ],
+      "HP_STACK_TANKS": [
+        "Sion",
+        "Cho'Gath"
       ]
     },
     "rune_build_compat": {

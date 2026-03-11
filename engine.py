@@ -17,6 +17,7 @@ from data.rules import (
     summoner_spells,
     starter_items,
     item_path,
+    precision_secondary_adaptation,
 )
 from data.skill_orders import resolve_skill_order, get_skill_order
 
@@ -125,8 +126,8 @@ def recommend_builds(champion: str, enemy: str) -> list[BuildOption]:
         # Step 4: Starter items
         starters = starter_items(enemy)
 
-        # Step 5: Item path
-        primary_build_name = item_path(enemy, matchup.item_category)
+        # Step 5: Item path (keystone-dependent for Jax, Trynd, ranged AD)
+        primary_build_name = item_path(enemy, matchup.item_category, keystone_name)
 
         # Step 6: Get item template
         item_template = ITEM_BUILDS.get(primary_build_name)
@@ -136,6 +137,7 @@ def recommend_builds(champion: str, enemy: str) -> list[BuildOption]:
 
         # Step 7: Apply overrides to rune template
         final_perks = _apply_resolve_overrides(rune_template, resolve, shards)
+        final_perks = precision_secondary_adaptation(final_perks, rune_template.sub_style_id, enemy)
 
         # Step 8: Skill order
         skill_id = resolve_skill_order(enemy, keystone_name, matchup.tags)
@@ -190,6 +192,7 @@ def recommend_builds(champion: str, enemy: str) -> list[BuildOption]:
             shards = shard_choice(enemy, matchup.shard_override)
 
             final_perks = _apply_resolve_overrides(rune_template, resolve, shards)
+            final_perks = precision_secondary_adaptation(final_perks, rune_template.sub_style_id, enemy)
 
             alt_skill_id = resolve_skill_order(enemy, primary_keystone, matchup.tags)
             alt_skill = get_skill_order(alt_skill_id)

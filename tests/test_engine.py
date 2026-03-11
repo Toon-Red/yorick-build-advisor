@@ -136,7 +136,12 @@ class TestTryndamereMatchup:
 
     def test_tryndamere_uses_specific_build(self):
         results = recommend_builds("Yorick", "Tryndamere")
-        assert results[0].item_build_name == "VS Trynd (Conqueror)"
+        # First keystone is Grasp-2 → Iceborn Old (tank kite path)
+        assert results[0].item_build_name == "VS Trynd (Iceborn Old)"
+        # Non-Grasp keystones (Conqueror, Phase Rush) → Conqueror path
+        non_grasp = [r for r in results if not r.keystone.startswith("Grasp")]
+        for r in non_grasp:
+            assert r.item_build_name == "VS Trynd (Conqueror)"
 
 
 class TestIreliaMatchup:
@@ -285,11 +290,12 @@ class TestVideoAuditFixes:
         from data.rules import summoner_spells
         assert summoner_spells("Tryndamere") == "Exhaust/TP"
 
-    def test_gangplank_has_aery(self):
-        """Bug #5: Gangplank should have Aery as a keystone option."""
+    def test_gangplank_keystones(self):
+        """Bug #5: Gangplank keystones per PDF — Grasp-1, Conqueror, Comet (no Aery)."""
         results = recommend_builds("Yorick", "Gangplank")
         keystones = [r.keystone for r in results]
-        assert "Aery" in keystones
+        assert "Grasp-1" in keystones or "Conqueror" in keystones or "Comet" in keystones
+        assert "Aery" not in keystones
 
     def test_nocturne_has_hob(self):
         """Bug #6: Nocturne should have Hail of Blades as a keystone option."""

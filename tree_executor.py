@@ -14,6 +14,7 @@ from __future__ import annotations
 
 from engine import BuildOption, _shard_display, build_option_to_dict
 from data.skill_orders import resolve_skill_order, get_skill_order
+from data.rules import precision_secondary_adaptation
 
 # Shard name-to-ID mapping (mirrors data/rune_pages.py constants)
 _SHARD_IDS = {
@@ -628,9 +629,10 @@ def recommend_from_guide(guide_json: dict, champion: str, enemy: str) -> list[Bu
 
         # Apply resolve + shard overrides to rune template
         final_perks = _apply_resolve_overrides(rune_template, resolve, shards)
+        final_perks = precision_secondary_adaptation(final_perks, rune_template["sub_style_id"], enemy)
 
-        # Get item build template
-        primary_build_name = ctx.item_build
+        # Get item build template (keystone-dependent routing for Jax/Trynd/ranged AD)
+        primary_build_name = _keystone_item_override(ctx.item_build, ctx.item_category, keystone_name, ctx)
         item_template = item_builds.get(primary_build_name)
         if not item_template:
             item_template = item_builds.get("Default BBC", {})
@@ -700,6 +702,7 @@ def recommend_from_guide(guide_json: dict, champion: str, enemy: str) -> list[Bu
             )
 
             final_perks = _apply_resolve_overrides(rune_template, resolve, shards)
+            final_perks = precision_secondary_adaptation(final_perks, rune_template["sub_style_id"], enemy)
 
             alt_skill_id = resolve_skill_order(enemy, primary_keystone, tuple(ctx.tags))
             alt_skill = get_skill_order(alt_skill_id)
@@ -836,6 +839,39 @@ def _item_category_to_build_name(category: str) -> str:
         "default_titanic": "Default Titanic Path",
     }
     return mapping.get(category, "Default BBC")
+
+
+def _keystone_item_override(
+    current_build: str,
+    item_category: str,
+    keystone: str,
+    ctx: _Context,
+) -> str:
+    """Apply keystone-dependent item routing (mirrors rules.py item_path logic).
+
+    Certain matchups have different item paths depending on keystone:
+      - Jax: Grasp → Iceborn, non-Grasp → Shojin
+      - Tryndamere: Grasp → Iceborn Old, non-Grasp → Conqueror
+      - Ranged AD + Aery → VS Ranged Top (Bramble trick)
+    """
+    is_grasp = keystone.startswith("Grasp")
+
+    # Jax: Grasp → Iceborn, non-Grasp → Shojin
+    if item_category in ("vs_jax_iceborn", "vs_jax_shojin"):
+        return "VS Jax (Iceborn)" if is_grasp else "VS Jax (Shojin)"
+
+    # Tryndamere: Grasp → Iceborn Old, non-Grasp → Conqueror
+    if item_category in ("vs_trynd_conq", "vs_trynd_iceborn"):
+        return "VS Trynd (Iceborn Old)" if is_grasp else "VS Trynd (Conqueror)"
+
+    # Ranged AD + Aery → VS Ranged Top (Bramble trick)
+    if keystone == "Aery" and current_build == "Eclipse Poke":
+        buckets = ctx.guide.get("data", {}).get("buckets", {})
+        ranged_ad = buckets.get("RANGED_AD_CHAMPS", [])
+        if ctx.enemy in ranged_ad:
+            return "VS Ranged Top"
+
+    return current_build
 
 
 def _item_path_from_buckets(ctx: _Context) -> str | None:

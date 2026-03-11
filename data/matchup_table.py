@@ -126,7 +126,7 @@ MATCHUP_TABLE: dict[str, MatchupInfo] = {
     ),
     "Gangplank": MatchupInfo(
         difficulty="Easy",
-        keystones=("Grasp-1", "Conqueror", "Comet", "Aery"),
+        keystones=("Grasp-1", "Conqueror", "Comet"),
         item_category="sundered_sky",
         tags=("vs_ranged_poke", "push_lane"),
         advice="Sundered Sky rush. He's squishy — land E and all-in. His W cleanses slow but not W wall.",
@@ -187,12 +187,12 @@ MATCHUP_TABLE: dict[str, MatchupInfo] = {
     ),
     "Jax": MatchupInfo(
         difficulty="EXTREME",
-        keystones=("Grasp-1", "Comet", "Aery", "Phase Rush"),
+        keystones=("Grasp-1", "Comet", "Aery"),
         item_category="vs_jax_iceborn",
         tags=("vs_fighter",),
         shard_override="MS",
         exhaust_viable=True,
-        advice="Dodges all our DMG but E. Dashes over wall, out-duels. ALWAYS Grasp + MS shard + Sheen rush into Iceborn. Bait his jump, W him, trade, back off, repeat till he dies. Aery + Bramble trick viable. Phase Rush: wall him as he jumps, kite when counter strike is up, fight when it's down.",
+        advice="Dodges all our DMG but E. Dashes over wall, out-duels. ALWAYS Grasp + MS shard + Sheen rush into Iceborn. Bait his jump, W him, trade, back off, repeat till he dies. Aery + Bramble trick viable.",
     ),
     "Jayce": MatchupInfo(
         difficulty="Medium",
@@ -347,10 +347,10 @@ MATCHUP_TABLE: dict[str, MatchupInfo] = {
     ),
     "Sett": MatchupInfo(
         difficulty="EXTREME",
-        keystones=("Grasp-1", "Conqueror", "Hail of Blades"),
+        keystones=("Grasp-1",),
         item_category="titanic_breaker",
         tags=("vs_fighter",),
-        advice="Dodge W true damage center. Bone Plating + Unflinching mandatory. W him during E pull. Tiamat → Titanic. HoB outburst viable.",
+        advice="Dodge W true damage center. Bone Plating + Unflinching mandatory. W him during E pull. Tiamat → Titanic.",
     ),
     "Shen": MatchupInfo(
         difficulty="Medium",

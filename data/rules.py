@@ -11,6 +11,7 @@ Each function implements one decision step in the build pipeline:
 from data.rune_pages import (
     SHARD_AS, SHARD_HP, SHARD_MS, SHARD_AF, SHARD_TENACITY, SHARD_ARMOR,
     SECOND_WIND, BONE_PLATING, REVITALIZE, UNFLINCHING, DEMOLISH,
+    LEGEND_ALACRITY, CUT_DOWN,
 )
 
 # ============================================================================
@@ -22,6 +23,7 @@ RANGED_POKE_CHAMPS = {
     "Jayce", "Gangplank", "Heimerdinger", "Rumble",
     "Malphite", "Yone", "Yasuo", "Fiora", "Varus", "Akshan", "Aurora",
     "Aurelion Sol", "Cassiopeia", "Ryze", "Swain",
+    "Volibear",  # Lightning passive = poke, needs SecondWind for non-Grasp too (PDF p66)
 }
 
 BURST_CC_CHAMPS = {
@@ -69,6 +71,7 @@ TIAMAT_TITANIC_CHAMPS = {"Tryndamere", "Trundle", "Sett", "Yone"}
 ECLIPSE_POKE_CHAMPS = {"Teemo", "Aurora", "Akali", "Kayle", "Gnar", "Quinn", "Akshan"}
 SUNDERED_SKY_CHAMPS = {"Jayce", "Gragas", "Gangplank"}
 LIANDRY_SHRED_CHAMPS = {"Cho'Gath", "Dr. Mundo", "Sion", "Tahm Kench", "Ornn", "Maokai"}
+HP_STACK_TANKS = {"Sion", "Cho'Gath"}
 
 
 # ============================================================================
@@ -223,14 +226,38 @@ def starter_items(enemy: str) -> dict:
 # RULE 5: Item Path
 # ============================================================================
 
-def item_path(enemy: str, category_override: str | None = None) -> str:
+def item_path(enemy: str, category_override: str | None = None, keystone: str = "") -> str:
     """Return the recommended item build template name.
 
     Returns a key that maps to ITEM_BUILDS in item_builds.py.
+    Keystone-dependent routing: certain matchups have different item paths
+    depending on whether the keystone is Grasp (tank/sustain) vs non-Grasp (poke/DPS).
+
+    Sources:
+      - Jax: Grasp → Iceborn [mobafire L537-538], non-Grasp → Shojin [mobafire L540-541]
+      - Tryndamere: Grasp → Iceborn Old [mobafire L555-556], non-Grasp → Conqueror [mobafire L549-550]
+      - Ranged AD + Aery → VS Ranged Top (Bramble trick) [mobafire L534-535]
     """
     cat = category_override or "default"
+    is_grasp = keystone.startswith("Grasp")
 
-    # Category overrides from matchup table
+    # --- Keystone-dependent matchup-specific routes ---
+    # Jax: Grasp → Iceborn (slow field + armor), non-Grasp → Shojin (poke + pet DMG amp)
+    if cat in ("vs_jax_iceborn", "vs_jax_shojin"):
+        return "VS Jax (Iceborn)" if is_grasp else "VS Jax (Shojin)"
+
+    # Tryndamere: Grasp → Iceborn Old (tank kite), non-Grasp → Conqueror (sustained DPS)
+    if cat in ("vs_trynd_conq", "vs_trynd_iceborn"):
+        return "VS Trynd (Iceborn Old)" if is_grasp else "VS Trynd (Conqueror)"
+
+    # Ranged AD + Aery → VS Ranged Top (Bramble trick) instead of Eclipse Poke
+    # Their autos trigger Bramble which triggers Aery for free poke [mobafire L534-535]
+    if cat == "eclipse_poke" and keystone == "Aery":
+        buckets = get_buckets()
+        if enemy in buckets.get("RANGED_AD_CHAMPS", RANGED_AD_CHAMPS):
+            return "VS Ranged Top"
+
+    # Category overrides from matchup table (non-keystone-dependent)
     CATEGORY_MAP = {
         "iceborn_cleaver": "Iceborn Cleaver",
         "titanic_breaker": "Titanic Breaker",
@@ -238,10 +265,6 @@ def item_path(enemy: str, category_override: str | None = None) -> str:
         "sundered_sky": "Sundered Sky Rush",
         "liandry_shred": "Liandry Tank Shred",
         "vs_morde": "VS Morde",
-        "vs_trynd_conq": "VS Trynd (Conqueror)",
-        "vs_trynd_iceborn": "VS Trynd (Iceborn Old)",
-        "vs_jax_iceborn": "VS Jax (Iceborn)",
-        "vs_jax_shojin": "VS Jax (Shojin)",
         "vs_trundle": "VS Trundle",
         "vs_irelia": "VS Irelia",
         "vs_ranged": "VS Ranged Top",
@@ -250,14 +273,19 @@ def item_path(enemy: str, category_override: str | None = None) -> str:
     if cat in CATEGORY_MAP:
         return CATEGORY_MAP[cat]
 
-    # Champion-specific fallbacks
+    # Champion-specific fallbacks (bucket-based)
     buckets = get_buckets()
+
+    # Ranged AD: Aery → VS Ranged Top (Bramble trick), else → Eclipse Poke
+    if enemy in buckets["ECLIPSE_POKE_CHAMPS"]:
+        if keystone == "Aery" and enemy in buckets.get("RANGED_AD_CHAMPS", RANGED_AD_CHAMPS):
+            return "VS Ranged Top"
+        return "Eclipse Poke"
+
     if enemy in buckets["SHEEN_ICEBORN_CHAMPS"]:
         return "Iceborn Cleaver"
     elif enemy in buckets["TIAMAT_TITANIC_CHAMPS"]:
         return "Titanic Breaker"
-    elif enemy in buckets["ECLIPSE_POKE_CHAMPS"]:
-        return "Eclipse Poke"
     elif enemy in buckets["SUNDERED_SKY_CHAMPS"]:
         return "Sundered Sky Rush"
     elif enemy in buckets["LIANDRY_SHRED_CHAMPS"]:
@@ -270,6 +298,26 @@ def item_path(enemy: str, category_override: str | None = None) -> str:
 # ============================================================================
 # RULE 6: Rune-to-Build Compatibility
 # ============================================================================
+
+# ============================================================================
+# RULE 6.5: Precision Secondary Adaptation (Cut Down swap)
+# ============================================================================
+
+def precision_secondary_adaptation(perks: list[int], sub_style_id: int, enemy: str) -> list[int]:
+    """Swap Legend: Alacrity for Cut Down vs high HP tanks when secondary is Precision.
+
+    Per Kampsycho: "Cutdown swaps out Alacrity vs High HP Tanks like Sion & Cho'Gath"
+    Only applies to Grasp pages with Precision secondary (Grasp-1).
+    """
+    buckets = get_buckets()
+    hp_tanks = buckets.get("HP_STACK_TANKS", HP_STACK_TANKS)
+    if sub_style_id == 8000 and enemy in hp_tanks:  # Precision secondary
+        for i in range(4, 6):  # Secondary rune slots
+            if perks[i] == LEGEND_ALACRITY:
+                perks[i] = CUT_DOWN
+                break
+    return perks
+
 
 RUNE_BUILD_COMPAT: dict[str, list[str]] = {
     "Grasp-1": ["Default BBC", "Iceborn Cleaver", "Titanic Breaker", "Conqueror Bruiser",
