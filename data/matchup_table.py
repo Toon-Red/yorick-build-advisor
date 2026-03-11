@@ -37,7 +37,8 @@ MATCHUP_TABLE: dict[str, MatchupInfo] = {
         keystones=("Comet", "Aery"),
         item_category="eclipse_poke",
         tags=("vs_assassin", "vs_ap", "e_max"),
-        advice="E max with Eclipse. She can shroud to avoid E. W her when she dashes in and shroud is down.",
+        exhaust_viable=True,
+        advice="E max with Eclipse. Rush Null Magic Mantle on first back. W her when she dashes in and shroud is down. Mercs for MR + tenacity. Exhaust her all-in if she snowballs.",
     ),
     "Akshan": MatchupInfo(
         difficulty="Advanced",

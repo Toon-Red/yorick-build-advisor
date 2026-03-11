@@ -28,12 +28,12 @@ RANGED_POKE_CHAMPS = {
 
 BURST_CC_CHAMPS = {
     "Riven", "Renekton", "Jax", "Volibear", "Pantheon", "Sett",
-    "Urgot", "Kled", "Nocturne", "Wukong",
+    "Urgot", "Kled", "Nocturne", "Wukong", "Akali",
 }
 
 BURST_CHAMPS = {
     "Riven", "Renekton", "Jax", "Kled", "Nocturne", "Wukong",
-    "Ambessa", "Sett",
+    "Ambessa", "Sett", "Akali",
 }
 
 MS_SHARD_CHAMPS = {
@@ -47,13 +47,13 @@ ADAPTIVE_SHARD_CHAMPS = {
 
 EXHAUST_PRIMARY = {"Tryndamere"}
 EXHAUST_WITH_GHOST = {"Riven", "Renekton"}
-EXHAUST_SECONDARY = {"Yasuo", "Yone", "Jax", "Irelia", "Rengar"}
+EXHAUST_SECONDARY = {"Yasuo", "Yone", "Jax", "Irelia", "Rengar", "Akali"}
 
 BAD_AD_MATCHUPS = {
     "Riven", "Jax", "Renekton", "Kled", "Sett", "Tryndamere", "Irelia",
 }
 
-AP_MELEE_CHAMPS = {"Gwen", "Mordekaiser", "Sylas"}
+AP_MELEE_CHAMPS = {"Gwen", "Mordekaiser", "Sylas", "Akali"}
 
 AP_POKE_CHAMPS = {"Teemo", "Gragas", "Volibear", "Rumble", "Heimerdinger"}
 
@@ -336,7 +336,7 @@ STEELCAPS_CHAMPS = {
 MERCS_CHAMPS = {
     "Mordekaiser", "Teemo", "Rumble", "Heimerdinger", "Volibear",
     "Malphite", "Sylas", "Gwen", "Cho'Gath", "Ornn",
-    "Singed", "Cassiopeia",
+    "Singed", "Cassiopeia", "Akali",
 }
 
 SWIFTNESS_CHAMPS = {
@@ -358,9 +358,9 @@ def boot_recommendation(enemy: str, keystone: str = "", item_build: str = "") ->
     )
     buckets = get_buckets()
 
-    # Eclipse/Comet poke builds → Ionian for ability haste
+    # Eclipse/Comet poke builds → Ionian for ability haste (but not vs AP threats needing MR)
     if item_build in ("Eclipse Poke",) or keystone in ("Comet", "Aery"):
-        if enemy in buckets.get("ECLIPSE_POKE_CHAMPS", ECLIPSE_POKE_CHAMPS):
+        if enemy in buckets.get("ECLIPSE_POKE_CHAMPS", ECLIPSE_POKE_CHAMPS) and enemy not in MERCS_CHAMPS:
             return {
                 "boot": "Ionian Boots",
                 "boot_id": IONIAN_BOOTS,
