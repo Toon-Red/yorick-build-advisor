@@ -51,7 +51,7 @@ from data.item_builds import ItemBuildTemplate
 from lcu.client import LCUClient
 from lcu.auto_detect import poll_champ_select, has_state_changed, ChampSelectSnapshot
 from lcu.rune_import import import_rune_page
-from lcu.item_import import import_item_set
+from lcu.item_import import import_item_set, import_full_item_set
 from lcu.spell_import import import_summoner_spells, parse_spell_pair
 
 # Global state
@@ -98,6 +98,12 @@ class ItemImportRequest(BaseModel):
 
 class SpellImportRequest(BaseModel):
     spells: str  # "Ghost/Ignite", "Exhaust/TP", etc.
+
+
+class FullItemImportRequest(BaseModel):
+    champion: str
+    enemy: str
+    options: list[dict]  # All build options from a matchup query
 
 
 class MultiBuildRequest(BaseModel):
@@ -239,6 +245,17 @@ def _enrich_options(options):
             })
         d["item_details"] = {}
         all_item_ids = set(opt.starter + opt.boots + opt.core + opt.situational)
+        # Add items from item combos
+        for combo in opt.item_combos:
+            for iid in combo.get("items", []):
+                all_item_ids.add(iid)
+        # Add items from first back
+        for fb in opt.first_back:
+            for iid in fb.get("items", []):
+                all_item_ids.add(iid)
+        # Add boot recommendation item
+        if opt.boot_rec and opt.boot_rec.get("boot_id"):
+            all_item_ids.add(opt.boot_rec["boot_id"])
         for iid in all_item_ids:
             d["item_details"][str(iid)] = {
                 "id": iid,
@@ -376,9 +393,20 @@ async def champ_select_stream(request: Request):
     )
 
 
+async def _ensure_lcu():
+    """Connect to LCU, retrying once if the first attempt fails."""
+    connected = await lcu_client.connect()
+    if not connected:
+        # Force reconnect: clear stale state and try again
+        await lcu_client.disconnect()
+        await asyncio.sleep(0.5)
+        connected = await lcu_client.connect()
+    return connected
+
+
 @app.post("/api/lcu/import-runes")
 async def lcu_import_runes(req: RuneImportRequest):
-    connected = await lcu_client.connect()
+    connected = await _ensure_lcu()
     if not connected:
         return JSONResponse(
             status_code=503,
@@ -393,7 +421,7 @@ async def lcu_import_runes(req: RuneImportRequest):
 
 @app.post("/api/lcu/import-items")
 async def lcu_import_items(req: ItemImportRequest):
-    connected = await lcu_client.connect()
+    connected = await _ensure_lcu()
     if not connected:
         return JSONResponse(
             status_code=503,
@@ -407,9 +435,23 @@ async def lcu_import_items(req: ItemImportRequest):
     return result
 
 
+@app.post("/api/lcu/import-full-build")
+async def lcu_import_full_build(req: FullItemImportRequest):
+    connected = await _ensure_lcu()
+    if not connected:
+        return JSONResponse(
+            status_code=503,
+            content={"success": False, "error": "LoL client not running"},
+        )
+    result = await import_full_item_set(
+        lcu_client, req.champion, req.enemy, req.options,
+    )
+    return result
+
+
 @app.post("/api/lcu/import-spells")
 async def lcu_import_spells(req: SpellImportRequest):
-    connected = await lcu_client.connect()
+    connected = await _ensure_lcu()
     if not connected:
         return JSONResponse(
             status_code=503,

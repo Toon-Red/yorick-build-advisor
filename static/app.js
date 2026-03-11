@@ -78,15 +78,34 @@ function showUpdateBanner(type, data) {
     if (!slot) return;
     if (type === 'restart') {
         slot.innerHTML = `<div class="update-banner update-ready">
-            Update v${data.staged_version} downloaded!
+            <div class="banner-text">
+                <strong>Update v${data.staged_version} ready to install!</strong>
+            </div>
             <button onclick="applyUpdate()">Restart Now</button>
         </div>`;
     } else {
+        // Show brief changelog preview in the banner
+        const notes = data.release_notes || '';
+        const preview = extractChangelogPreview(notes, 2);
         slot.innerHTML = `<div class="update-banner">
-            Update v${data.latest_version} available!
-            <button onclick="showUpdateScreen()">View Update</button>
+            <div class="banner-text">
+                <strong>v${data.latest_version} available</strong>${data.release_name ? ` — ${data.release_name}` : ''}
+                ${preview ? `<div class="banner-preview">${preview}</div>` : ''}
+            </div>
+            <button onclick="showUpdateScreen()">View &amp; Update</button>
         </div>`;
     }
+}
+
+function extractChangelogPreview(notes, maxLines) {
+    if (!notes) return '';
+    // Pull out the first few bullet points from release notes
+    const lines = notes.split('\n')
+        .map(l => l.trim())
+        .filter(l => l.startsWith('- ') || l.startsWith('* '))
+        .slice(0, maxLines)
+        .map(l => l.replace(/^[-*]\s*/, '').replace(/\*\*(.+?)\*\*/g, '$1'));
+    return lines.length ? lines.map(l => `<span class="preview-bullet">${l}</span>`).join('') : '';
 }
 
 // --- Update Screen ---
@@ -541,6 +560,21 @@ function selectAllEnemies() {
 
 // --- Build Generation ---
 
+function normalizeBuildData(data) {
+    // Ensure data always has a 'profiles' array for consistent access
+    if (!data.profiles || !data.profiles.length) {
+        if (data.options) {
+            data.profiles = [{
+                guide_id: '_legacy', guide_name: 'Built-in Engine',
+                author: 'System', options: data.options, count: data.options.length,
+            }];
+        } else {
+            data.profiles = [];
+        }
+    }
+    return data;
+}
+
 async function generateBuildForEnemy(enemyName, autoImport = false) {
     const champion = document.getElementById('champion-select').value;
     try {
@@ -550,9 +584,9 @@ async function generateBuildForEnemy(enemyName, autoImport = false) {
             body: JSON.stringify({ champion, enemy: enemyName }),
         });
         const data = await resp.json();
-        lastBuildData = data;
-        renderResults(data);
-        if (autoImport) handleAutoImport(data);
+        lastBuildData = normalizeBuildData(data);
+        renderResults(lastBuildData);
+        if (autoImport) handleAutoImport(lastBuildData);
     } catch (e) {
         console.error('Build query failed:', e);
     }
@@ -574,8 +608,8 @@ async function generateMultiBuild() {
             body: JSON.stringify({ champion, enemies }),
         });
         const data = await resp.json();
-        lastBuildData = data;
-        renderResults(data);
+        lastBuildData = normalizeBuildData(data);
+        renderResults(lastBuildData);
     } catch (e) {
         console.error('Multi-build query failed:', e);
     }
@@ -599,7 +633,7 @@ async function generateBuild() {
     btn.textContent = 'Loading...';
 
     try {
-        await generateBuildForEnemy(enemy);
+        await generateBuildForEnemy(enemy, true);
     } finally {
         btn.disabled = false;
         btn.textContent = 'Generate Build';
@@ -621,7 +655,7 @@ function handleAutoImport(data) {
         const doSpells = document.getElementById('auto-spells').checked;
 
         if (doRunes) await importRunesData(opt);
-        if (doItems) await importItemsData(data.champion, opt);
+        if (doItems) await importFullBuild(data);
         if (doSpells) await importSpellsData(opt);
     }, 2000);
 }
@@ -762,24 +796,81 @@ function renderOptionBody(opt, profileIdx, optIdx) {
                 <span style="margin-left:8px;font-size:0.8rem;color:#6b6b80">${opt.starter_info.name}</span>
             </div>
         </div>
-        <div class="detail-row">
-            <span class="detail-label">Boots</span>
-            <div class="detail-value icon-row">${bootsIcons}</div>
-        </div>
+        ${renderBootRecommendation(opt)}
+        ${renderFirstBack(opt)}
         <div class="detail-row">
             <span class="detail-label">Core</span>
             <div class="detail-value icon-row">${coreIcons}</div>
         </div>
+        ${opt.build_order ? `<div class="build-order-note">${opt.build_order}</div>` : ''}
         <div class="detail-row">
             <span class="detail-label">Situational</span>
             <div class="detail-value icon-row">${sitIcons}</div>
         </div>
+        ${renderItemCombos(opt)}
+        ${opt.late_game ? `<div class="late-game-note">${opt.late_game}</div>` : ''}
         ${renderSkillOrder(opt)}
         <div class="reasoning-text">"${opt.reasoning}"</div>
         <div class="import-buttons" data-pi="${profileIdx}" data-oi="${optIdx}">
             <button class="btn-import" onclick="importRunes(${profileIdx},${optIdx})">Import Runes</button>
             <button class="btn-import" onclick="importItems(${profileIdx},${optIdx})">Import Items</button>
             <button class="btn-import" onclick="importSpells(${profileIdx},${optIdx})">Import Spells</button>
+        </div>
+    `;
+}
+
+function renderBootRecommendation(opt) {
+    const rec = opt.boot_rec;
+    if (!rec || !rec.boot) return '';
+    const bootIcon = renderItemIcon(opt, rec.boot_id);
+    const rushBadge = rec.rush ? '<span class="rush-badge">RUSH</span>' : '';
+    return `
+        <div class="detail-row">
+            <span class="detail-label">Boots</span>
+            <div class="detail-value">
+                <span class="icon-row">${bootIcon} ${rushBadge}</span>
+                <span class="boot-note">${rec.note}</span>
+            </div>
+        </div>
+    `;
+}
+
+function renderFirstBack(opt) {
+    const fb = opt.first_back;
+    if (!fb || !fb.length) return '';
+    const rows = fb.map(scenario => {
+        const icons = scenario.items.map(id => renderItemIcon(opt, id)).join(' ');
+        return `<div class="first-back-row">
+            <span class="fb-gold">${scenario.gold}</span>
+            <span class="icon-row">${icons}</span>
+            <span class="fb-note">${scenario.note}</span>
+        </div>`;
+    }).join('');
+    return `
+        <div class="detail-row first-back-section">
+            <span class="detail-label">1st Back</span>
+            <div class="detail-value">${rows}</div>
+        </div>
+    `;
+}
+
+function renderItemCombos(opt) {
+    const combos = opt.item_combos;
+    if (!combos || !combos.length) return '';
+    const rows = combos.map(combo => {
+        const icons = combo.items.map(id => renderItemIcon(opt, id)).join(' ');
+        const tags = (combo.tags || []).map(t => `<span class="combo-tag">${t}</span>`).join('');
+        return `<div class="combo-row">
+            <span class="combo-name">${combo.name}</span>
+            <span class="icon-row">${icons}</span>
+            ${tags}
+            <span class="combo-desc">${combo.description}</span>
+        </div>`;
+    }).join('');
+    return `
+        <div class="detail-row item-combos-section">
+            <span class="detail-label">Mix &amp; Match</span>
+            <div class="detail-value">${rows}</div>
         </div>
     `;
 }
@@ -884,7 +975,7 @@ async function importRunes(pi, oi) {
 async function importItems(pi, oi) {
     const opt = getOption(pi, oi);
     if (!opt) { console.error('importItems: no option at', pi, oi); return; }
-    const result = await importItemsData(lastBuildData.champion, opt);
+    const result = await importFullBuild(lastBuildData);
     flashButton(pi, oi, 'items', result);
 }
 
@@ -897,63 +988,100 @@ async function importSpells(pi, oi) {
 
 // --- LCU Import (shared logic) ---
 
-async function importRunesData(opt) {
-    try {
-        const resp = await fetch(`${API}/api/lcu/import-runes`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                name: `${opt.keystone} (v2)`,
-                primary_style_id: opt.primary_style_id,
-                sub_style_id: opt.sub_style_id,
-                selected_perk_ids: opt.selected_perk_ids,
-            }),
-        });
-        const result = await resp.json();
-        if (!result.success) console.warn('Rune import failed:', result.error);
-        return result.success;
-    } catch (e) {
-        console.error('Rune import error:', e);
-        return false;
+async function lcuImportWithRetry(url, body) {
+    // Try import, retry once on failure (LCU connection can drop momentarily)
+    for (let attempt = 0; attempt < 2; attempt++) {
+        try {
+            const resp = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body),
+            });
+            const result = await resp.json();
+            if (result.success) return true;
+            // If LCU not running (503), don't retry
+            if (resp.status === 503) {
+                console.warn('LCU not connected:', result.error);
+                return false;
+            }
+            // Retry on other failures
+            if (attempt === 0) {
+                console.warn(`Import failed (attempt 1), retrying: ${result.error}`);
+                await new Promise(r => setTimeout(r, 500));
+                continue;
+            }
+            console.warn('Import failed after retry:', result.error);
+            return false;
+        } catch (e) {
+            if (attempt === 0) {
+                await new Promise(r => setTimeout(r, 500));
+                continue;
+            }
+            console.error('Import error after retry:', e);
+            return false;
+        }
     }
+    return false;
+}
+
+async function importRunesData(opt) {
+    return lcuImportWithRetry(`${API}/api/lcu/import-runes`, {
+        name: `${opt.keystone} (v2)`,
+        primary_style_id: opt.primary_style_id,
+        sub_style_id: opt.sub_style_id,
+        selected_perk_ids: opt.selected_perk_ids,
+    });
 }
 
 async function importItemsData(champion, opt) {
-    try {
-        const resp = await fetch(`${API}/api/lcu/import-items`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                champion,
-                starter: opt.starter,
-                core: opt.core,
-                boots: opt.boots[0] || 0,
-                situational: opt.situational,
-            }),
-        });
-        const result = await resp.json();
-        if (!result.success) console.warn('Item import failed:', result.error);
-        return result.success;
-    } catch (e) {
-        console.error('Item import error:', e);
-        return false;
+    // Use boot_rec.boot_id if available, otherwise fall back to boots[0]
+    const bootId = (opt.boot_rec && opt.boot_rec.boot_id) ? opt.boot_rec.boot_id : (opt.boots[0] || 0);
+    return lcuImportWithRetry(`${API}/api/lcu/import-items`, {
+        champion,
+        starter: opt.starter,
+        core: opt.core,
+        boots: bootId,
+        situational: opt.situational,
+    });
+}
+
+async function importFullBuild(data) {
+    // Collect ALL options across all profiles for a comprehensive item set
+    if (!data) return false;
+    const allOptions = [];
+    const profiles = data.profiles || [];
+    for (const profile of profiles) {
+        for (const opt of (profile.options || [])) {
+            allOptions.push(opt);
+        }
     }
+    if (!allOptions.length) return false;
+    return lcuImportWithRetry(`${API}/api/lcu/import-full-build`, {
+        champion: data.champion,
+        enemy: data.enemy,
+        options: allOptions,
+    });
+}
+
+function extractSpellPair(summonerText) {
+    // Extract the first "X/Y" pair from any summoner string format:
+    // "Ghost/Ignite" → "Ghost/Ignite"
+    // "Exhaust/TP" → "Exhaust/TP"
+    // "Exhaust viable (Ghost/Ignite default)" → "Ghost/Ignite"
+    // "Exhaust/Ghost" → "Exhaust/Ghost"
+    if (!summonerText) return 'Ghost/Ignite';
+    // If the string starts with a valid pair (no spaces before /), use it
+    const directPair = summonerText.match(/^(\w+)\/(\w+)/);
+    if (directPair) return directPair[0];
+    // Otherwise find any X/Y pair in the string (e.g. inside parentheses)
+    const anyPair = summonerText.match(/(\w+)\/(\w+)/);
+    if (anyPair) return anyPair[0];
+    return 'Ghost/Ignite';
 }
 
 async function importSpellsData(opt) {
-    try {
-        const resp = await fetch(`${API}/api/lcu/import-spells`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ spells: opt.summoners.split(' ')[0] }),
-        });
-        const result = await resp.json();
-        if (!result.success) console.warn('Spell import failed:', result.error);
-        return result.success;
-    } catch (e) {
-        console.error('Spell import error:', e);
-        return false;
-    }
+    const spellPair = extractSpellPair(opt.summoners);
+    return lcuImportWithRetry(`${API}/api/lcu/import-spells`, { spells: spellPair });
 }
 
 function flashButton(pi, oi, type, success) {
@@ -964,12 +1092,13 @@ function flashButton(pi, oi, type, success) {
     const btn = buttons[typeMap[type]];
     if (!btn) return;
 
+    const failMsg = lcuConnected ? 'Failed - retry' : 'LCU offline';
     btn.classList.add(success ? 'success' : 'error');
-    btn.textContent = success ? 'Imported!' : 'Failed';
+    btn.textContent = success ? 'Imported!' : failMsg;
     setTimeout(() => {
         btn.classList.remove('success', 'error');
         btn.textContent = `Import ${type.charAt(0).toUpperCase() + type.slice(1)}`;
-    }, 2000);
+    }, success ? 2000 : 3000);
 }
 
 // Boot

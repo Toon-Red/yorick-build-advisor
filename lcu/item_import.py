@@ -165,6 +165,208 @@ async def import_item_set(
     return {"success": True}
 
 
+def _make_block(title: str, item_ids: list[int]) -> dict:
+    """Helper — create one LCU item-set block."""
+    seen = set()
+    items = []
+    for iid in item_ids:
+        if iid and iid not in seen:
+            seen.add(iid)
+            items.append({"id": str(iid), "count": 1})
+    return {"type": title, "items": items}
+
+
+def _build_full_blocks(
+    champion: str,
+    enemy: str,
+    options: list[dict],
+) -> list[dict]:
+    """Build comprehensive item-set blocks from ALL build options.
+
+    Each option dict comes from the API response (build_option_to_dict output).
+    Creates blocks for: first back, boot timing, each build path's core,
+    situational pool, item combos, and late game swaps.
+    """
+    blocks = []
+
+    if not options:
+        return blocks
+
+    primary = options[0]
+
+    # --- 1. Starter ---
+    if primary.get("starter"):
+        blocks.append(_make_block("Starter", primary["starter"]))
+
+    # --- 2. First Back ---
+    first_back = primary.get("first_back", [])
+    if first_back:
+        fb_items = []
+        for fb in first_back:
+            fb_items.extend(fb.get("items", []))
+        if fb_items:
+            golds = []
+            for fb in first_back:
+                g = fb.get("gold", "")
+                if g:
+                    golds.append(str(g) if str(g).endswith("g") else str(g) + "g")
+            fb_title = "First Back (" + " / ".join(golds) + ")" if golds else "First Back"
+            blocks.append(_make_block(fb_title, fb_items))
+
+    # --- 3. Boots with timing ---
+    boot_rec = primary.get("boot_rec", {})
+    if boot_rec and boot_rec.get("boot_id"):
+        rush = boot_rec.get("rush", False)
+        boot_name = boot_rec.get("boot", "Boots")
+        if rush:
+            boot_title = f"RUSH: {boot_name}"
+        else:
+            boot_title = f"Boots (after 1st item): {boot_name}"
+        blocks.append(_make_block(boot_title, [boot_rec["boot_id"]]))
+    elif primary.get("boots"):
+        blocks.append(_make_block("Boots", primary["boots"]))
+
+    # --- 4. Each build path as a separate block ---
+    seen_builds = set()
+    for i, opt in enumerate(options):
+        build_name = opt.get("item_build_name", "Build")
+        keystone = opt.get("keystone", "")
+        core = opt.get("core", [])
+        if not core:
+            continue
+
+        # Deduplicate identical core sets
+        core_key = (build_name, tuple(core))
+        if core_key in seen_builds:
+            continue
+        seen_builds.add(core_key)
+
+        if i == 0:
+            label = f">> {keystone} - {build_name}"
+        else:
+            label = f"{keystone} - {build_name}"
+        blocks.append(_make_block(label, core))
+
+    # --- 5. Situational pool (merged from all options, deduplicated) ---
+    sit_ids = []
+    sit_seen = set()
+    for opt in options:
+        for iid in opt.get("situational", []):
+            if iid not in sit_seen:
+                sit_seen.add(iid)
+                sit_ids.append(iid)
+    if sit_ids:
+        blocks.append(_make_block("Situational", sit_ids))
+
+    # --- 6. Item combos ---
+    combo_seen = set()
+    for opt in options:
+        for combo in opt.get("item_combos", []):
+            cname = combo.get("name", "")
+            if cname in combo_seen:
+                continue
+            combo_seen.add(cname)
+            citems = combo.get("items", [])
+            if citems:
+                desc = combo.get("description", "")
+                # Truncate long descriptions for block title
+                short_desc = (desc[:40] + "...") if len(desc) > 40 else desc
+                blocks.append(_make_block(f"{cname}: {short_desc}", citems))
+
+    # --- 7. Late game swaps ---
+    late_notes = set()
+    late_items = []
+    for opt in options:
+        lg = opt.get("late_game", "")
+        if lg and lg not in late_notes:
+            late_notes.add(lg)
+        # Gather any late-game-specific items from situational that aren't in core
+        for iid in opt.get("situational", []):
+            if iid not in [x for o in options for x in o.get("core", [])]:
+                if iid not in late_items:
+                    late_items.append(iid)
+    # Only add if we have a meaningful late game note and items
+    if late_notes and late_items:
+        blocks.append(_make_block("Late Game Swaps", late_items[:6]))
+
+    return blocks
+
+
+async def import_full_item_set(
+    client: LCUClient,
+    champion: str,
+    enemy: str,
+    options: list[dict],
+    title: str = _V2_TITLE,
+) -> dict:
+    """Import a comprehensive item set with blocks for ALL build paths.
+
+    `options` is a list of build option dicts (from build_option_to_dict).
+    Creates blocks for first back, boot timing, each core path, situational,
+    combos, and late game swaps.
+    """
+    if not client.connected:
+        return {"success": False, "error": "Not connected to client"}
+
+    resp = await client.get("/lol-summoner/v1/current-summoner")
+    if not resp or resp.status_code != 200:
+        return {"success": False, "error": "Failed to get summoner info"}
+
+    summoner = resp.json()
+    summoner_id = summoner.get("summonerId", 0)
+    champ_id = await _get_champion_id(client, champion, summoner_id)
+
+    blocks = _build_full_blocks(champion, enemy, options)
+    if not blocks:
+        return {"success": False, "error": "No items to import"}
+
+    # Update LCU API
+    sets_resp = await client.get(f"/lol-item-sets/v1/item-sets/{summoner_id}/sets")
+    existing_sets = []
+    if sets_resp and sets_resp.status_code == 200:
+        existing_sets = sets_resp.json().get("itemSets", [])
+
+    _v2_titles = {title, "Build Advisor", "Build Advisor v2", "Build Advisor (v2)"}
+    existing_sets = [
+        s for s in existing_sets
+        if s.get("title") not in _v2_titles and s.get("uid") != _V2_UID
+    ]
+
+    set_title = f"{title} - vs {enemy}" if enemy else title
+    new_set = {
+        "title": set_title,
+        "type": "custom",
+        "map": "any",
+        "mode": "any",
+        "sortrank": 0,
+        "startedFrom": "blank",
+        "blocks": blocks,
+        "associatedChampions": [champ_id] if champ_id else [],
+        "associatedMaps": [11, 12],
+        "preferredItemSlots": [],
+        "uid": _V2_UID,
+    }
+
+    existing_sets.insert(0, new_set)
+
+    put_resp = await client.put(
+        f"/lol-item-sets/v1/item-sets/{summoner_id}/sets",
+        json={"itemSets": existing_sets, "timestamp": 0},
+    )
+
+    if not put_resp or put_resp.status_code not in (200, 201):
+        err = ""
+        if put_resp:
+            err = put_resp.text[:200]
+        return {"success": False, "error": f"Failed to update item sets: {err}"}
+
+    import asyncio
+    await asyncio.sleep(1)
+    _write_recommended_file(champion, champ_id, blocks)
+
+    return {"success": True, "block_count": len(blocks)}
+
+
 async def _get_champion_id(client: LCUClient, champion_name: str, summoner_id: int = 0) -> int:
     """Get champion numeric ID from name via LCU."""
     try:

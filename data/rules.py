@@ -319,6 +319,237 @@ def precision_secondary_adaptation(perks: list[int], sub_style_id: int, enemy: s
     return perks
 
 
+# ============================================================================
+# RULE 7: Boot Recommendation
+# ============================================================================
+
+BOOT_RUSH_CHAMPS = {
+    "Darius", "Nasus", "Garen", "Singed", "Udyr",
+}
+
+STEELCAPS_CHAMPS = {
+    "Jax", "Tryndamere", "Irelia", "Yone", "Yasuo", "Trundle",
+    "Riven", "Renekton", "Kled", "Sett", "Nocturne", "Wukong",
+    "Fiora", "Warwick",
+}
+
+MERCS_CHAMPS = {
+    "Mordekaiser", "Teemo", "Rumble", "Heimerdinger", "Volibear",
+    "Malphite", "Sylas", "Gwen", "Cho'Gath", "Ornn",
+    "Singed", "Cassiopeia",
+}
+
+SWIFTNESS_CHAMPS = {
+    "Quinn", "Gnar", "Ryze", "Cassiopeia", "Singed",
+}
+
+
+def boot_recommendation(enemy: str, keystone: str = "", item_build: str = "") -> dict:
+    """Return boot choice, whether to rush, and reasoning.
+
+    Returns dict with:
+      - "boot": primary boot name
+      - "boot_id": primary boot item ID
+      - "rush": bool (buy before first core item)
+      - "note": explanation string
+    """
+    from data.item_builds import (
+        PLATED_STEELCAPS, MERCURY_TREADS, BOOTS_OF_SWIFTNESS, IONIAN_BOOTS,
+    )
+    buckets = get_buckets()
+
+    # Eclipse/Comet poke builds → Ionian for ability haste
+    if item_build in ("Eclipse Poke",) or keystone in ("Comet", "Aery"):
+        if enemy in buckets.get("ECLIPSE_POKE_CHAMPS", ECLIPSE_POKE_CHAMPS):
+            return {
+                "boot": "Ionian Boots",
+                "boot_id": IONIAN_BOOTS,
+                "rush": False,
+                "note": "Ability haste for poke build (E max + Eclipse)",
+            }
+
+    # Swiftness vs ranged kiters
+    if enemy in SWIFTNESS_CHAMPS:
+        return {
+            "boot": "Boots of Swiftness",
+            "boot_id": BOOTS_OF_SWIFTNESS,
+            "rush": True,
+            "note": f"Swiftness to close gap vs {enemy}. Rush boots to avoid being kited.",
+        }
+
+    # Mercury's vs AP/CC heavy
+    if enemy in MERCS_CHAMPS:
+        rush = enemy in BOOT_RUSH_CHAMPS or enemy in buckets.get("AP_POKE_CHAMPS", AP_POKE_CHAMPS)
+        return {
+            "boot": "Mercury's Treads",
+            "boot_id": MERCURY_TREADS,
+            "rush": rush,
+            "note": f"Merc's for MR + tenacity vs {enemy}." + (" Rush boots." if rush else ""),
+        }
+
+    # Steelcaps vs auto-attackers
+    if enemy in STEELCAPS_CHAMPS or enemy in buckets.get("BAD_AD_MATCHUPS", BAD_AD_MATCHUPS):
+        rush = enemy in BOOT_RUSH_CHAMPS
+        return {
+            "boot": "Plated Steelcaps",
+            "boot_id": PLATED_STEELCAPS,
+            "rush": rush,
+            "note": f"Steelcaps for auto-attack reduction vs {enemy}." + (" Rush boots." if rush else ""),
+        }
+
+    # Default: Steelcaps (most top laners are AD)
+    return {
+        "boot": "Plated Steelcaps",
+        "boot_id": PLATED_STEELCAPS,
+        "rush": False,
+        "note": "Steelcaps default for most AD top laners.",
+    }
+
+
+# ============================================================================
+# RULE 8: First Back Recommendation
+# ============================================================================
+
+def first_back_recommendation(enemy: str, item_build: str = "") -> str:
+    """Return the first back category key for FIRST_BACK_ITEMS lookup.
+
+    Returns a string key that maps to FIRST_BACK_ITEMS in item_builds.py.
+    """
+    buckets = get_buckets()
+
+    # Tiamat rush for Titanic paths
+    if item_build in ("Titanic Breaker", "VS Trundle", "VS Trynd (Conqueror)",
+                       "Default Titanic Path", "Lethal Splitpush"):
+        return "tiamat_rush"
+
+    # Sheen rush for Iceborn/Trinity paths
+    if item_build in ("Iceborn Cleaver", "VS Jax (Iceborn)", "VS Trynd (Iceborn Old)",
+                       "VS Irelia", "Speed Rick", "Bonk Shovel",
+                       "Hullbreakin Dat Ashe", "Iceborn Dragon"):
+        return "sheen_rush"
+
+    # Hard AD matchups → armor rush
+    if enemy in buckets.get("BAD_AD_MATCHUPS", BAD_AD_MATCHUPS):
+        return "vs_ad_hard"
+
+    # AP melee → MR components
+    if enemy in buckets.get("AP_MELEE_CHAMPS", AP_MELEE_CHAMPS):
+        return "vs_ap_melee"
+
+    # AP poke → MR rush
+    if enemy in buckets.get("AP_POKE_CHAMPS", AP_POKE_CHAMPS):
+        return "vs_ap_poke"
+
+    # Ranged AD → Bramble rush (Aery trick)
+    if enemy in buckets.get("RANGED_AD_CHAMPS", RANGED_AD_CHAMPS):
+        return "vs_ranged_ad"
+
+    # Safe farm lanes (tanks you outscale)
+    if enemy in buckets.get("AP_TANK_CHAMPS", AP_TANK_CHAMPS):
+        return "safe_lane"
+
+    return "default"
+
+
+# ============================================================================
+# RULE 9: Relevant Item Combos (mix-and-match for slots 4-6)
+# ============================================================================
+
+ANTI_HEAL_CHAMPS = {
+    "Dr. Mundo", "Aatrox", "Warwick", "Trundle", "Fiora",
+    "Sylas", "Irelia", "Swain", "Illaoi", "Volibear",
+}
+
+ANTI_SHIELD_CHAMPS = {
+    "Riven", "Sett", "Ambessa", "Mordekaiser",
+}
+
+
+def relevant_combos(enemy: str, item_build_name: str) -> list[str]:
+    """Return relevant item combo names for mix-and-match in slots 4-6.
+
+    Always includes at least one push combo. Adds anti-heal/shield when needed.
+    Returns combo names that map to ITEM_COMBOS in item_builds.py.
+    """
+    combos = []
+
+    # Always suggest at least one push option (Maiden & Ghouls push)
+    if item_build_name not in ("Maiden Push",):
+        combos.append("Maiden Burn")
+
+    # Always suggest Hull Bastion for splitpush potential
+    if "Hull" not in item_build_name and "Hullbreakin" not in item_build_name:
+        combos.append("Hull Bastion Split")
+
+    # Free AD Tank is universally good 4th-5th
+    combos.append("Free AD Tank")
+
+    # Stronk Bonk for sustained fight + catch potential
+    if "Bonk" not in item_build_name and "Speed" not in item_build_name:
+        combos.append("Stronk Bonk")
+
+    # Sky Dragon Sustain for hard matchups
+    if item_build_name not in ("Sundered Sky Rush",):
+        combos.append("Sky Dragon Sustain")
+
+    # Anti-heal vs healers
+    if enemy in ANTI_HEAL_CHAMPS:
+        combos.append("Anti-Heal")
+
+    # Anti-shield vs shield champs
+    if enemy in ANTI_SHIELD_CHAMPS:
+        combos.append("Anti-Shield")
+
+    # Shojin Amp if not already in core
+    if "Shojin" not in item_build_name and "BBC" not in item_build_name:
+        combos.append("Shojin Amp")
+
+    return combos
+
+
+# ============================================================================
+# RULE 10: Build Order Note
+# ============================================================================
+
+def build_order_note(item_build_name: str, enemy: str) -> str:
+    """Return a note about component buy order within the build path."""
+    notes = {
+        "Default BBC": "Shojin first for 12% pet DMG amp. BC second for shred. Sky 3rd for sustain.",
+        "Iceborn Cleaver": "Sheen rush -> Iceborn first for slow field + armor. BC or Sky 2nd.",
+        "Titanic Breaker": "Tiamat rush for waveclear -> Titanic -> Hullbreaker for split.",
+        "VS Jax (Iceborn)": "Sheen rush -> Iceborn for slow field. W him during Counter Strike.",
+        "VS Jax (Shojin)": "Shojin first for 12% pet amp -> Iceborn 2nd for defense.",
+        "VS Morde": "BC first for armor shred -> FoN for magic DR + MS. Don't have Maiden when he Rs.",
+        "VS Trundle": "Tiamat rush -> BC for shred. Exec early if he finishes Ravenous Hydra.",
+        "VS Trynd (Conqueror)": "BC first -> Tiamat -> Titanic. Randuin's to reduce crits.",
+        "VS Trynd (Iceborn Old)": "Sheen rush -> Iceborn for slow kite. DMP for MS to escape his R.",
+        "VS Irelia": "Trinity for Sheen proc + dueling. Frozen Heart to cripple her AS.",
+        "Eclipse Poke": "Eclipse first for burst poke -> Shojin for pet amp. E max.",
+        "Sundered Sky Rush": "Sky first if hard matchup, Shojin first if ahead.",
+        "Speed Rick": "Triforce or Tiamat->Sky first. Only Hull if they roam or you split free.",
+        "Bonk Shovel": "Trinity first for Sheen proc. Sky + DMP beats ranged. Good low elo.",
+        "Liandry Tank Shred": "BC first always. Eclipse if ahead, Liandry if behind or they rush HP.",
+    }
+    return notes.get(item_build_name, "")
+
+
+# ============================================================================
+# RULE 11: Late Game Note
+# ============================================================================
+
+def late_game_note(item_build_name: str) -> str:
+    """Return a note about late game item swaps."""
+    notes = {
+        "Default BBC": "GA last item (ghouls stay alive during revive). Replace GA with Sterak's later if you have gold.",
+        "Iceborn Cleaver": "Sell Hullbreaker if game may end on next fight. Buy GA or Sterak's.",
+        "Titanic Breaker": "Sell Hull if teamfighting. Sterak's + Bloodmail give massive free AD late.",
+        "Shojin Hull": "If game goes late, sell Edge of Night for Sterak's or GA.",
+        "VS Jax (Iceborn)": "Spirit Visage 3rd for sustain + MR vs his hybrid damage.",
+        "VS Trynd (Conqueror)": "Chempunk late if his healing is out of control.",
+    }
+    return notes.get(item_build_name, "GA as last item - ghouls stay alive during revive. Sell Hullbreaker if needed for teamfight.")
+
+
 RUNE_BUILD_COMPAT: dict[str, list[str]] = {
     "Grasp-1": ["Default BBC", "Iceborn Cleaver", "Titanic Breaker", "Conqueror Bruiser",
                  "Sundered Sky Rush", "Anti-Tank", "Shojin Hull", "VS Jax (Iceborn)", "VS Irelia"],

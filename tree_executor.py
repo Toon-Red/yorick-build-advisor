@@ -14,7 +14,15 @@ from __future__ import annotations
 
 from engine import BuildOption, _shard_display, build_option_to_dict
 from data.skill_orders import resolve_skill_order, get_skill_order
-from data.rules import precision_secondary_adaptation
+from data.rules import (
+    precision_secondary_adaptation,
+    boot_recommendation,
+    first_back_recommendation,
+    relevant_combos,
+    build_order_note,
+    late_game_note,
+)
+from data.item_builds import ITEM_COMBOS, FIRST_BACK_ITEMS
 
 # Shard name-to-ID mapping (mirrors data/rune_pages.py constants)
 _SHARD_IDS = {
@@ -641,6 +649,24 @@ def recommend_from_guide(guide_json: dict, champion: str, enemy: str) -> list[Bu
         skill_id = resolve_skill_order(enemy, keystone_name, tuple(ctx.tags))
         skill = get_skill_order(skill_id)
 
+        # Item system v2 fields
+        boot_rec = boot_recommendation(enemy, keystone_name, primary_build_name)
+        fb_key = first_back_recommendation(enemy, primary_build_name)
+        first_back = FIRST_BACK_ITEMS.get(fb_key, FIRST_BACK_ITEMS["default"])
+        combo_names = relevant_combos(enemy, primary_build_name)
+        combos = []
+        for cn in combo_names:
+            combo = ITEM_COMBOS.get(cn)
+            if combo:
+                combos.append({
+                    "name": combo.name,
+                    "items": list(combo.items),
+                    "description": combo.description,
+                    "tags": list(combo.tags),
+                })
+        bo_note = build_order_note(primary_build_name, enemy)
+        lg_note = late_game_note(primary_build_name)
+
         options.append(BuildOption(
             keystone=keystone_name,
             rune_page_name=keystone_name,
@@ -666,6 +692,11 @@ def recommend_from_guide(guide_json: dict, champion: str, enemy: str) -> list[Bu
             skill_order_max=list(skill.max_order),
             skill_order_description=skill.description,
             skill_order_condition=skill.condition,
+            boot_rec=boot_rec,
+            first_back=first_back,
+            item_combos=combos,
+            build_order=bo_note,
+            late_game=lg_note,
         ))
 
     # Step 10: Add alternative builds from rune_build_compat
@@ -707,6 +738,21 @@ def recommend_from_guide(guide_json: dict, champion: str, enemy: str) -> list[Bu
             alt_skill_id = resolve_skill_order(enemy, primary_keystone, tuple(ctx.tags))
             alt_skill = get_skill_order(alt_skill_id)
 
+            alt_boot_rec = boot_recommendation(enemy, primary_keystone, alt_build_name)
+            alt_fb_key = first_back_recommendation(enemy, alt_build_name)
+            alt_first_back = FIRST_BACK_ITEMS.get(alt_fb_key, FIRST_BACK_ITEMS["default"])
+            alt_combo_names = relevant_combos(enemy, alt_build_name)
+            alt_combos = []
+            for cn in alt_combo_names:
+                combo = ITEM_COMBOS.get(cn)
+                if combo:
+                    alt_combos.append({
+                        "name": combo.name,
+                        "items": list(combo.items),
+                        "description": combo.description,
+                        "tags": list(combo.tags),
+                    })
+
             options.append(BuildOption(
                 keystone=primary_keystone,
                 rune_page_name=primary_keystone,
@@ -732,6 +778,11 @@ def recommend_from_guide(guide_json: dict, champion: str, enemy: str) -> list[Bu
                 skill_order_max=list(alt_skill.max_order),
                 skill_order_description=alt_skill.description,
                 skill_order_condition=alt_skill.condition,
+                boot_rec=alt_boot_rec,
+                first_back=alt_first_back,
+                item_combos=alt_combos,
+                build_order=build_order_note(alt_build_name, enemy),
+                late_game=late_game_note(alt_build_name),
             ))
 
     return options

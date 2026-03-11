@@ -86,6 +86,18 @@ CLOTH_ARMOR = 1029
 EXECUTIONERS_CALLING = 3123
 BRAMBLE_VEST = 3076
 
+# Component items (for first back / build order recommendations)
+RUBY_CRYSTAL = 1028
+NULL_MAGIC_MANTLE = 1033
+CULL = 1083
+SHEEN = 3057
+PICKAXE = 1037
+BOOTS = 1001
+PHAGE = 3044
+KINDLEGEM = 3067
+HEARTHBOUND_AXE = 6029
+MAGIC_MANTLE = 1033  # alias
+
 # --- 16 Item Build Templates ---
 
 ITEM_BUILDS: dict[str, ItemBuildTemplate] = {
@@ -429,6 +441,136 @@ ITEM_BUILDS: dict[str, ItemBuildTemplate] = {
                     "Good all-around path when you want waveclear + splitting power. "
                     "Works with Conqueror for sustained trades.",
     ),
+}
+
+
+# ============================================================================
+# Item Combos — synergistic groups for mix-and-match in slots 4-6
+# ============================================================================
+
+@dataclass(frozen=True)
+class ItemCombo:
+    """A synergistic group of items that work well together.
+
+    Used for mix-and-match in slots 4-6. The first 2-3 items of any build
+    are the core identity; after that, pick from these combos.
+    """
+    name: str
+    items: tuple[int, ...]
+    description: str
+    tags: tuple[str, ...] = ()  # "push", "sustain", "tank-shred", etc.
+
+
+ITEM_COMBOS: dict[str, ItemCombo] = {
+    "Iceborn Cleaver": ItemCombo(
+        name="Iceborn Cleaver",
+        items=(ICEBORN_GAUNTLET, BLACK_CLEAVER),
+        description="Slow field + armor shred. Default tank identity. Works into most AD counters.",
+        tags=("tank", "armor", "shred"),
+    ),
+    "Titanic Breaker": ItemCombo(
+        name="Titanic Breaker",
+        items=(TITANIC_HYDRA, HULLBREAKER),
+        description="Waveclear + splitpush. HP scaling from Titanic, resistances from Hull.",
+        tags=("push", "waveclear", "split"),
+    ),
+    "Free AD Tank": ItemCombo(
+        name="Free AD Tank",
+        items=(OVERLORDS_BLOODMAIL, STERAKS_GAGE),
+        description="Both give free AD from HP. Sterak's shield at 30% HP, Bloodmail converts HP to AD.",
+        tags=("tank", "sustain", "ad"),
+    ),
+    "Maiden Burn": ItemCombo(
+        name="Maiden Burn",
+        items=(LIANDRYS_TORMENT, ECLIPSE, MALIGNANCE),
+        description="Maiden & Ghouls proc Eclipse & Liandry. Malignance lowers Maiden CD.",
+        tags=("push", "maiden", "burn"),
+    ),
+    "Stronk Bonk": ItemCombo(
+        name="Stronk Bonk",
+        items=(SUNDERED_SKY, DEAD_MANS_PLATE),
+        description="Sky for sustain on catches, Dead Man's for roam speed + slow on hit.",
+        tags=("sustain", "speed", "bonk"),
+    ),
+    "Anti-Heal": ItemCombo(
+        name="Anti-Heal",
+        items=(CHEMPUNK_CHAINSWORD, EXECUTIONERS_CALLING),
+        description="Grievous Wounds. Chempunk for full item, Exec as early component.",
+        tags=("anti-heal", "utility"),
+    ),
+    "Anti-Shield": ItemCombo(
+        name="Anti-Shield",
+        items=(SERPENTS_FANG,),
+        description="Breaks shields. Good vs Riven, Sett, Ambessa, shield-heavy comps.",
+        tags=("anti-shield", "utility"),
+    ),
+    "Shojin Amp": ItemCombo(
+        name="Shojin Amp",
+        items=(SPEAR_OF_SHOJIN, BLACK_CLEAVER),
+        description="Shojin gives 12% pet DMG amp. BC gives ghouls HP, AD, MS, and shred.",
+        tags=("damage", "pets", "shred"),
+    ),
+    "Sky Dragon Sustain": ItemCombo(
+        name="Sky Dragon Sustain",
+        items=(SUNDERED_SKY, SPIRIT_VISAGE),
+        description="Sundered Sky heal amplified by Spirit Visage. Fighter-tank sustain.",
+        tags=("sustain", "mr", "heal"),
+    ),
+    "Hull Bastion Split": ItemCombo(
+        name="Hull Bastion Split",
+        items=(HULLBREAKER, BASTIONBREAKER),
+        description="Full splitpush. Hull for resistances, Bastion for tower shred.",
+        tags=("push", "split", "tower"),
+    ),
+}
+
+
+# ============================================================================
+# First Back Items — what to buy at different gold amounts
+# ============================================================================
+
+FIRST_BACK_ITEMS: dict[str, list[dict]] = {
+    # Key = matchup category, Value = list of gold scenarios
+    "vs_ad_hard": [
+        {"gold": "450g", "items": [CLOTH_ARMOR], "note": "Cloth Armor rush for survivability"},
+        {"gold": "700g", "items": [CLOTH_ARMOR, BOOTS], "note": "Armor + Boots for short trades"},
+        {"gold": "1050g", "items": [PLATED_STEELCAPS], "note": "Full Steelcaps rush if struggling"},
+    ],
+    "vs_ap_melee": [
+        {"gold": "450g", "items": [NULL_MAGIC_MANTLE], "note": "Magic Mantle for MR"},
+        {"gold": "700g", "items": [NULL_MAGIC_MANTLE, LONG_SWORD], "note": "MR + AD for trades"},
+        {"gold": "1050g", "items": [SHEEN], "note": "Sheen if ahead, or Mantle + components"},
+    ],
+    "vs_ap_poke": [
+        {"gold": "450g", "items": [NULL_MAGIC_MANTLE], "note": "Magic Mantle mandatory"},
+        {"gold": "700g", "items": [NULL_MAGIC_MANTLE, BOOTS], "note": "MR + dodge skillshots"},
+        {"gold": "1050g", "items": [MERCURY_TREADS], "note": "Merc's rush vs heavy AP poke"},
+    ],
+    "vs_ranged_ad": [
+        {"gold": "450g", "items": [BRAMBLE_VEST], "note": "Bramble rush (Aery trick)"},
+        {"gold": "700g", "items": [BRAMBLE_VEST, BOOTS], "note": "Bramble + Boots to chase"},
+        {"gold": "1050g", "items": [PLATED_STEELCAPS], "note": "Steelcaps for auto reduction"},
+    ],
+    "sheen_rush": [
+        {"gold": "450g", "items": [RUBY_CRYSTAL], "note": "Ruby Crystal into Sheen"},
+        {"gold": "700g", "items": [SHEEN], "note": "Sheen for Iceborn/Trinity path"},
+        {"gold": "1050g", "items": [SHEEN, BOOTS], "note": "Sheen + Boots - strong spike"},
+    ],
+    "tiamat_rush": [
+        {"gold": "450g", "items": [LONG_SWORD], "note": "Long Sword into Tiamat"},
+        {"gold": "900g", "items": [TIAMAT], "note": "Tiamat rush for waveclear + push"},
+        {"gold": "1200g", "items": [TIAMAT, BOOTS], "note": "Tiamat + Boots — push and roam"},
+    ],
+    "default": [
+        {"gold": "450g", "items": [LONG_SWORD], "note": "Long Sword for AD"},
+        {"gold": "700g", "items": [LONG_SWORD, LONG_SWORD, BOOTS], "note": "2x Long Sword + Boots"},
+        {"gold": "1050g", "items": [PICKAXE], "note": "Pickaxe or Sheen depending on path"},
+    ],
+    "safe_lane": [
+        {"gold": "450g", "items": [CULL], "note": "Cull for free gold (safe farm lane)"},
+        {"gold": "700g", "items": [CULL, BOOTS], "note": "Cull + Boots — scale safely"},
+        {"gold": "1050g", "items": [CULL, LONG_SWORD, LONG_SWORD], "note": "Cull + AD components"},
+    ],
 }
 
 

@@ -50,19 +50,35 @@ def get_install_dir():
 
 
 def ensure_installed():
-    """Copy exe to permanent location if not already in a proper install dir."""
+    """Copy exe to permanent location and relaunch from there.
+
+    Returns True if we need to relaunch (caller should exit).
+    Returns False if already in the right place or dev mode.
+    """
     if not getattr(sys, 'frozen', False):
-        return  # Dev mode, skip
-    current_dir = os.path.normcase(os.path.dirname(sys.executable))
-    if 'program files' in current_dir or os.path.normcase(get_install_dir()) == current_dir:
-        return
+        return False  # Dev mode, skip
 
     install_dir = get_install_dir()
+    installed_exe = os.path.join(install_dir, 'YorickBuildAdvisor.exe')
+    current = os.path.normcase(os.path.abspath(sys.executable))
+    target = os.path.normcase(os.path.abspath(installed_exe))
+
+    if current == target:
+        return False  # Already running from install dir
+
     os.makedirs(install_dir, exist_ok=True)
     try:
-        shutil.copy2(sys.executable, os.path.join(install_dir, 'YorickBuildAdvisor.exe'))
+        shutil.copy2(sys.executable, installed_exe)
     except Exception:
-        pass
+        return False  # Copy failed, just run from current location
+
+    # Relaunch from installed location so Windows associates
+    # the taskbar icon with the permanent path
+    try:
+        subprocess.Popen([installed_exe] + sys.argv[1:])
+        return True  # Caller should sys.exit(0)
+    except Exception:
+        return False
 
 
 def ensure_shortcut():
@@ -216,7 +232,8 @@ if __name__ == "__main__":
 
     # Install exe to permanent location + create Start Menu shortcut for taskbar pinning
     try:
-        ensure_installed()
+        if ensure_installed():
+            sys.exit(0)  # Relaunched from install dir, exit this copy
         ensure_shortcut()
     except Exception:
         pass  # Non-fatal, app still works

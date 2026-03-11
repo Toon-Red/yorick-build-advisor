@@ -21,21 +21,49 @@ body.dev-mode {
     background: #1a3a1a;
     border: 1px solid #2a6a2a;
     color: #8f8;
-    padding: 8px 16px;
-    text-align: center;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     font-size: 0.9rem;
-    border-radius: 4px;
+    border-radius: 6px;
     margin-bottom: 12px;
+    gap: 12px;
+}
+.banner-text {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+.banner-text strong { color: #8f8; font-size: 0.9rem; }
+.banner-preview {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+.preview-bullet {
+    font-size: 0.78rem;
+    color: #8c8;
+    opacity: 0.8;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.preview-bullet::before {
+    content: "\2022 ";
+    color: #6b6b80;
 }
 .update-banner button {
     background: var(--accent);
     color: #0a0a0f;
     border: none;
-    padding: 4px 12px;
-    border-radius: 3px;
+    padding: 6px 16px;
+    border-radius: 4px;
     cursor: pointer;
-    margin-left: 8px;
     font-weight: 600;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 .update-banner button:hover { background: var(--accent-light); }
 .update-banner button:disabled { opacity: 0.6; cursor: default; }
@@ -1007,4 +1035,121 @@ header h1 {
 @media (max-width: 700px) {
     .update-layout { flex-direction: column; }
     .update-sidebar { width: 100%; }
+}
+
+/* ============================================
+   Item System v2 — Boot, First Back, Combos
+   ============================================ */
+
+/* Boot recommendation */
+.rush-badge {
+    background: #e05050;
+    color: #fff;
+    font-size: 0.65rem;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-left: 4px;
+    vertical-align: middle;
+}
+
+.boot-note {
+    font-size: 0.8rem;
+    color: #8a8a9a;
+    margin-left: 8px;
+}
+
+/* First back section */
+.first-back-section .detail-value {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.first-back-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 3px 0;
+}
+
+.fb-gold {
+    font-weight: 700;
+    color: #c89b3c;
+    min-width: 50px;
+    font-size: 0.8rem;
+}
+
+.fb-note {
+    font-size: 0.78rem;
+    color: #8a8a9a;
+}
+
+/* Build order note */
+.build-order-note {
+    font-size: 0.8rem;
+    color: #9a9aaa;
+    padding: 4px 0 4px 95px;
+    font-style: italic;
+    border-left: 2px solid #333;
+    margin-left: 92px;
+    padding-left: 8px;
+}
+
+/* Item combos section */
+.item-combos-section .detail-value {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.combo-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 6px;
+    background: #1a1a2e;
+    border-radius: 4px;
+    border-left: 2px solid #c89b3c;
+}
+
+.combo-name {
+    font-weight: 700;
+    color: #c89b3c;
+    font-size: 0.8rem;
+    min-width: 110px;
+}
+
+.combo-tag {
+    font-size: 0.65rem;
+    padding: 1px 5px;
+    border-radius: 3px;
+    background: #2a2a4e;
+    color: #8a8aaa;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.combo-desc {
+    font-size: 0.75rem;
+    color: #7a7a8a;
+    flex-basis: 100%;
+    margin-top: 2px;
+}
+
+/* Late game note */
+.late-game-note {
+    font-size: 0.8rem;
+    color: #e0a040;
+    padding: 6px 0 2px 95px;
+    border-left: 2px solid #e0a040;
+    margin-left: 92px;
+    padding-left: 8px;
+}
+
+.late-game-note::before {
+    content: "Late Game: ";
+    font-weight: 700;
 }

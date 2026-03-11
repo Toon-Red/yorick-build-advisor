@@ -1,5 +1,7 @@
 """Import rune pages into the LoL client via LCU API."""
 
+import asyncio
+
 from lcu.client import LCUClient
 
 _V2_TAG = "(v2)"
@@ -41,6 +43,8 @@ async def import_rune_page(
         del_resp = await client.delete(f"/lol-perks/v1/pages/{page_to_delete['id']}")
         if not del_resp or del_resp.status_code not in (200, 204):
             return {"success": False, "error": f"Failed to delete page {page_to_delete['id']}"}
+        # Wait for LCU to process the deletion before creating
+        await asyncio.sleep(0.3)
     # If no deletable page exists, try creating anyway (will fail if at max)
 
     new_page = {

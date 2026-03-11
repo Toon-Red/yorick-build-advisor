@@ -18,7 +18,13 @@ from data.rules import (
     starter_items,
     item_path,
     precision_secondary_adaptation,
+    boot_recommendation,
+    first_back_recommendation,
+    relevant_combos,
+    build_order_note,
+    late_game_note,
 )
+from data.item_builds import ITEM_COMBOS, FIRST_BACK_ITEMS
 from data.skill_orders import resolve_skill_order, get_skill_order
 
 
@@ -48,6 +54,12 @@ class BuildOption:
     skill_order_max: list[str] = field(default_factory=list)     # Max priority: ["Q","E","W"]
     skill_order_description: str = ""       # When/why to use this order
     skill_order_condition: str = ""         # Condition text
+    # --- Item system v2 fields ---
+    boot_rec: dict = field(default_factory=dict)          # {boot, boot_id, rush, note}
+    first_back: list[dict] = field(default_factory=list)  # [{gold, items, note}]
+    item_combos: list[dict] = field(default_factory=list) # [{name, items, description, tags}]
+    build_order: str = ""                                  # Component buy order note
+    late_game: str = ""                                    # Late game swap note
 
 
 def _shard_display(shards: tuple[int, int, int]) -> str:
@@ -143,6 +155,30 @@ def recommend_builds(champion: str, enemy: str) -> list[BuildOption]:
         skill_id = resolve_skill_order(enemy, keystone_name, matchup.tags)
         skill = get_skill_order(skill_id)
 
+        # Step 9: Boot recommendation
+        boot_rec = boot_recommendation(enemy, keystone_name, primary_build_name)
+
+        # Step 10: First back items
+        fb_key = first_back_recommendation(enemy, primary_build_name)
+        first_back = FIRST_BACK_ITEMS.get(fb_key, FIRST_BACK_ITEMS["default"])
+
+        # Step 11: Item combos for mix-and-match
+        combo_names = relevant_combos(enemy, primary_build_name)
+        combos = []
+        for cn in combo_names:
+            combo = ITEM_COMBOS.get(cn)
+            if combo:
+                combos.append({
+                    "name": combo.name,
+                    "items": list(combo.items),
+                    "description": combo.description,
+                    "tags": list(combo.tags),
+                })
+
+        # Step 12: Build order and late game notes
+        bo_note = build_order_note(primary_build_name, enemy)
+        lg_note = late_game_note(primary_build_name)
+
         options.append(BuildOption(
             keystone=keystone_name,
             rune_page_name=keystone_name,
@@ -168,6 +204,11 @@ def recommend_builds(champion: str, enemy: str) -> list[BuildOption]:
             skill_order_max=list(skill.max_order),
             skill_order_description=skill.description,
             skill_order_condition=skill.condition,
+            boot_rec=boot_rec,
+            first_back=first_back,
+            item_combos=combos,
+            build_order=bo_note,
+            late_game=lg_note,
         ))
 
     # Also add compatible alternative builds for the primary keystone
@@ -197,6 +238,21 @@ def recommend_builds(champion: str, enemy: str) -> list[BuildOption]:
             alt_skill_id = resolve_skill_order(enemy, primary_keystone, matchup.tags)
             alt_skill = get_skill_order(alt_skill_id)
 
+            alt_boot_rec = boot_recommendation(enemy, primary_keystone, alt_build_name)
+            alt_fb_key = first_back_recommendation(enemy, alt_build_name)
+            alt_first_back = FIRST_BACK_ITEMS.get(alt_fb_key, FIRST_BACK_ITEMS["default"])
+            alt_combo_names = relevant_combos(enemy, alt_build_name)
+            alt_combos = []
+            for cn in alt_combo_names:
+                combo = ITEM_COMBOS.get(cn)
+                if combo:
+                    alt_combos.append({
+                        "name": combo.name,
+                        "items": list(combo.items),
+                        "description": combo.description,
+                        "tags": list(combo.tags),
+                    })
+
             options.append(BuildOption(
                 keystone=primary_keystone,
                 rune_page_name=primary_keystone,
@@ -222,6 +278,11 @@ def recommend_builds(champion: str, enemy: str) -> list[BuildOption]:
                 skill_order_max=list(alt_skill.max_order),
                 skill_order_description=alt_skill.description,
                 skill_order_condition=alt_skill.condition,
+                boot_rec=alt_boot_rec,
+                first_back=alt_first_back,
+                item_combos=alt_combos,
+                build_order=build_order_note(alt_build_name, enemy),
+                late_game=late_game_note(alt_build_name),
             ))
 
     return options
@@ -256,6 +317,11 @@ def build_option_to_dict(option: BuildOption) -> dict:
             "description": option.skill_order_description,
             "condition": option.skill_order_condition,
         },
+        "boot_rec": option.boot_rec,
+        "first_back": option.first_back,
+        "item_combos": option.item_combos,
+        "build_order": option.build_order,
+        "late_game": option.late_game,
     }
 
 
