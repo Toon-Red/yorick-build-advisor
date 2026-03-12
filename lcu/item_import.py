@@ -258,7 +258,22 @@ def _build_full_blocks(
     if sit_ids:
         blocks.append(_make_block("Situational", sit_ids))
 
-    # --- 6. Item combos ---
+    # --- 6. Split / Pet synergy items ---
+    # Items that work with Yorick's ghouls and maiden for splitting
+    SPLIT_PET_ITEMS = [
+        3161,  # Shojin (12% pet DMG amp)
+        3181,  # Hullbreaker (pet resistances)
+        2520,  # Bastionbreaker (tower shred)
+        3748,  # Titanic Hydra (waveclear + HP scaling)
+        6653,  # Liandry's (pets proc burn)
+        6692,  # Eclipse (pets proc)
+        3071,  # Black Cleaver (pets stack armor shred)
+        3065,  # Spirit Visage (Maiden heal amp)
+        6610,  # Sundered Sky (sustain on catches)
+    ]
+    blocks.append(_make_block("Split / Pet Items", SPLIT_PET_ITEMS))
+
+    # --- 7. Item combos ---
     combo_seen = set()
     for opt in options:
         for combo in opt.get("item_combos", []):
