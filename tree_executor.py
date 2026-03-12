@@ -888,6 +888,7 @@ def _item_category_to_build_name(category: str) -> str:
         "vs_irelia": "VS Irelia",
         "vs_ranged": "VS Ranged Top",
         "default_titanic": "Default Titanic Path",
+        "anti_ap": "Anti-AP",
     }
     return mapping.get(category, "Default BBC")
 

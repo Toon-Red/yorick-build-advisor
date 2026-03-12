@@ -269,6 +269,7 @@ def item_path(enemy: str, category_override: str | None = None, keystone: str = 
         "vs_irelia": "VS Irelia",
         "vs_ranged": "VS Ranged Top",
         "default_titanic": "Default Titanic Path",
+        "anti_ap": "Anti-AP",
     }
     if cat in CATEGORY_MAP:
         return CATEGORY_MAP[cat]

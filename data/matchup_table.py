@@ -34,11 +34,11 @@ MATCHUP_TABLE: dict[str, MatchupInfo] = {
     ),
     "Akali": MatchupInfo(
         difficulty="Advanced",
-        keystones=("Comet", "Aery"),
-        item_category="eclipse_poke",
-        tags=("vs_assassin", "vs_ap", "e_max"),
+        keystones=("Grasp-2", "Comet"),
+        item_category="anti_ap",
+        tags=("vs_assassin", "vs_ap"),
         exhaust_viable=True,
-        advice="E max with Eclipse. Rush Null Magic Mantle on first back. W her when she dashes in and shroud is down. Mercs for MR + tenacity. Exhaust her all-in if she snowballs.",
+        advice="Grasp for tankiness vs her burst. Rush Null Magic Mantle on first back. W her when she dashes in and shroud is down. Mercs for MR + tenacity. Exhaust her all-in if she snowballs. Spirit Visage amplifies Maiden healing.",
     ),
     "Akshan": MatchupInfo(
         difficulty="Advanced",

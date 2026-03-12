@@ -1,0 +1,2959 @@
+=== PAGE 1 ===
+Yorick Mori Guide - Kampsycho 
+ 
+Hai I'm Kampsycho, an old Yorick Main with 9 Mill Mastery Points on him.. 
+You can call me Kamps, I stream on Twitch and make Educational Yorick Content 
+on Youtube.. 
+ 
+..I've peaked at Masters Rank and focus on Build Itemization and Macro on 
+Yorick and Maiden.. 
+ 
+In this Guide you will learn a lot about my Builds, Runes, Items,Matchups and 
+Yorick Tips & Tricks that can help you climb from Iron to Diamond+ 
+ 
+ 
+
+=== PAGE 2 ===
+ 
+If you have any questions or feedback feel free to ask me in my Discord, or follow 
+me on Twitter, or come ask me live on my livestreams on Twitch & Youtube 😄 
+ 
+For a Cleaner look on the Summoners, Items & Runes lay out, check out this on 
+Mobafire, which will redirect you here for the Chapters cause I can’t code it 😂 
+ 
+ 
+Yorick Guide Chapters 
+ 
+Yorick Guide Chapters.............................................................................................................1 
+Who is Yorick Mori?.............................................................................................7 
+Pros & Cons......................................................................................................7 
+Yorick's Abilities...................................................................................................8 
+P - Shepherd of Soul..........................................................................................11 
+Grave Tips.......................................................................................................11 
+The Mist Walkers - Ghouls..............................................................................13 
+Ghouls Facts & Stats:................................................................................ 13 
+Ghouls AI Training:......................................................................................... 15 
+Ghouls Tips & Tricks....................................................................................... 16 
+Passive Income..........................................................................................16 
+Artificial Minions......................................................................................... 16 
+Shadow Push.............................................................................................16 
+1 
+
+=== PAGE 3 ===
+ 
+Face Check Ghouls....................................................................................16 
+Speedy Gonzales.......................................................................................17 
+Q - Last Rites......................................................................................................18 
+AA Reset & Range..........................................................................................18 
+Graves.............................................................................................................18 
+Sustain............................................................................................................ 20 
+Yorick Q Facts & Stats:................................................................................... 22 
+W - Dark Procession.......................................................................................... 22 
+3W Max Order.................................................................................................23 
+Wall Interactions..............................................................................................24 
+Wall Facts & Stats + Interactions.................................................................... 25 
+E - Mourning Mist...............................................................................................26 
+E Max Order....................................................................................................27 
+E - Facts, Stats & Tricks..................................................................................28 
+R - Eulogy of The Isles ​
+“The Maiden of The Mist”..................................................................................29 
+R - Facts & Stats.............................................................................................30 
+Maiden’s Pros & Cons.....................................................................................31 
+Pros............................................................................................................31 
+Cons...........................................................................................................31 
+Maiden Tips & Tricks (AI Training).................................................................. 32 
+Ranged Champion..................................................................................... 32 
+Maiden “Control”........................................................................................ 32 
+Don’t save her, She don’t wanna be saved................................................34 
+Wall them off......................................................................................... 34 
+Do not press E...................................................................................... 34 
+Do not look back................................................................................... 34 
+Maiden Splitpush / Double Splitpush......................................................... 35 
+Maiden Release Map................................................................................. 36 
+The Why and When to Release Maiden.................................................... 37 
+Why release Maiden?........................................................................... 37 
+When to release Maiden....................................................................... 38 
+Divorce Maiden..................................................................................... 38 
+Triple Splitpush / Multitasking......................................................................... 39 
+Triple Splitpush..................................................................................... 39 
+Multitasking........................................................................................... 39 
+2 
+
+=== PAGE 4 ===
+ 
+Laning Phase......................................................................................................40 
+Starter Items...............................................................................................40 
+Reserve your mana....................................................................................41 
+Max Order.................................................................................................. 41 
+Lane Game plan.........................................................................................42 
+Items needed to win X lane matchup.........................................................43 
+Small victories, wins lane...........................................................................44 
+Tower Attack Priority:............................................................................ 44 
+Wave manipulation.....................................................................................45 
+Roaming Phase & Grouping............................................................................. 46 
+Roaming Options....................................................................................... 46 
+Pretending to “Group”................................................................................ 47 
+Maiden is Bait.............................................................................................48 
+Rift Herald Driveby.....................................................................................48 
+Actually Grouping 🤮................................................................................. 49 
+Splitpushing Phase & Late Game................................................................... 50 
+Where to Splitpush & When:......................................................................50 
+Summoner Spells...................................................................................................................... 51 
+Flash & Teleport - Classic................................................................................................ 53 
+Ghost - Mobility................................................................................................................53 
+Ignite - Power...................................................................................................................54 
+Exhaust - Anti-Burst (Cuck Tryndamere)......................................................................... 55 
+Extreme -  Ghost Ignite - Mad Monk................................................................................58 
+Runes..........................................................................................................................................59 
+Resolve Tree..........................................................................................................................59 
+Grasp of The Undying - Default with precision................................................................ 60 
+Grasp-1 - Default....................................................................................................... 60 
+Demolish..........................................................................................................................60 
+Demolish tips:............................................................................................................ 61 
+Revitalize......................................................................................................................... 61 
+Boneplating......................................................................................................................61 
+Legend Alacrity (Attack Speed)....................................................................................... 62 
+Presence of Mind (Mana regen)...................................................................................... 62 
+Rune Shards....................................................................................................................63 
+Overgrowth...................................................................................................................... 65 
+Unflinching....................................................................................................................... 65 
+Second Wind....................................................................................................................66 
+Resolve as Secondary.....................................................................................................67 
+3 
+
+=== PAGE 5 ===
+ 
+Resolve as Primary..........................................................................................................67 
+Understanding Rune Setup................................................................................................... 68 
+Grasp-2 - Poke...........................................................................................................69 
+Grasp-3 - Sustain.......................................................................................................70 
+Grasp-4 - Chase........................................................................................................ 71 
+Conqueror - DMG...................................................................................................... 72 
+Arcane Comet - Poke.................................................................................................73 
+25.................................................................................................................................................73 
+Summon Aery - Melee Poke...................................................................................... 74 
+Phase Rush - Fast..................................................................................................... 77 
+Hail of Blades - Auto Attack Reset.............................................................................80 
+First Strike - Money....................................................................................................81 
+Builds & Itemization - wip (they’re on Mobafire).....................................................................83 
+Matchup Sheet (WIP watch my vids smh)....................................................... 84 
+Yorick Matchup difficulty........................................................................................................ 84 
+AD Fighter..................................................................................................85 
+AD/AP Poke............................................................................................... 85 
+Ranged / Battle Mage................................................................................ 85 
+Ranged.......................................................................................................85 
+HP Tank......................................................................................................85 
+AP/AD Tank................................................................................................85 
+Aatrox.........................................................................................................85 
+Akali 😒......................................................................................................85 
+Ambessa.................................................................................................... 85 
+Annivia 🤮..................................................................................................85 
+Aurelion Sol................................................................................................86 
+Aurora 🤢...................................................................................................86 
+Camille....................................................................................................... 86 
+Cassiopeia................................................................................................. 86 
+Cho’Gath....................................................................................................86 
+Darius.........................................................................................................86 
+Dr. Mundo...................................................................................................86 
+Fiora...........................................................................................................86 
+Gangplank..................................................................................................86 
+Garen......................................................................................................... 86 
+Gnar........................................................................................................... 86 
+Gragas....................................................................................................... 86 
+4 
+
+=== PAGE 6 ===
+ 
+Gwen..........................................................................................................87 
+Heimer........................................................................................................87 
+Illaoi............................................................................................................87 
+Irelia........................................................................................................... 87 
+Jax..............................................................................................................87 
+Jayce..........................................................................................................87 
+K’Sante.......................................................................................................87 
+Kayle.......................................................................................................... 87 
+Kennen.......................................................................................................87 
+Kled............................................................................................................87 
+Malphite......................................................................................................87 
+Mordekasier............................................................................................... 87 
+Naafiri.........................................................................................................88 
+Nasus.........................................................................................................88 
+Olaf.............................................................................................................88 
+Ornn........................................................................................................... 88 
+Pantheon....................................................................................................88 
+Poppy.........................................................................................................88 
+Quinn..........................................................................................................88 
+Renekton....................................................................................................88 
+Riven..........................................................................................................88 
+Rumble.......................................................................................................88 
+Ryze...........................................................................................................88 
+Sejuani....................................................................................................... 88 
+Sett.............................................................................................................89 
+Shen...........................................................................................................89 
+Singed........................................................................................................89 
+Sion............................................................................................................89 
+Smolder......................................................................................................89 
+Swain......................................................................................................... 89 
+Sylas.......................................................................................................... 89 
+Tahm kench................................................................................................89 
+Teemo........................................................................................................ 89 
+Trundle....................................................................................................... 89 
+Tryndamere................................................................................................89 
+Udyr............................................................................................................89 
+5 
+
+=== PAGE 7 ===
+ 
+Urgot.......................................................................................................... 90 
+Varus..........................................................................................................90 
+Vayne......................................................................................................... 90 
+Vladimir...................................................................................................... 90 
+Volibear...................................................................................................... 90 
+Warwick......................................................................................................90 
+Wukong......................................................................................................90 
+Yasuo......................................................................................................... 90 
+Yone........................................................................................................... 90 
+Yorick......................................................................................................... 90 
+Zaahen.......................................................................................................90 
+Zac............................................................................................................. 90 
+​
+ 
+6 
+
+=== PAGE 8 ===
+ 
+Who is Yorick Mori? 
+ 
+Yorick Mori in short words is a member of the Brethren of The Dusk, an order of 
+Monks from the Blessed Isles, Yorick is a Gravedigger and in league of Legends 
+a Necromancer & Pet based Champion, Blessed and cursed with the power to 
+See and Hear the Dead.. 
+ 
+He's a Toplaner Juggernaut, which is a group of mostly immobile but strong 
+champions that are a mix of Fighters & Tank, Such as Aatrox, Mundo and 
+Mordekaiser.. 
+ 
+His playstyle revolves around Splitpushing and putting a lot of pressure on the 
+map and enemies with his horde of pets by his side, which all come with a lot of 
+pros and cons.. 
+Pros & Cons 
+ 
+Pros: 
+- "Simple Kit" / Beginner Friendly 
+- Strong Pets 
+- Tilts The enemy  
+- Able to Push 3 lanes at once 
+- Insane Macro Tools to stall & End Games 
+ 
+Cons: 
+- Slow & Unreliable / Low CC 
+- No "Real" Control over his pets 
+- Bugs, Bad AI, Team will hate you.. 
+- Hard to carry when all lanes lost hard 
+- No Defensive Tools / "Squishy Tank" 
+ 
+ 
+ 
+7 
+
+=== PAGE 9 ===
+ 
+Yorick's Abilities 
+Basic Breakdown: 
+ 
+Passive - Shepherd of Souls: 
+Every few minion death will give Yorick a Grave 
+ 
+ 
+Q - Last Rites: 
+Enhanced Auto attack that Deals DMG & Heals Yorick the lower he is on HP, 
+Killing enemies will leave a Grave, Hitting Champions & Monsters will also leave 
+a Grave. 
+ 
+ 
+8 
+
+=== PAGE 10 ===
+ 
+W - Dark procession:  
+Yorick creates a wall with 2-4 HP scaling on its rank, allies can walk through this 
+wall and it can be destroyed by enemy auto attacks. 
+ 
+ 
+E - Mourning Mist: 
+ Marks enemies so His pets will attack them, The mark Lowers the enemy's 
+armor and briefly slows them while giving Yorick and his pets bonus movement 
+speed towards them. 
+ 
+​
+ 
+9 
+
+=== PAGE 11 ===
+ 
+R- Eulogy Of The Isles: 
+Yorick Summons the Maiden of the Mist that deals ranged Magic DMG and %HP 
+Magic DMG when Yorick attacks the same champion he is attacking, while 
+converting nearby enemy unit deaths into Ghouls. 
+ 
+Yorick's Abilities on paper look very simple, which makes him beginner friendly.. 
+He Throws Pocket Sand, makes his pets Aggro you, then Traps you followed by 
+a Bonk as his Pets maul you since.. 
+ 
+He is a pet champion which is known to annoy and tilt the enemy similar to 
+Heimer & Zyra, though his pets are mobile unlike theirs and can do a lot more.. 
+This gives Yorick a unique macro decisions that other champions do not think 
+about, this gives him insane Macro tools and gives him the power to manipulate 
+waves, "shadow push" (more on this later on) 
+ 
+Though he's very slow as a Juggernaut, He's not very tanky by default, he's only 
+situationally Tanky with his Q, but cannot keep himself alive since he lacks 
+defensive tools. 
+His biggest con is how many bugs his kit is riddled with and the fact he cannot 
+really control his pets or have readily access to them which makes it hard for him 
+to carry if everyone is lost, since splitpush is more effective when you're team is 
+going even or is winning, otherwise it's more of a stalling tool. 
+ 
+10 
+
+=== PAGE 12 ===
+ 
+In the next chapter I will go over all his Abilities and give an indepth guide on 
+them, including how his pets AI work and how to use that to your advantage to 
+"control" your pets. 
+P - Shepherd of Soul 
+Yorick's Passive grants him a passive grave every 8th-2nd enemy unit that dies 
+around him, His Q Last Rites can also grant him graves if he Kills with it or Hits 
+an enemy Champion or Large Monster. 
+ 
+The passive itself is mostly his Pets, The Mist Walkers or how I call them, The 
+Ghouls, these are his minions that fight for him, he can only have 4 of them 
+around himself and his R, The Maiden of The Mist. 
+ 
+Once Yorick has 2-4 Graves around him, after using his Q he can re-cast it to 
+summon 2-4 Ghouls from the graves, as long as the graves are within his circular 
+range, 
+ 
+Seems pretty straight forward but there's many tips and tricks around the rules of 
+him and his Maiden only having 4 Ghouls, you can even Alt+Click his passive to 
+check how many ghouls are near you or around the whole map.. 
+ 
+Grave Tips 
+While recasting Yorick's Q Awakening, you can walk away from a grave while 
+having 4 graves, to only summon 3 or even 1 Grave, because the recast will only 
+summon Ghouls from the graves within the Circle range of the Recast. 
+ 
+Seems pretty useless but there's also an invisible circle around Yorick that's 
+slightly bigger (1000 units around Yorick), this one is the size of almost the entire 
+screen, this one tracks how many Ghouls are around Yorick and you can see this 
+by his passive. 
+11 
+
+=== PAGE 13 ===
+ 
+ 
+ 
+When he has no ghouls it's 0/4 Ghouls, when he has 4 it's 4/4 
+​
+What you can do is have your ghouls push a lane while having 4 Graves ready 
+and once the counter goes back to 0/4 you can recast and awaken those 4 
+dormant Ghouls for a total of 8 Ghouls. 
+ 
+Ofcourse there will only be 4 around Yorick but that's fine because the ghouls can 
+do a lot while around Yorick and while away from him.. 
+ 
+Lastly you are guaranteed a grave when an enemy champion dies nearby or an 
+epic monster dies and these graves also despawn and expire when Yorick exits 
+their range, the same one that's invisible (1000 units around Yorick) and counts 
+the Ghoul count. 
+ 
+So be careful when you walk down to ward the river, since you may come back 
+and find that ALL your graves are gone depending where they were, thus it's 
+usually better to raise them and take the ghouls with you, though ghouls have a 
+mind of their own, which is what the next lesson will be about.. 
+12 
+
+=== PAGE 14 ===
+ 
+The Mist Walkers - Ghouls  
+Yorick cannot control his ghouls fully, but if you understand their AI you can make 
+good use of them. Before we get into their AI and how they react, let's list some 
+Facts & Stats about them. 
+ 
+Ghouls Facts & Stats: 
+●​ - They are dumb, but lvl up alongside Yorick, scaling up their stats. 
+●​ - 325 base move speed, but gain an extra 60 when near Yorick and any 
+other FLAT MS Yorick gains, Phase rush is the only %MS they benefit 
+from. 
+●​ - Ghouls lose their 60 bonus move speed when they're far away from 
+Yorick but when they still tethered to him they will gain bonus MS based on 
+how far away they are from him, making them run very fast.. 
+●​ - 110-300 Scaling HP with 15% Bonus HP Ratio and 15-100 AD scaling 
+with 20% Bonus AD. 
+●​ - 125 attack range and 0.54-0.9 attack speed. 
+●​ - Ghouls do not count as "minions" so they won't lower a tower's defense 
+and let you deal full DMG to them like lane minions do. 
+●​ - Their auto attacks are affected by Blinds (Teemo & Quinn), Dodges (Jax 
+& Nilah) and Blocks (Shen) 
+●​ - They're autos (Basic attacks) deal Area of Effect DMG (AoE), but when 
+it's during their leap attack against a marked target of Yorick's E, it counts 
+as an basic attack. 
+●​ - They're Basic attacks, can apply Spell effects, but not On-hit effects, this 
+is why they can apply Liandry & Comet but not Titanic Hydra or Blade of 
+The Ruined King. 
+●​ Items Ghouls can apply through Spell effects, Last hit or Physical DMG: 
+ 
+ 
+ 
+ 
+ 
+13 
+
+=== PAGE 15 ===
+ 
+ 
+ 
+●​ - deals 60% DMG against Monsters, but take 100% DMG against monsters 
+●​ - deals 50% DMG against Towers, but take 60% DMG against lane minions 
+●​ - Take 200% DMG against Melee auto attacks but 100% against ranged 
+auto attacks. (Hard for range champs to kill) 
+●​ - Take 66% scaling down to 40% DMG reduction against AoE (Area of 
+Effect) DMG. 
+●​ - Gets one shot by Tower shots, but slowly melted by Fountain lasers. 
+●​ - They will recall with us, unless in combat with a monster, but will also 
+Teleport with us, hexgates also count. 
+●​ Will level up dynamically with Yorick’s lvl. 
+●​ Ghouls interact with enemies that have AoE Healing or Count as Minions 
+towards their healing passive / ability, like Trundle Passive, Cho’Gath 
+passive, or Renekton Q, or Ravenous Hydra’s Active 
+●​ Ghouls do not follow you into Morde’s R, But Maiden can can Spawn 
+some, or you can make Graves with your Q 
+●​ Graves do not follow you into, or out of Morde’s R 
+ 
+14 
+
+=== PAGE 16 ===
+ 
+Ghouls AI Training: 
+- Ghouls when spawned will stand behind Yorick (200 units) untill they enter 
+"combat" 
+ 
+- Ghouls enter "Combat" when they are nearby an enemy Minions wave or 
+enemy champion, after this they will NOT follow you anymore and will proceed in 
+that lane. 
+ 
+- Ghouls can exist Combat if they are aggro'd unto an enemy Monster with your 
+E, or champion, after they kill the monster or champion or lose vision of either of 
+them, they will follow Yorick again. 
+ 
+- If you're recalling they will follow you home, unless they get in combat with 
+minions or monsters, or champions, but hextech gate will force them to TP to you 
+if close enough. 
+(They do not follow you IN or OUT OF Mordekasier's Ult though..) 
+ 
+- Against Multi camp monsters like Krugs, Raptors or wolves, Ghouls will only 
+aggro ONE unit even if they attack multiple ones, so once the E mark is gone or 
+their target die they will go back to yorick. 
+(So you can E the Big Raptor chicken, they will kill 1 then leave, same with 
+wolves or if they kill the big krug, they will leave the small ones) 
+ 
+- When a Target enters a bush the ghouls will de-aggro and stop attacking them, 
+same if they lose vision of them, this can even occur when the E mark is still 
+active (bug). 
+ 
+- They're dumb and very buggy, I'll go over the known "good" and "bad" bugs in 
+the Bugs section, they will drop aggro randomly very often when chasing and 
+cancel auto attacks, so beware.. 
+15 
+
+=== PAGE 17 ===
+ 
+Ghouls Tips & Tricks 
+Passive Income 
+Ghouls & Maiden give 100% Gold & Experience when they last hit minions, this 
+also counts towards them assisting hitting a tower, if a plate goes down 5-10s~ 
+later you will gain full Gold from it as well. 
+Artificial Minions 
+Ghouls & Maiden do not count as minions, so if you go to hit a tower with them 
+without LANE MINIONS, the tower will have full defense. 
+ 
+But if the tower is low and you have Grubs, Demolish or Hullbreaker you can 
+force a tower by letting your Wall tank it alongside your pGhouls. 
+ 
+You can also raise your pets in lane when an enemy is pushing you in or when 
+you don't have a chance to land E and the wave is coming to your tower, the 
+minions will aggro your pets, thus stopping the siege of the enemy minions, you 
+can use this to stall the push till your real lane minions show up, which can result 
+in a freeze. 
+Shadow Push 
+Because Ghouls & Maiden give 100% Gold & EXP, you can leave them in lanes 
+before you recall (After lane phase) to rack up EXP & Gold. 
+Since Gold & EXP ramps up mid to late game this becomes a very powerful tool 
+to catch up or snowball your Gold & LVL advantage. 
+Face Check Ghouls 
+Ghouls can give full vision in bushes, so if you can E Rift, Baron, Grubs over wall 
+or an enemy they will grant you vision. 
+ 
+Yorick & Maiden Share 4 Ghoul Count rule when together but when you release 
+her or Ghouls are off doing something else you don't share them anymore, so 
+you can have more than 4 on the map. 
+ 
+This means in the JG without Maiden around, you can have 4 ghouls on a JG 
+monster with 4 Graves, land your E and walk away and once you’re out of your 4 
+16 
+
+=== PAGE 18 ===
+ 
+Ghouls area, they 4 graves will raise as Ghouls to give you 8, of course when 
+these ghouls get close to you they will die out and remain as 4, but if they run 
+into an enemy wave or champion they will just push it as 8 without any problems. 
+ 
+Once Ghouls loses vision or kill a champion/Monster, at times there won't be an 
+enemy wave around, because it already died or isn't around or the ghoul was 
+spawned by maiden. 
+ 
+It will look to find Yorick, thus pathing anywhere giving you free vision. 
+Lastly if you're in a bush and an enemy champ/minion is close they attack them, 
+exposing your location. 
+Speedy Gonzales 
+ 
+Like I said in the facts section, Ghouls will gain Bonus MS when they tethered to 
+him (meant to come back to him, due to them fighting a champion or JG monster) 
+ 
+You can use this to your advantage when fighting enemies after you throw E but 
+can’t chase them, especially if the enemy isn’t in lane since ghouls won’t go into 
+“lane mode” which is basically them aggro’d to minions even if fighting a champ. 
+And the ghouls will gain so much speed they can outrun anyone.. 
+ 
+This can happen intentionally if you look for it or by accident as they follow their 
+AI rules, so here’s 3 examples of it happening: 
+ 
+1.​ Ghoul Spawned by Maiden that did not see a minion wave, thus looks for 
+Yorick 
+This resulted in them pathing towards me, running into Zed, murdering him, then 
+continuing on their path to find me at Baron, if they ran past lane minions mid 
+they would have stopped, but they did not, thus they reached me, I would have 
+also NOT seen them if I already had 4 Ghouls at Baron already. 
+ 
+2.​ Ghouls staying in Combat with an enemy champion while I leave, thus 
+being far away granting them massive speed bonus, only for it to be lost 
+once Zed went to a lane. 
+ 
+3.​ Ghouls leaving Maiden due to champ aggro and gaining speed once I left 
+17 
+
+=== PAGE 19 ===
+ 
+Q - Last Rites  
+AA Reset & Range 
+Yorick’s Q is an enhanced basic attack,this ability can reset your auto attack, 
+meaning it resets it’s timer and you’re not confined by your attack speed or 
+animation time, giving Yorick a small combo of AA (Auto attack) + Q Bonk. 
+ 
+Like most enhanced auto attacks, Yorick’s Q grants his next auto (Q) more 
+range, in his case it gives 50 bonus attack range, this can be used to spam out 
+enemies or farm from a slightly safe distance despite being a melee champion. 
+ 
+Because Yorick has a built in auto attack reset, he can attack twice quickly, which 
+can then proc his R’s %HP twice as well, because The Maiden of The Mist. 
+​
+The auto attack reset will also help in Season 16 now that Demolish requires 3 
+auto attacks, thus giving Yorick an advantage to AA + Q + AA again for 3 hits and 
+proc the Demolish and acquire tower plating gold. 
+Graves 
+Of course our Q is our real grave passive, which guarantees us graves when Q: 
+●​ Last Hit and Kill with Q 
+●​ Q an enemy Champion 
+●​ Q “Large” enemy monsters (Big Wolf, Raptor, Krug, Gromp & Scuttle) 
+●​ Q Epic Monsters ( Grubs, Rift Herald, Dragon, Atakhan & Baron) 
+ 
+Hullbreaker is another item that Yorick as a splitpusher will want and also 
+requires a certain amount of autos to proc it, in this case 5, which is a lot.. 
+18 
+
+=== PAGE 20 ===
+ 
+Item build’s video: https://www.youtube.com/watch?v=oZVMMoy_TMk 
+ 
+This is where one of my Splitpush Builds comes in handy.. 
+With the Item combo of Titanic Hydra & Hullbreaker aka Titanic Breaker 
+ 
+Because Titanic Hydra’s active is different than the other Hydra items and doesn’t 
+just does an AoE DMG around you while also working as an Auto reset tool, it 
+actually requires you to auto something to proc it’s AoE DMG, it works the same 
+as our Q giving Yorick a 2nd Auto attack reset.. 
+ 
+Giving us this combo: AA + Titanic Hydra + Q + AA, for 3 Quick auto attacks and 
+a normal 4th one, leaving only 1 more to proc Hullbreaker’s 5th passive. 
+Combo in action: https://www.youtube.com/shorts/1RAxT2awkHQ  
+ 
+19 
+
+=== PAGE 21 ===
+ 
+Sustain 
+Yorick’s Q is his ONLY source of sustain and tankiness.​
+The Q will heal him for a flat amount, this scales up per lvl. 
+ 
+But also heal him for 6%-10% of his missing HP.​
+Keep in mind this healing is halved against non champions though..​
+ 
+Because of this and the fact his Q doesn’t heal for double the amount when he’s 
+below half HP anymore, Yorick’s lane sustain is weaker than what it used to be.. 
+ 
+Due to his Flat heal being per lvl, so from lvl 1-9 he’s only healing for 5-14 HP 
+and once you add in the 6%-10% HP you would think it’s high, but early game 
+you won’t have a lot of base HP or HP items, thus you won’t benefit from it 
+against non-champions. 
+ 
+For example here’s the Flat healing from Fiora’s passive: 
+ 
+Talon’s Q Healing:  
+ 
+Yorick’s Q Heal against non Champs:  
+ 
+As you can see Yorick’s Flat Q sustain in lane even with the missing %HP ratio is 
+weaker than Fiora’s and comparable to Talon’s.. 
+ 
+20 
+
+=== PAGE 22 ===
+ 
+While if you look at his %HP healing, it’s litterally half of Volibear’s W Healing 
+Yorick Q Heal: 
+ 
+Volibear W Heal: 
+ 
+Different champions, but both are Juggernauts and even without this ability 
+somebody like Volibear can still Shield himself with his E and R for bonus HP.​
+All of this to say that you MUST use Yorick’s Q carefully when you’re low.. 
+ 
+This means that the normal combo of AA + Q is nice, but when trading in lane if 
+the enemy has burst and can reach you? Do not do it, let them trade then Q them 
+once the trade ends to gain as much healing as possible since you WILL have 
+lower HP at the end of the trade, while at the start you will be healthier. 
+ 
+Combine this healing factor with Runes like Grasp of The Undying, Revitalize 
+and even Items like Sundered Sky that basically has the same kind of healing  as 
+Yorick’s Q and you can survive burst DMG, turn the tides of battle easily with it!! 
+ 
+Example of Sky + Q Healing: https://www.youtube.com/shorts/DSQKvGRNrok  
+Extreme example, but this can be used to deny a lot of execute abilities. 
+Otherwise or Q is just a Bonk, thus Sheen items like Triforce and Iceborn 
+Gauntlet are good, since our Q can be applied on towers and a lot more.. 
+Which I will list in the next chapter: 
+ 
+21 
+
+=== PAGE 23 ===
+ 
+Yorick Q Facts & Stats: 
+●​ Auto Attack Reset 
+●​ Cannot be cancelled / Uncancellable windup 
+●​ +50 Auto Attack Range 
+●​ Q Animation / Cast scales with attack speed (AS) 
+●​ Heals for a Flat amount + % Missing HP 
+●​ Leaves a Grave when Struck against: Champs, Monsters & Killing a unit. 
+(Does not grant graves against JG Plants or killing other Pets) 
+●​ Applies Spell Effects like our Ghouls, such as: Comet, Liandry, Rhyalis,etc. 
+●​ Applies on-hit effects such as: lifesteal, Titanic, Sheen effects, Grasp etc. 
+●​ Can be re-cast once Q is on cooldown to raise nearby Graves once you 
+have at least 3-4 Graves. 
+●​ Works on Towers and other structures like Inhibitors (heals off them too) 
+●​ Heal can be applied while hitting Wards or JG Plants like: Blastcone. 
+●​ If you ​Q at the very last second,sometimes it won’t proc or heal and you 
+will die, so try not to hold it too long for a bigger heal, this is a bug though 
+W - Dark Procession 
+Dark Procession is Yorick’s Wall, this wall is not instant and raises itself after 
+0.75s, once it’s coming up it’s edges can knock up enemies and displace them 
+giving a minor CC for 0.25s. 
+ 
+Within 210 units of it you are pushed inside of the wall, otherwise the wall will 
+push you away, this wall can only be targeted by champions basic attacks or 
+tower shots, Champs deal 1 HP to it while towers will one shot the wall. 
+ 
+Inside the wall you are given sight, meaning you can spawn the wall over another 
+wall to check vision, though niche it can be useful to know this.. 
+Yorick’s wall will remain up for 4 seconds unless it is destroyed, its cooldown also 
+starts upon cast and does not stop Yorick’s movement (walking) like his E does.. 
+This means while running away you can summon the wall and keep running, 
+while if you throw E it will stop Yorick from walking, thus slowing you down. 
+22 
+
+=== PAGE 24 ===
+ 
+3W Max Order 
+Because of this and the fact the wall is big and its HP can scale up to 4 HP, 
+starting at 2 HP, it is very important to always put at least 3 points into Yorick’s 
+Wall, at Rank 3 this grants the wall 3 HP, most toplaners have an auto attack 
+reset, so it’s easy for them to Auto and use their enhanced auto to instantly break 
+the wall, but with 3 HP the wall will remain at 1 HP buying you and your pets time 
+to deal more DMG, this is super effective and a MUST against champions with no 
+dashes. 
+ 
+This can also still be a viable strategy against champions with only 1 predictable 
+dash, such as Jax, Camille, Gragas, etc. 
+You can put 3 points into your wall by lvl 5 or by lvl 7, this would look like this: 
+ 
+Against tough or very easy matchups like Mordekaiser (can be tough) or Mundo 
+(easy), I will put 3 points into it by lvl 5, So at lvl 3 the wall have it’s first point, 
+then I will give it the 2 other ones at lvl 4 and 5, meaning at lvl 6 if I ever trap an 
+enemy that can’t fight back or defeat me, they are dead or instantly lose their 
+flash, this will give you lane advantage and priority to secure grubs and ganks. 
+ 
+But if you’re just fighting a mobile champion and their JG is also mobile with 
+dashes then you just max your Q into E and W, but still try to put 3 points into 
+your W and not leave it at 2 points till later one, the cooldown reduction is nice  
+otherwise your walls cooldown will be 20s but it will be down to 16s​
+Usually there will be at least 1 enemy that can’t dash out of your wall, thus giving 
+you value. 
+ 
+23 
+
+=== PAGE 25 ===
+ 
+Wall Interactions 
+ 
+Our Wall also counts as terrain, meaning it can interact with enemies and ally 
+spells, but it’s an ALLY WALL, meaning an enemy Poppy cannot slam me into my 
+own wall with her E, but an ally Poppy can use it to slam an enemy into it, same 
+with Vayne E or Briar E. 
+ 
+But at the same time an enemy Ornn can knock up us using our own wall, 
+because his E destroys player made terrains like our W and knocks up when it 
+collides with a wall. 
+ 
+On top of this there’s weird interactions like with Graves autos, you can hide 
+behind your wall to block his auto attacks, same with using the minion wave or 
+our pets, your wall can also block his Q, problem is it works the same whether it’s 
+an ally Graves or an enemy, meaning the Q will always slam into the wall and 
+end short.. 
+ 
+Meaning if I wall an enemy while graves is ganking me, he may look to Q the 
+enemy only for the wall to stop it and not reach the enemy inside of it, same goes 
+for Lilia’s W, it’s a mini dash into a Big Bonk, but because it can’t go over wall, I 
+can wall an enemy and if my Allied Lilia tries to W Bonk them inside my wall, their 
+W will always miss and wrap around the wall instead.. 
+ 
+Speaking of wrapping around the wall? Qiyana R, it will run across the wall, if she 
+ults inside the run on the inside, if our wall is next to a wall? It will extend her R 
+range as well and if our wall is close to one, there’s lots of interactions, facts and 
+tips so let me list them out: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+24 
+
+=== PAGE 26 ===
+ 
+Wall Facts & Stats + Interactions 
+●​ Wall starts at 2 HP, Scales up to 4 HP 
+●​ Can be targeted by towers, which one shot them 
+●​ Loses 1 HP to Melee auto attacks, 2 HP to Enhanced autos that count as 2 
+Auto attacks, like Zaahen Q(2), While Shyvana Q Counts as  4 in Dragon 
+form, which one shots the wall 
+●​ Can block Graves Autos & Q 
+●​ Blocks Lilia W 
+●​ Can be destroyed by Ornn E 
+●​ Allies that can stun enemies into our wall: Vayne, Poppy, Briar 
+●​ Enemies inside can be pulled out by an allied Hook, or Push ability 
+●​ Can be dashed out of by everyone with a dash except Ambessa, Belveth 
+base form or K’sante (Unless K’sante dashes to an allied champion or 
+minion 
+●​ Xayah R cannot dash out of our wall (it’s not a dash but looks like one) 
+●​ Talon E can dash out of our wall like Kayn’s E but Talon’s E can only dash 
+over our wall once, if you wall him he can 100% get out, if you wall in front 
+of him he can dash over it only if he dashes near it’s edges, if he dashes 
+directly over it he will fall inside and cannot dash out. 
+●​ K’sante can use his R to dash out of our wall if we’re close enough (do not 
+tell them this, I need them to yield to me permanently) 
+●​ Poppy can use yorick, minions or ghouls as targets to dash out of the wall 
+●​ Garen Q can dash out of it if he targets Yorick or a nearby minion when 
+he’s at the edge of the wall, so can Illaoi and it’s easier for her to do it. 
+●​ Kled E cannot E out of the wall, but if his E hits you he can recast his E to 
+dash out by following you with his E. 
+●​ Kled can be trapped inside our Wall during his Ultimate 
+●​ Sion R can be stopped by Yorick wall 
+●​ Warwick Q can be held to dash out of Yorick wall using Yorick, his Pets or 
+a nearby Minion. (of course he can just R out of it too) 
+●​ Ornn W can be used at the edge of the wall to walk out while it’s spawning, 
+Ornn R2 can also allow him to dash out of it at the edge of the wall 
+●​ Wall can cut off Jungle entrance and exits which can also block deny by 
+walling off an open area or closed one like baron or dragon pits and 
+change the enemy’s auto pathing while chasing you, making them route 
+differently, since they can’t walk through your walls like allies can 
+●​ The wall does not follow you into Morde’s R, Save it for when he Ults 
+25 
+
+=== PAGE 27 ===
+ 
+ 
+E - Mourning Mist 
+ 
+ 
+Yorick’s E is one of his most important abilities since this is the main if not only 
+way to control your pets and who they attack. 
+ 
+This ability is shaped like a weird rectangle, almost like a coffin, it can be hard to 
+hit and its max range is actually near its top edges on its corners, which can 
+catch enemies off guard if you hit them with it.. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+When this ability hits an enemy champion or monster, it will Shred 13% up to 
+25% of their armor, slowing them for 1.5s but also marking them for 4s, this mark 
+will aggro the ghouls making them raise from their graves to attack the enemy 
+While also granting Yorick, Maiden and his Ghouls 18%-30% Move Speed (MS) 
+ 
+ 
+ 
+26 
+
+=== PAGE 28 ===
+ 
+ 
+ 
+E Max Order 
+You would think you should just max E second, which is true but Yorick’s skills 
+scale weirdly and due to past nerfs we must adapt to them.. 
+Old Yorick E always gave him 20% MS towards his enemies, New One scales up 
+to 30% BUT at rank one it starts at 18%, meaning it’s a nerf at the beginning.. 
+ 
+ 
+ 
+ 
+Because of this it’s important to just put 2 points into E before you finish maxing 
+Q, because Rank 2 of your E will give you 21% MS, this is 1% higher than the old 
+one, but also 2% higher than leaving it at rank 1, more MS can help you and the 
+ghouls catch up and will increase your DPS significantly, why? 
+ 
+Because the ghouls do not “attack move” like how a real player would, they just 
+chase then auto when they are in range and only walk again once they’re out of 
+range, so the more MS they have the less time they have walking up, this is why 
+the items you get on Yorick are very important because MS and Slows can really 
+impact how much DMG you or your pets get to deal to the enemy, but I’ll talk 
+about itemization later on.. 
+ 
+Lastly our E does have %HP DMG with an AP Ratio, which has spawned viability 
+in AP builds with Liandry, Blackfire torch, etc. where you max E, but you can also 
+Max E and only have 2 points into Q against Ranged champions that are playing 
+too safe, or ranged matchups where you are only landing your E and can poke 
+them out, despite ranged champs not having a lot of HP for the %HP to deal a lot 
+of DMG, them losing their armor, which again they also don\t have a lot of will still 
+deal enough DMG to work as a strategy to poke the enemy down with Comet or 
+Aery, which I will talk about in the runes section later on.. 
+ 
+ 
+ 
+ 
+ 
+27 
+
+=== PAGE 29 ===
+ 
+ 
+ 
+E - Facts, Stats & Tricks 
+●​ 50-70 Mana, if your farm with E try to hit the enemy to regenerate mana 
+with Manaflow band or Presence of Mind. 
+●​ Raises Nearby Ghouls when an enemy or monster is hit by it, try last hit 
+with Q to make more graves so more ghouls jump or clear the wave when 
+you have Maiden so more ghouls spawn and also jump.​
+(The Ghoul Limit is 4, but as they die to tower or the enemy they will go 
+down to 3, thus spawn more ghouls) 
+●​ Lowers the enemies Armor by 13-25% per rank for 4 seconds 
+●​ Hastes Yorick and his pets towards the enemy for 18-30% MS 
+●​ Deals 6-8% HP Magic DMG giving 3% more per 100 AP (Liandry Stonks) 
+●​ Ghouls cannot leap to the enemy if they are immobilized or grounded, so if 
+you throw E and they are on Cassio W or Poppy’s W is up they will slam 
+into her W and die if they’re low on HP, Veigar E will also stop their jump 
+●​ Using E will make Yorick face in that direction and stop his movement and 
+takes an animation time 
+●​ Applies spell effects like Scorch, Comet, Liandry, etc 
+●​ Weird skillshot that is shot at the ground, so sometimes it can get past 
+Yasuo’s windwall because its trajectory is not normal but it can be 
+windwalled or blocked by Braum E or Samira’s W. 
+●​ Cannot Mark minions or other pets
+ 
+28 
+
+=== PAGE 30 ===
+ 
+R - Eulogy of The Isles ​
+“The Maiden of The Mist” 
+ 
+The Maiden of The Mist,, Hermana Gilda, Our Wife, Mommy, Bottom Bi- 
+She’s our main source of our “real” passive, which creates infinite Ghouls up to a 
+cap of 4 of course, The Maiden is a big part in his kit, without her Yorick is weak.. 
+ 
+At lvl 6 Yorick can summon the Maiden of The Mist over 1.5s with Ghouls​
+The number of Ghouls scale up per rank but a lot of her stats also do.. 
+Maiden deals Magic DMG and is Ranged, She attacks who Yorick attacks, once 
+Yorick hits the same target the enemy champion will take 2/2.5/3% Max HP 
+Magic DMG, this is our main way to shred tanks and duel enemies.. 
+ 
+Maiden has a lot going on so let me get her stats and facts out of the way first.. 
+ 
+29 
+
+=== PAGE 31 ===
+ 
+ 
+R - Facts & Stats 
+●​ Maiden has 1050-3150 HP (Scaling per lvl) + 60% of Yorick’s Bonus HP 
+●​ 30-90 Armor & Magic Resist scaling per lvl 
+●​ 300 MS, 1.0 AS, and 600 attack range 
+●​ 50/75/100  +30% of Yorick’s Bonus AD in Magic DMG 
+●​ Is always Ghosted (can walk through units) 
+●​ 100-500 units behind him 
+●​ Applies Spell effects like all our DMG Spells and Ghouls 
+●​ Leashes / runs back to Yorick if she’s 1200 units apart 
+●​ Deals 2/2.5/3% if Yorick Autos the Champ or hits E while Maiden is 
+attacking the enemy champ. 
+●​ Converts enemy Units or Monsters that die around her into Ghouls for 
+herself or Yorick 
+●​ Also Gains 60 Bonus MS if she is 2000 units near Yorick 
+●​ Tower will attack Maiden last (intended) even if she aggros it (bug) 
+●​ Will teleport back to Yorick during Teleports or Hextech Gates 
+(Hextech gates can be used to save her from being chased) 
+●​ Does not jump towards targets marked by Yorick’s E but also gains the 
+same 18-30% MS boost towards them. 
+●​ Will keep attacking whatever is closest to her, or what Yorick hits for 3-5s 
+(After Yorick is out of her range, she will then turn away after these 3s) 
+●​ Maiden Cooldown 2:40 / 2:10 / 1:40 minutes or 160/130/100 seconds 
+●​ Maiden has HP Regen, 2.5 HP per second, which is 150 HP per minute 
+(Maiden has 1050-1600 HP in lane, so it takes 10 mins for her to heal to 
+full HP or 5 minutes for half her HP, or 2:40 minutes for 25% of her HP, 
+which is how long her rank one cooldown is, so the regen is trash :D) 
+●​ Maiden follows you into Morde’s R, can make Ghouls, but the ghouls won’t 
+follow you outside, neither will your Wall if you spawn it inside 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+30 
+
+=== PAGE 32 ===
+ 
+ 
+ 
+ 
+ 
+Maiden’s Pros & Cons 
+Pros 
+●​ Doesn’t expire or Despawn unless she dies 
+●​ Great pushing power, can match supers 
+●​ Ranged Top abuser as a Pet, can harrass enemies 
+●​ Magic DMG, making it hard to itemize against Yorick 
+●​ Always Ghosted, can’t minion block you, Can Facecheck 
+Cons 
+●​ 3rd Longest cooldown in the game at 2 minutes and 40 seconds.. 
+●​ Perma Spawns Ghouls, making it hard to freeze or manage minion waves 
+●​ Cannot be fully controlled, can cause tower aggro if you’re not paying 
+attention, or Spawn ghouls that trigger tower to attack 
+●​ Very Stupid, Very Dumb, Very Buggy, Cancels her auto attacks 24/7 
+ 
+Maiden is very tricky because you have false control over her, just like your 
+ghouls, but hers is a bit more easy to control and manage, as long as you learn 
+her AI and behaviours and play accordingly to it, I could list out her AI Training 
+now.. 
+ 
+But I think it’s better if lay them all out as Tips & Tricks you can use to your 
+advantage, then list them out anyway incase there’s some you can’t use :T  
+ 
+ 
+31 
+
+=== PAGE 33 ===
+ 
+Maiden Tips & Tricks (AI Training) 
+ 
+Maiden when Spawned will stay around Yorick’s 100-500 range then attack the 
+closest unit but focus what Yorick attacks for 3-5s, then will leave the target if 
+Yorick gets 1200 units away from her and will mimic Yorick’s movement staying 
+behind him. 
+ 
+Ranged Champion 
+Because of this, you can turn your back and let Maiden can farm for you, attack 
+the enemy in lane or deal DMG to tower, collect tower plate gold and harass. 
+ 
+You can use this to break freezes or turn your back or simply have her focus the 
+minion wave as you recall so she can give you “Passive Income” just like how the 
+ghouls can as well, or just make sure the wave crashes as you recall or drop 
+ghouls as you recall to make a “Shadow push” happen. 
+What’s most important is to learn how to abuse the Maiden Control 
+Maiden “Control” 
+This is the same tech, but while diving..​
+The tower won’t focus Maiden while she attacks an enemy under tower, while 
+there’s ghouls also attacking the enemy champion, sometimes though if not 
+regularly the tower will ignore Maiden and let her attack the enemy for free (bug) 
+ 
+Outside of this bug we can still use this trick of turning around and letting her 
+focus the enemy champion under tower, how do we let her focus enemies? 
+By understand her AI, Maiden will attack the closest enemy unit:​
+Tower, Minions, Champs, whichever 3 is closest to her range she will attack it 
+She’s on tower and you want her to continue? Just hold your position and not 
+walk out of her 500-1200 range, want her to swap to minions? Then walk away.​
+ 
+32 
+
+=== PAGE 34 ===
+ 
+ 
+The trick is to let Maiden walk up to attack while the enemy champion is the 
+closest, this can be done when they go to CS minions under tower, since their 
+wave is usually further back or not close enough yet.​
+Here’s some examples of how this looks like:​
+​
+In this first clip I move back and forth once Maiden has attached her focus unto 
+Camille, if Camille walks away, I walk closer so Maiden can chase, if Camille 
+walks forward, I walk away which makes Maiden kite while attacking her. 
+9 
+In the second Clip I explain how it’s done, so less reading for you this time: 
+https://youtu.be/elpaVyB9vUQ?si=aFYcFwNvN3M0OvRd&t=17  
+ 
+And lastly in the 3rd Clip you can see my black ass abusing this tech to harass a 
+ranged toplaner like Nidalee, she will hop out and look to attack Maiden, luckily 
+she has no CC (crowd control / stun) therefore I can just pull Maiden out and let 
+her kite, so be careful when doing this against enemies that have targeted or 
+AoE Stuns that can affect Maiden, so she doesn’t attract tower aggro under tower 
+and then dies.. 
+ 
+Anyway once Nidalee chases her I fully kite away, I could chase her down but 
+she has her dash and can bait me or look for a point blank Q or put traps so she 
+can then burst me, but because Maiden herself is like a ranged champion I 
+simply beat her at her own game by pulling maiden in and out of Nidalee’s range 
+before clapping her with our E’s pocket sand to secure the kill :DDD  
+ 
+Hopefully these 3 examples show you all you can do with Maiden’s Control took 
+a while for me to get good at this, considering I didn’t always do it and mainly 
+saw other more aggressive Yorick mains such as one of our Goats Slogdogs do it 
+Alongside other Yorick main members such as Ninetales, Shepherd of Elo, etc. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+33 
+
+=== PAGE 35 ===
+ 
+Don’t save her, She don’t wanna be saved 
+Despite all of this Maiden’s AI is still very stupid and hard to manage and she’s 
+very squishy in and out of lane as well, you will find yourself ganked, escape the 
+gank only to look back and see the enemy JG and Toplaner stomping your 
+Maiden out, because she’s the only Ultimate in the game that’s infinite.. 
+ 
+Luckily Smite doesn’t deal full DMG to pets​
+Anymore and only deals 40 DMG to them 
+Wall them off 
+Your best tool to save Maiden is Yorick’s W 
+Use this wall to place it around the enemies or 
+Better yet in front of Maiden, where she will be 
+Or path to get to you, Maiden and all allies can 
+Walk through our walls but the enemy cannot 
+So this will save her. 
+Do not press E 
+Outside of this DO NOT PRESS E WHEN YOU 
+ARE RUNNING AWAY AND WANT TO SAVE 
+MAIDEN, If you hit E, She WILL aggro them 
+So the slow won’t matter if she’s not running 
+And this aggro will last for 4 seconds and she 
+May remain attack them for an additonal 2-3s 
+After the mark is gone as well.. 
+Do not look back 
+Your last ditch effort to act like the man in the  
+Bible “Lot” or “Orpheus” from Greek Mythology 
+DO NOT LOOK BACK, this means just run because remember, the further away 
+you are from ALL of your pets, the more bonus movement speed they will gain 
+while coming back towards you, Ghouls may lose this Bonus because they get 
+into combat with Monsters or Enemy Minions, but Maiden is always set to follow 
+Yorick by default, therefore even if Teleport away, blastcone over a wall, Flash 
+over a wall, Hextech gate very far away, the more likely she is to survive.. 
+Unless you release Maiden, which can be useful as well.. 
+ 
+34 
+
+=== PAGE 36 ===
+ 
+Maiden Splitpush / Double Splitpush 
+ 
+Double Splitpush or Maiden splitpush is when you release Maiden solely on the 
+fact she can push a lane by herself and grant you pressure or passive income or 
+in some cases Shadow Push assuming the enemy team is blind like Lee Sin 
+ 
+This is my most favorite part about Yorick, how you can double splitpush by 
+releasing Maiden in key moments that I will surely go over in the next chapter 
+about game plan during Laning Phase, Roam Phase and Splitpush / Late Game 
+ 
+Thumbnail video: https://www.youtube.com/watch?v=Jiv0XAorjZc (Watch later) 
+ 
+Yorick is unique in the sense where in his own Champion Spotlight Riot Phreak 
+mentions how he can Push 2 Lanes at once.. 
+I always loved this and tried to do it back when Maiden wouldn’t follow Yorick and 
+did it even more when she could follow Yorick but then was given the option to be 
+released as well by re-casting your R, meaning just press R again once she’s out​
+(this does have a 10s cooldown when Maiden is spawned) 
+ 
+ 
+ 
+ 
+35 
+
+=== PAGE 37 ===
+ 
+When released Yorick’s Maiden will apply the same rules ghouls do when they 
+enter combat with lane minions, she will just push the closest lane and not look 
+back, you can leash her back a bit by hitting E or attacking an enemy champion 
+or monster, but after their dead or out of range Maiden will go back to the closest 
+lane, which is determined based on where she’s released, luckily there’s a map 
+for that made by a fellow Yorick Main [Nervous_Apartment464] on reddit: 
+Maiden Release Map
+ 
+36 
+
+=== PAGE 38 ===
+ 
+The Why and When to Release Maiden 
+ 
+Why release Maiden? 
+Because games will not be played perfectly on either side, macro ( game 
+decisions) and Micro (champion mechanical mistakes) will happen, we’re all 
+human and we have a limit of 5 champs on both teams but with Maiden your 
+team can have 6 and make the Splitpush a 6v5, usually teams will do a 1-3-1 
+ 
+1-3-1 is when One person goes top, 3 push mid and another goes botlane to split 
+up the enemy before they all converge back mid or flank mid or keep pushing 
+depending the champions, but in this case you can do a 1-4-1, have Yorick in top 
+or botlane and have Maiden in the opposite lane, your team can group as 4 and 
+push and the enemy cannot win if they match you or maiden, because they 
+would be left with 3 mid against your 4 allies, if they hard engage mid as 4 or 
+even 5 then Yorick and Maiden will take the sidelines and we as Yorick can recall 
+to hold midlane for a bit while Maiden will keep pushing and so will the ghouls 
+where Yorick once was, no matter what the enemy is in a lose lose situation.. 
+ 
+In this clip you can see the example of this: 
+I am toplane, while Maiden is botlane my team loses,but the enemy can’t keep 
+pushing because me and maiden is putting pressure on both sides, Lux goes to 
+defend Maiden botlane and because the Ghouls that were spawned aggro’d unto 
+her, meaning their in combat with an enemy champion but there’s no enemy 
+waves they enter the state where they are meant to come back to Yorick, but we 
+are apart, thus they gain the bonus movement speed and run her down to death.. 
+ 
+37 
+
+=== PAGE 39 ===
+ 
+ 
+When to release Maiden 
+Best time to release Maiden is during these situations: 
+●​ You need to group, but want to actually push a certain lane, release her 
+●​ Release her at your inhibitor tower 42-50s before Dragon Spawns 
+●​ Same situation but when you think both teams are about to fight for Baron\ 
+●​ You need to recall and defend? Release her, Maiden dies very easily while 
+you’re defending or in big team fights,it’s better to have her push instead 
+●​ You plan to Ride Rift Herald into another lane (mid/bot) after crashing it 
+into one tower (toplane), the enemy will chase you to the next 
+lane(mid/bot), while maidens stays in the current lane (top) pushing for free 
+●​ To defend super minions, release her close to your base so the enemy 
+can’t go and kill her as quickly, this means you don’t need to worry about 
+supers adding pressure into your lane and super minions have less magic 
+resist, therefore Maiden is good at clearing them because she deals Magic 
+DMG but also keeps spawning ghouls which can still till your ally minions 
+spawn and help defend, which will result in Maiden out pushing supers.. 
+●​ Your midlaner cannot sidelane (farm top/bot safely or will group up after 
+pushing or clearing one wave, usually AP champs do this), because of this 
+you have a second sidelane you can farm, allowing you to gain more Gold 
+&E XP due to the passive incoming you’re going to gain overtime :D 
+(video showing example of how quickly you can lvl up due to this) 
+●​ Your team is trash and you need all the Gold & EXP you can get =n=’’ 
+●​ Enemies are blind and she may backdoor as they chase you 
+Divorce Maiden 
+ 
+But of course while splitpushing solo you could find yourself being chased, thus 
+releasing Maiden then could save you, otherwise the enemy may chase maiden 
+and track you even if they lost vision of you in the JG but can still see Maiden, 
+this is where it’s best to cut your losses and drop her off, divorce her and run.. 
+ 
+This can also be done while you’re doing Baron and you get very low while your 
+team is still not there, you can release her and she will stay on it and take full 
+aggro, you can recall and even TP back and continue, same can be done during 
+Dragons and other epic monsters. 
+38 
+
+=== PAGE 40 ===
+ 
+Triple Splitpush / Multitasking 
+Double Splitpush is the norm, what’s expected but triple Splitpush is where you 
+can shine, this can be done by combining Maiden Release and Shadow Push 
+Basically you can release Maiden top, Have some ghouls bot, then group up mid 
+to have all 3 lanes infested with your ghouls pushing, this way you can “group” 
+Triple Splitpush  
+Example of a triple splitpush, except I was the only one in their base in this case, 
+but still managed to have all my pets pushing all 3 inhibitors, rare but still 
+possible and there’s no big risk in it, so the reward is always good :D  
+ 
+While still doing your job, just make sure to play defensive and to peel, you 
+cannot die when Maiden is released, just like when you splitpush you don’t want 
+your team to die so the enemy is free to come stop you, if you die in this case 
+Maiden will die and the map pressure is almost instantly relieved, of course 
+you’re weaker without Maiden so it’s better to play as a bouncer or body guard 
+and just look to E enemies to debuff their armor and slow them while trapping 
+petty divers trying to get to your backline. 
+ 
+ 
+Multitasking 
+Multi tasking on Yorick is basically sending ALL your pets on tasks to do on the 
+map, have some on scuttle, drop some mid, then rotate to dragon and leave 
+some there, then raise some bot before going back on dragon, or double 
+splitpushing while having your pets push a sidelane only to go sneak a baron, or 
+like the last clip, have some on the inhibitor while you go to another tower, the 
+possibilities are ENDLESS, but here’s what Peak Yorick Multi tasking looks like: 
+https://www.youtube.com/watch?v=swZsHDK_DL8  
+ 
+In this clip I had Maiden released Mid already because my team was grouping 
+and I wanted her and the ghouls to help, meanwhile I brought 4 ghouls with me 
+to the dragon and left them there while I went to push bottom. 
+ 
+Sadly ghouls aren’t able to tank monsters as much anymore but you get the 
+point, be creative, Yorick is basically a Dota or RTS champion able to do infinite 
+amount of macro decisions with his pets, the more you practice this the better! 
+39 
+
+=== PAGE 41 ===
+ 
+ 
+Laning Phase 
+ 
+Yorick’s early laning phase is rough in a lot of matchups, so unless I have The 
+Grasp Rune I usually start E and let the enemy push me in to avoid ganks since I 
+don’t take flash on Yorick, this keeps my lane consistent, I know I will be mostly 
+pushed in under tower and once the wave pushes back at the center I must: 
+ 
+1.​ Crash the wave into their tower and recall 
+2.​ Have a good trade then look for a kill or recall 
+3.​ Recall after they crash the wave to buy a cull or doran’s item 
+(usually the enemy also recalled, so I’m recalling to buy as well) 
+ 
+Starter Items 
+●​ Bad AD Matchup - Armor Cloth & Refillable potion or Doran’s Blade into 
+Armor Cloth rush next recall. (Riven, Jax) 
+●​ AP Matchup - Long sword & Refill pot or D blade & pot, then rush magic 
+mantle next recall into your DMG item. (Gwen, Morde) 
+●​ AP poke matchup - Doran’s Shield & pot into Magic Mantle or Refill pot into 
+your DMG item. (Teemo, Gragas, Volibear’s passive) 
+●​ AD Tank with Aggro runes or summoner (Ignite, Conqueror or Phase rush)​
+- Armor Cloth into Black Cleaver and then Liandry. (Shen, Sion) 
+●​ AP Tank - Doran’s Shield into Cull and Black Cleaver or Longsword into 
+Cull and Black Cleaver. (Malphite, Ornn) 
+ 
+Lastly keep who their JG is in mind, if it’s an AD JG + AD Top that can gank early 
+I may start armor cloth just for them, since it can work against the enemy Top & 
+JG, even if I’m just fighting a tank top like Sion. 
+ 
+ 
+ 
+ 
+ 
+ 
+40 
+
+=== PAGE 42 ===
+ 
+Reserve your mana 
+ 
+Yorick usually spikes at lvl 3-4 so after this is when I try to fight, but if the enemy 
+is super aggressive and is zoning me will be farming with my E, when doing this 
+it’s important to conserve your mana by trying to CS with E but also hitting the 
+enemy with your E, this way you can regenerate mana with Manaflow band or 
+Presence of mind and not run out of mana too easily.. 
+ 
+Yorick’s E costs 50 mana, which is used to poke / engage / farm safely 
+Yorick’s W costs 70 mana, which is used to engage / disengage / stall wave 
+You can use his wall to trap enemy minions and prevent them from getting close 
+To your tower, this will ensure that you can get a temporary freeze or even stop 
+the enemy’s recall if they try to deny this, but Yorick’s mana pool is very low.. 
+ 
+Yorick’s mana is 300 at lvl 1 at lvl 4 it’s 435, by that lvl you’re not going to be at 
+full mana and one basic combo of E+W alone is 50+70=120 Mana, So one trade 
+is like 30% of your total mana before your first or second recall so be very careful 
+ 
+Max Order 
+ 
+Depending who the enemy is, you should decide whether you’re going to put 3 
+points into your wall to cheese them by lvl 6 with a wall with 3 HP or just put 2 
+points by lvl 4 then continue maxing Q, if the enemy is ez to trap it’s essential to 
+take advantage of this by lvl 5 and then put a 2nd point into your W and the 3rd 
+at lvl 7, by this time you can force them to flash and have an advantage for Grubs 
+ 
+41 
+
+=== PAGE 43 ===
+ 
+Lane Game plan 
+ 
+Consistency is key this is how I learned most of this by trying the same strategy 
+over and over again till I found one that worked, with different runes, items, 
+starting items, etc. it will all add up and make your gameplan easy and consistent 
+At lvl 6 Maiden will spawn and basically permanently spawn ghouls, this is where 
+you will mostly lose all your wave management agency, because we can’t stop 
+her from doing this, so you either look to abuse Maiden’s range if possible or look 
+to poke them out of lane to proc demolish or prepare to do Grubs with your JG 
+(if JG isn’t around and their JG is also away, take 1 Grub and return to lane) 
+ 
+Most enemies will let you just push them in and get intimidated by Maiden or your 
+ghouls, but the higher you climb the more enemies will know when they can beat 
+you in your wave, especially if you missed your E or didn’t get to clear the wave 
+yet, therefore you could have Maiden but without 3-4 ghouls you are nothing and 
+this is the window where enemies will fight you, before you get 3-4 ghouls with 
+Maiden or with your Q and it’s crucial to stay alive and survive this by walling 
+them off AFTER they dashed or putting the wall where you’re going and save 
+your Q for when you are at your lowest HP.
+ 
+42 
+
+=== PAGE 44 ===
+ 
+Items needed to win X lane matchup 
+ 
+To win lane you have to build correctly, there’s a few items you can rush to make 
+you win lanes or win trades or survive these lanes: 
+1.​ Sheen Rush for Iceborn Gauntlet and win short bursty trades​
+(Works into: Jax, Fiora, Renekton, Kled, Yasuo,Riven, etc) 
+2.​ Tiamat into Titanic hydra (or DMG item like Shojin if you’re into Trundle) to 
+clear wave early on and deny the enemy plates when you can’t kill them.​
+(Works into: Trynd, Trundle, Sett, Riven, Renekton, Yone) 
+3.​ Shojin into Black Cleaver for DMG Amplification and Armor Shred​
+(Works into everybody else for the most part) 
+4.​ E max into Eclipse & Shojin with Comet or Aery Rune​
+(Works into range top: Teemo, Aurora, Akali, Kayle, Gnar, Quinn, etc.) 
+5.​ Sundered Sky Rush with Second Wind into Shojin​
+(Works into Poke and some range tops: Jayce, Gragas, Gangplank, etc) 
+6.​ Shojin or Black Cleaver into Liandry Second item (Works into HP stacking 
+Tanks or any Tank: Cho’Gath, Mundo, Sion,etc.) 
+7.​ E max with 2 AD Starter items (longsword, Cull, D blade) into Liandry​
+(Cringe Ranged Tops or APs your ghouls can’t see even if you hit E: Akali, 
+Aurora, can also be used into most ranged tops like Teemo) 
+8.​ Adaptive Build - Just a mix of these builds, example: Quinn, Panth, Shen, 
+Ranged, Fighter, Tank champs but they all roam or leave lane, so we rush 
+Tiamat, into the item that works best against them, Shojin or Eclipse for 
+Quinn, Iceborn or Shojin for Pantheon and Black Cleaver into Liandry for 
+Shen. 
+ 
+There will be a deeper build section later on so I won’t go any deeper than this, 
+but I do figure out my first 2-3 items before the game starts and adapt it based on 
+how the lane is going, for example, Tiamat into any DMG item is way stronger 
+than just rushing Titanic Hydra, but if I start to lose lane after getting Tiamat I will 
+almost always Rush Titanic and slowly get my real DMG item or a Tank one.. 
+ 
+ 
+ 
+ 
+ 
+ 
+43 
+
+=== PAGE 45 ===
+ 
+Small victories, wins lane 
+As you continue laning, you will look for small wins by getting plates, recalling 
+always after pushing a cannon wave if you have the advantage or recalling when 
+the next wave is a cannon wave when you don’t have the advantage, since the 
+cannon will tank the tower long enough that you will not miss too much CS 
+ 
+While if you push with a cannon wave before you recall and the enemy cannot 
+defend it or isn’t there, the tower will be melted by your pets due what the tower 
+attacks first and last.. 
+ 
+Tower Attack Priority: 
+1.​ Enemy Champion attacks an ally champion 
+2.​ Enemy pets attacking an ally champion 
+3.​ Rift Herald 
+4.​ Cannon Minion 
+5.​ Yorick’s Wall 
+6.​ Void Grubbies (Grubmites) 
+7.​ Yorick’s Ghouls and other Pets 
+8.​ Melee minions 
+9.​ Ranged minions 
+10.​
+Yorick’s Maiden 
+ 
+Because of this when you have a cannon wave, the tower will attack the cannon 
+first, thus keeping your ghouls alive longer letting them actually hit the tower, 
+since otherwise the tower would attack them first, you can also stall their deaths 
+by spawning Yorick’s wall, it will get one shot just like the ghouls but keeping 
+them alive even for 1 second is worth it, because the tower shot is wasted! 
+ 
+This makes it easy and almost guaranteed to secure plates with demolish almost 
+every time, which you should try to proc demolish once before you recall, even if 
+you don’t get a plate on the first back, later on it will always grant you a plate and 
+secure you gold, small victories that can easily add it and let you get your items. 
+ 
+ 
+ 
+ 
+44 
+
+=== PAGE 46 ===
+ 
+Wave manipulation 
+We always spawn ghouls with maiden or automatically push every time we fight 
+the enemy even without her, this makes it hard to choke the enemy out of gold 
+and resources, therefore it’s important to use what we can to manipulate the 
+wave in our advantage with our wall stalling it or maiden creating minions to stall 
+a crash, or using the free pushing power to roam and ward the enemy’s JG or 
+where you think they would try to gank you from.. 
+ 
+But most importantly is to abuse your W when you’re on blue side, because you 
+can place your W on this side of the map to block off the minions from pathing to 
+tower, this will make them walk around the whole wall and eventually flank your 
+own wave, making sure the enemy can almost never freeze it or hold it because 
+their wave will hit your backline minions and force it to push back into you 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Here’s an example of this trick in action: 
+https://www.youtube.com/watch?v=k4QlYTkYMBk  
+ 
+This cannot be done as easily if at all on the otherside, would delay the wave at 
+times but will never make the minions run around the whole wall, only possible 
+on blue side of the map, which side is Blue? Bottom Left POV, Both start with the 
+letter B, that’s how I remember, if you’re on red side Top Right POV it won’t work. 
+ 
+45 
+
+=== PAGE 47 ===
+ 
+Roaming Phase & Grouping 
+ 
+Once you get a decent lead toplane and get the first tower or get demolished and 
+lose your tower, there’s somethings you can do depending what happened.. 
+ 
+Roaming Options 
+Won lane / Took first tower? 
+1.​ Look to ward and rob the enemies JG while looking to Gank or help push 
+midlane to proc demolish and get additional gold 
+2.​ Walk midlane to push for demolish, your midlaner may roam bot or go hold 
+top if the enemy toplaner starts to push 
+3.​ Roam down for drake or botlane gank / pressure pushing for demolish 
+again or just ruin the enemy’s lane, you can also just look to TP bot 
+ 
+It’s dangerous to still be pushing past the first tower, that’s why warding their JG 
+or taking their JG camps is important, if they come top and don’t see their camps, 
+they are more likely to go back bot or look mid / top to gank then leave, by 
+warding we can see this and avoid it, this leaves the enemy toplaner isolated 
+again and we can try to push for a bigger lead by trying to chunk out their tier 2 
+tower, as long as we get it around 50% HP it’s okay and perfect, because the 
+next play will be for Rift Herald.. 
+ 
+When Rift is about to Spawn be there early and make sure you have a pink ward 
+incase you need to do it alone because your JG and team are doing dragon or 
+setting up for a dragon that’s about to be up in less than a minute.. 
+ 
+This is where you start to multitask if possible, if there’s still time you will send 
+Maiden bot 42-50s before Dragon is up, release her around your bot inhibitor 
+tower, then prepare to Rift toplane, don’t look to fight the enemy toplaner though, 
+just push a wave and leave.. 
+ 
+This will make them think you’re pushing to then group up at dragon without 
+needing to TP, you can trick them even more by showing up midlane and 
+pretending to group, this will gaslight and deceive your team and the enemy.. 
+ 
+46 
+
+=== PAGE 48 ===
+ 
+ 
+ 
+Pretending to “Group” 
+As you are now midlane or even toplane still just hiding in a bush waiting for the 
+enemy top to TP down or a fight to happen near dragon, you will hold Rift Herald 
+and wait patiently.. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+But if you are midlane pretending to group, you can just sit mid and pressure the 
+midwave, people love to push our nearby lanes like midlane or botlane before 
+dragon is up, midlane more often than not, so as you stay mid you will pull 
+pressure, the moment the enemy gets close you must leave and run away, you 
+cannot die, especially if you did release Maiden and you still need to go back top 
+or prepare to just Rift down midlane OR just push mid if you did not get Rift 
+Herald this game, it’s all about always having a back up plan and something to 
+fall back on incase a play will fail, because actually grouping on Yorick is tough.. 
+ 
+ 
+47 
+
+=== PAGE 49 ===
+ 
+Maiden is Bait 
+ 
+If Maiden is released botlane around your inhibitor tower, when the timer gets to 
+30-20 before dragon is up, she will be exactly in the middle of botlane, so if 
+anyone is trying to push out botlane for pressure before dragon, they WILL try to 
+kill Maiden, which they can, but this will take time and they will lose some HP and 
+in some extreme cases they will even die or lose so much HP they can’t group up 
+ 
+You can tell your team to just hover or kill anyone who tries to kill maiden 
+because she is bait, she is a decoy, you win the pressure the moment they pay 
+her any attention, once that happens it’s time to push, just like when you are 
+being attacked in the sidelane when you are splitpushing you would want your 
+team to push and fight then because it should be a 4v3 for them right? 
+ 
+Well when they focus Maiden it’s a 6v5 but only if you take advantage of it, that’s 
+when I would spam ping my team to attack / push / force dragon as I push mid or 
+I’m heading toplane to if I’m not there already to summon rift herald.. 
+ 
+Rift Herald Driveby 
+If Maiden lives or is ignored after using Rift to crash into the tier 2 tower, then I 
+have 2 options, I can either steer it around their base’s wall into their tier 2 tower 
+midlane, or I can ride it INTO their base and steer it botlane into their tier 2 
+botlane tower instead, where Maiden already pushed a wave to secure both 
+sidelane towers for 1000+ Gold, without having to fight anyone.. 
+ 
+This can also be done without needing Maiden bottom or a dragon fight, as you 
+push on the opposite side of the map like toplane, if your midlaner or botlaners 
+are bot, you can ping them to push there, so you have a wave and can cash out 
+a lot of money, but this can still be done even without a wave, Rift Herald will 
+lower the tower’s defenses so you can deal full DMG to it!! 
+ 
+But once the Rift Dies the tower’s armor and DMG reduction will go back to 
+normal, this is why it’s important that the tower you do crash into the second time 
+is at least half HP, because you can proc demolish after using Rift Herald to 
+secure the tower, this is why you should also save demolish the first time you 
+crash the rift herald, unless it would die, then it’s best to just use demolish.. 
+48 
+
+=== PAGE 50 ===
+ 
+Alternatively if the enemy’s midlaner tower is half, then it’s better to ride the rift 
+midlane instead and take it, all of this is risky so as you summon rift, before you 
+get inside of it and ride it, Ping to push and the on my way ping to let them know 
+where you’re going to go so they are not surprised and you’re not caught out.. 
+ 
+Actually Grouping 🤮 
+If you ever do Group, your job is not to flank, what you can do best is just wall off 
+enemy divers that are trying to kill your carries like your midlaner or botlaners. 
+Sometimes you can catch their carries off guard but that’s usually because it’s 
+not a 5v5 yet, which is why Yorick is best at “Grouping” when HE starts the fight 
+with 3 enemies around, if there’s ever more than 3 people as you go in, it’s 
+dangerous, but if you catch one person and there’s only 3 enemies around in 
+total it’s usually fine, especially if your JG / Midlaner can follow up with burst and 
+CC, but it’s generally hard to flank or find the enemy caught off guard, so I 
+usually counter engage or hide trying to predict where the enemy JG will be.. 
+ 
+Because in all fights with objective the one with the most agency is the ones with 
+smite, so protect your JG and attack theirs, once they die or get too low, any 
+dragon,baron, rift, etc is yours, but as you “engage” and “tank” it’s best to trap 
+one person aggressively or defensively, see how your team reacts and try to 
+draw the enemy’s attention and aggro, but once they lock unto you, run.. 
+ 
+YORICK IS ONE OF THE FEW CHAMPIONS IN THE GAME WITH ZERO 
+REAL DEFENSIVE TOOLS FOR A TEAMFIGHT DO NOT THINK YOU CAN 
+ACTUALLY TANK ANYTHING EVEN IF YOU BUILD TANKY ITEMS LIKE I DO 
+ 
+Why do I say this? Because all we have is our Q for sustain and our wall to trap, 
+but half the champs these days have dashes and we do not have hard CC like a 
+stun to stop the enemy’s DPS or DMG, we do not get Big Heals or Shields, or 
+Bonus HP, Free armor or magic resist or mobility, so once we’re in we cannot get 
+out, so it’s important to just bait and get out, only worth it to keep going if one of 
+your carries is actively popping off and killing everybody, because you do not 
+want to just group up and die, you’re better off splitpush and we all know that so 
+when you do group.. There’s a few things you should know.. 
+ 
+ 
+49 
+
+=== PAGE 51 ===
+ 
+Yorick’s pets will get demolished by Auto attackers, and those with AoE DMG, so 
+if you group most will die, especially Maiden so if you find a chance it’s best to 
+release her where you WISH you could be, as you group up, especially if you’re 
+defending your base, because all it takes is for you to hit E and all your pets will 
+die to the enemy, so Maiden is better off pushing the sidelane as you try to stall 
+waves with your wall or poke them off with your pets. 
+ 
+Splitpushing Phase & Late Game 
+This is where we shine, some games there won’t be much of roaming because 
+your team lost too hard or it’s hard to force towers or ganks to help midlane or 
+bot, so you just splitpush the whole game, this will revolve around you deceiving 
+both teams into you “Grouping” and gaining an advantage in the sidelane in Gold 
+and Experience, making sure that even if they win the dragon fight they can 
+never push and win, here’s some simple plans and strats you can do: 
+ 
+Where to Splitpush & When: 
+●​  Dragon Spawning (Bot) - Release Maiden Botlane, 42-50s before dragon 
+is up around botlane inhibitor tower, go push top slowly. 
+●​ Ally midlaner is grouping midlane - Push Top or Bot and Release Maiden in 
+the vacant lane 
+●​ Dragon is taken - go push botlane till dragon is back up while robbing the 
+enemy’s JG or looking to flank mid if possible 
+●​ Baron is up - Splitpush bot again and prepare to pressure so your team 
+can do baron 4v3 if their toplaner + someone else comes bot 
+●​ Baron is up - Release Maiden bot and pretend to group mid or push top 
+slowly and carefully while looking for their JG, if he’s dead we can baron 
+●​ Baron is up - but I can’t splitpush (bad matchup like Trynd) so I’m 
+defending him botlane, so I release Maiden mid with my team or Top​
+(Trynd will eventually flank my team midlane through our bot JG, this is 
+when we push botlane or TP to Maiden if she was ignored or help our 
+team AFTER making a shadow push with 3-4 ghouls pushing botlane) 
+●​ We got Baron and dragon is spawning, try to convince your team to NOT 
+DO DRAGON DURING BARON BUFF, If you WIN or Lose drake, you may 
+be too low to push and even use Baron, I just go top / mid and push 
+50 
+
+=== PAGE 52 ===
+ 
+●​ Enemy Team got Baron and Dragon is spawning - use that time to push 
+sidelines so they only have midlane available to push and have to go kill 
+Maiden top lane 
+●​ Your team has Dragon Soul - Attempt to group or just release Maiden bot 
+and run it down midlane, midlane because if you go top your team will 
+spam ping your TP (which you will not use) and enemy team may force a 
+4v5 and team will tilt if they lose the soul, I do this especially if we have 
+baron, I will not go to any dragon with Baron buff, not even Elder.. 
+●​ Elder dragon is up - I walk down mid while having Maiden push top, as 
+long as the fight is slow you can end the game or pressure them before 
+they get to use Elder or fight for it, they will panick between defending their 
+base and getting elder and just collapse under the pressure, even if they 
+get elder, you got inhibitor can release Maiden to push 1 sidelane and just 
+defend their siege till the elder buff is gone or Baron is coming back up, 
+which then you will pressure sidelines with Maiden as bait Mid or top to 
+secure Baron buff, it’s a back and forth strategy, almost always works~ 
+ 
+Once you are inside the enemies base and you’re alone, drop a ward outside 
+their base, or inside of it as you take a tower, the sound of demolish or the visual 
+effects from towers falling will disguise you placing a ward, therefore they usually 
+won’t notice you, thus it makes it easy for you to leave a ward inside and out 
+ 
+They can use ward sweepers to remove them, but usually they will only find 1 
+ward, one inside or one outside, rarely do they find both, then you just collect 3-4 
+graves or wait for Maiden to respawn AND wait for Minions to push outside their 
+base, see if your team is in position to stop their recalls or simply wait for the fight 
+to start and TP for the backdoor end 😀 
+ 
+If you TP and there’s minions, your pets will not attack the nexus with you or 
+even inhibitor, only Maiden will, the small ghouls will ignore you, that’s why it’s 
+important to wait for the wave to be gone, of course you will just TP in if a fight 
+starts, otherwise your team may lose too quickly and they can then recall. 
+ 
+That’s it.. Now all you need is to understand runes, Items and Matchups :DDDD 
+ 
+ 
+ 
+51 
+
+=== PAGE 53 ===
+ 
+Summoner Spells 
+Yorick is weird, because he doesn’t have a lot of flashy play making potential with 
+the summoner spell flash outside of Flash + Q or Flash + W or in rare cases 
+Flash + E, but usually you just cancelled an Auto or could have hit E/W anyway 
+ 
+On top of this when you don’t have flash the enemy will gank and even camp 
+you, luckily Yorick’s wall can usually save you from most ganks, and I used to 
+main trundle back then in 2014, and he could also use his terrain to avoid ganks. 
+ 
+ 
+ 
+Because of this I got used to not using Flash on most of my toplaners (Olaf, 
+Shyvana, Trundle and Mordekaiser) and just running Ghost TP and eventually 
+moved unto Ignite TP when too much healing got added into the game.
+ 
+52 
+
+=== PAGE 54 ===
+ 
+Flash & Teleport - Classic 
+ 
+Flash Teleport is just standard, nothing bad about it, it’s just the basic​
+But with Season 16 Teleport is granted to toplaners once they finish their quest. 
+Therefore almost everybody but tanks or fighters that can teamfight take TP. 
+Ghost - Mobility  
+  
+I love Ghost because it gives you a lot of movement speed to engage or run 
+away but most importantly it gives you agency to impact the game more because 
+almost everybody in the game will have a dash, so ghost can help you even it out 
+ 
+Everyone takes flash, but not everybody takes ghost, so your ghost will always 
+come back first, giving you the chance to engage on them and win. 
+ 
+Ghost is also used on a lot of other immobile toplaners that REALLY need to 
+close the gap to function like Darius, or those that gain a massive buff and 
+advantage for staying in auto attack range like Tryndamere.. 
+ 
+It’s obvious on these champs when you’re dead when they ghost, but on Yorick 
+it’s way harder to tell, because of this the enemy usually does not know when 
+they’re in lethal of Yorick, meaning when we can Ghost and kill them.. 
+This is how you can take advantage and win some lanes, they use 1 spell and 
+then walked up? Slightly too close? Ghost into E or W range and kill them. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+53 
+
+=== PAGE 55 ===
+ 
+Ignite - Power 
+ 
+Ignite is a summoner spell that can deal a lot of true DMG from  70-525 true 
+DMG based on lvl, this used to be lower but was buffed alongside it’s cooldown 
+being shorter, making it very strong to finish enemies off or dive them.. 
+ 
+I started using it back in 2020 to combat the amount of healing a lot of champions 
+were getting through reworks, like Fiora, Aatrox, Darius, etc.. 
+​
+Afterwards I found out it can also be used to get a kill when an enemy is trying to 
+dive you, this can also then be used to dive the enemy or get them low enough to 
+force them out of lane, if they’re not in lane, you can take plates, hit tower and 
+farm everything that we can do in lane outside of killing, to progress the quest. 
+ 
+Because of this they are also losing out on this, which will delay their quest from 
+being completed, outside of this Ignite can also be used defensively to scare an 
+enemy from continuing a trade or gank. 
+ 
+because it’s uncertain if they’ll win now with reduced healing and while their HP 
+burns away, they will most likely just accept the trade of you using your ignite and 
+not greed for a kill, similar to how if you’re fighting an enemy and they flash, it’s 
+best to let it be and fight them again later when they make a mistake because 
+now they can’t flash again.. 
+ 
+ 
+54 
+
+=== PAGE 56 ===
+ 
+Exhaust - Anti-Burst (Cuck Tryndamere) 
+ 
+This setup is specifically made to counter Tryndamere, he mainly runs Ghost and 
+Flash like Darius does, sometimes they run Ignite and Flash or in worst cases 
+Ghost and Ignite, point is Tryndamere is a scary counter matchup because.. 
+ 
+He can easily outduel us, dash over the wall and even if we wait for his dash and 
+then wall him he can flash, or get out then Ghost and R to get the kill, this is 
+where exhaust comes in clutch to keep you alive in these scenarios: 
+ 
+1.​ Trynd Flashes your wall and is trying to kill you? Exhaust him. 
+2.​ Tryndamere used his W to slow you and is holding his E for your wall, once 
+you wall he will dash over it and may ghost for the kill, Exhaust him. 
+3.​ Tryndamere is trying to dive you with any of these 2 summoners? Exhaust. 
+4.​ Tryndamere Ults and cannot be killed for 5 seconds? Exhaust him 3s. 
+Cuck Tryndamere 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Exhaust will slow him by 40% and lower his DMG by 35% for 3 seconds, this is 
+usually enough to save you or even use it to catch him when he tries to run away. 
+ 
+Exhaust’s cooldown is the same as Ghost as well, at 2:40 CD so if you ever 
+Exhaust him when he ghosts, you can time it and use it again if tries to Ghosts 
+and runs at you with his skillful auto attacks… 🙃 
+ 
+You can use Exhaust to counter most burst champs like Renekton, Riven, Kled or 
+against other Counters that statcheck like Trundle, WW, Jax and Irelia aswell.. 
+ 
+ 
+55 
+
+=== PAGE 57 ===
+ 
+Summoner Combos 
+ 
+ 
+Now these are all the Summoners, outside of flash since I don’t use that one, but 
+you can if you want to since it is safe and standard and very good, just not for me 
+ 
+Now that I explained all 3 of them being: Ghost, Ignite and Exhaust​
+All there is left to do is combine them together, just like you would with:​
+Flash + Ghost / Ignite / Teleport / Exhaust. 
+ 
+But in this cause you would Combine Ignite with: Ghost / Exhaust​
+Or Ghost with: Ignite / Exhaust, it’s not that complicated really. 
+By default Ignite will be the Primary Summoner, While Ghost the Secondary 
+Summoner and Exhaust is only taken in Hard or Bursty Matchups​
+For Example: 
+ 
+1.​ Ghost & Ignite - Mobility & Power to dive, anti-heal and deny dives. 
+2.​ Ignite & Exhaust - Same as before but Exhaust will be used to deny DMG. 
+3.​ Ghost & Exhaust - Rare but when you really want to just run & deny DMG. 
+ 
+ 
+More on this in my Summoners & Runes Guide, it’s time stamped: 00:40 - 03:19 
+ 
+Yorick Runes & Summoners  Guide - (9 Mill Masters Yorick OTP ) - [S16]
+ 
+ 
+56 
+
+=== PAGE 58 ===
+ 
+Ghost Ignite - Mad Monk 
+ 
+This used to be risky and a bit feast or famine but..​
+Now with Teleport not being mandatory anymore, it’s basically all I take 
+ 
+You can ghost to engage or disengage and extend trades as long as you want 
+and when they’re low enough you can then Ignite them and win, later on you will 
+get teleport from your toplane quest, till then homeguard is your way back to lane 
+ 
+Ghost will always be back before their flash and your Ignite’s cooldown is minute 
+shorter than your Ghost so it’s easy to fight every time it’s off cooldown to the 
+point where I mainly look to fight or dive based on my Ignite’s timer.. 
+ 
+It’s cooldown is basically just 20s longer than Maiden’s cooldown, so everytime 
+she is on CD, I can just fight again when it’s back because my ignite should be 
+back by then as well.. 
+ 
+The ignite can allow you to delay buying executioner’s calling or bramblevest 
+against champs that heal too much, because you can just ignite them as you 
+fight and finish your first item and get the anti-heal item later on :] 
+ 
+In the end this is all I really run on Yorick:Ghost + Ignite or Exhaust + Ignite 
+ 
+57 
+
+=== PAGE 59 ===
+ 
+Runes 
+ 
+Yorick can take almost any amount of runes in the game, same goes with items, 
+but I specialize in trying to itemize the best ones for each different matchup, of 
+course there should be a default one, but.. 
+ 
+Yorick has a lot of Counters and you’re not going to take boneplating every game 
+when you’re fighting a ranged top right? No Second wind is better.​
+​
+So I will now explain all of these runes below, but first I’ll explain some concepts 
+related to what I just said, since EVERY RUNE will have the Resolve tree, this is 
+because of Demolish is Great for a splitpushing and securing plates in lane and 
+because Yorick’s lanes can be rough, so having one defensive rune helps a lot. 
+ 
+Resolve Tree 
+In the Resolve Tree we only have 4 Option of runes we usually will swap around, 
+because we only Take Grasp as the keystone and secondary we always take 
+Demolish, leaving only 1 or 2 rune slots left depending if we took Grasp or Not. 
+ 
+These are the options and these are when we usually take them: 
+●​ Revitalize - Default Option 
+●​ Second Wind - Sustain vs Ranged or Constant Poke 
+●​ Boneplating - Good into bursty trades 
+●​ Unflinching - Temporary Resistance vs champs with CC 
+ 
+By Default you almost always want Revitalize, because if you took Grasp, 
+Conqueror or because of our Q it will always give you extra healing. 
+Second Wind is obvious needed into ranged, while Boneplating into burst like 
+Renekton or Riven, while Unflinching seems niche, it gives armor and MR when 
+you are Slowed/Stun/etc, meaning it’s still good into Riven / Ren / Jax / Sett, etc. 
+ 
+What you must understand about the runes below is that you can change one or 
+2 resolve runes depending on the matchup, while everything else rarely changes 
+and are meant to work with the rest of the runes. 
+ 
+58 
+
+=== PAGE 60 ===
+ 
+Grasp of The Undying - Default with precision 
+This is the default Grasp runes I use, Grasp is a rune made to sustain, win short 
+trades and scale with your HP, it houses my Favourite rune, Demolish which is 
+why every rune will have it, if you think you don’t need it, that’s fine, be flexible. 
+ 
+Grasp-1 - Default 
+Demolish 
+​
+Demolish is what we will almost always take because we simply cannot use the 
+others and of course with the new season and new demolish we can easily proc 
+it by attacking a tower 3 times,  and with the new season focusing getting plates 
+to finish your toplane quest I feel like it will always have a place if you can sneak 
+one demolish in before each recall. 
+ 
+ 
+ 
+ 
+ 
+59 
+
+=== PAGE 61 ===
+ 
+Demolish tips: 
+●​ Crystalline Overgrowth increases a towers hitbox for melee champs and 
+since Yorick’s Q grants him +50 range, once the tower builds up even just 
+a little bit of crystal you can cheat the first Diamond tick of Demolish with Q 
+ 
+●​ You do not need to auto attack the tower 3 times instantly, if I hit it once 
+with Q by cheesing the hitbox and range, it will stay at ⅓ as long as I don’t 
+lose vision of the tower and walk to far away, meaning you can then keep 
+trying to Q the tower by using the +50 range buff until you get 3 hits in. 
+ 
+●​ Do not use Demolish on a low HP tower if the Grubs burn, Minions, Rift, 
+Ghouls, or anything else can easily kill it and you feel like you can still push 
+to a second tower, especially if it’s nexus towers, Focus 1 Nexus tower, 
+then swap and Demolish the one tower that is NOT being focused by 
+minions, otherwise the Demolish DMG will overkill it and you wasted it’s 
+DMG that could have been used on another tower. 
+ 
+Revitalize 
+This rune is what I run by default, because it just increases our healing and 
+shielding, meaning it buffs our Q sustain at all times, while giving Sundered 
+Sky more value and Shield items like Sterak’s Gage more power. 
+ 
+If you don’t need defensive runes like boneplating or second wind for laning, this 
+is the 2nd Resolve Rune you almost always take.  
+Boneplating 
+Good anti-burst rune to survive trades against enemies, by default this rune is 
+great and when I am in Resolve as primary, I always take this, unless I need 
+second wind against ranged champions. 
+I will go over these other options, but after I go over the precision runes.. 
+ 
+ 
+ 
+ 
+60 
+
+=== PAGE 62 ===
+ 
+Legend Alacrity (Attack Speed) 
+A lot of players buy Triforce by default on Yorick, so when they try my builds the 
+lack of attack speed feels bad and since I splitpush myself I do want some attack 
+speed but do not build triforce often at all, therefore this rune granting you scaling 
+attack speed really makes up for it. 
+ 
+Our Ghouls do not scale with our attack speed anymore, but Maiden’s passive 
+does, since it has no cooldown and just requires Yorick to auto attack the same 
+target, meaning attack speed does have some value on Yorick, same works for 
+when you have Hullbreaker, or when hitting towers later on in the end.. 
+ 
+This is why I almost ALWAYS have this rune when I’m in precision rune, but at 
+times I do have to swap it out if it’s my secondary rune, because into tanks Cut 
+down is very good for shredding tanks with a lot of HP and resistance. 
+ 
+Presence of Mind (Mana regen) 
+I used to play Yorick with Corruption pot all the time, sadly the item is now gone 
+Making my mana management on Yorick hard, we only have like 400 Mana at 
+the beginning, and E+W costs like 120 Mana, since W costs 70 and E costs 50.​
+Meaning if you do this Combo 2 times you’re already halfway on your mana.. 
+5 
+This is the only reason why I take mana runes every time I can, otherwise if you 
+can manage your mana, I suggest taking Absorb Life, since as last hit minions 
+you will heal more, this works great for when you shadow push or have ghouls 
+just pushing a lane, you can just passively gain enough HP to stay healthy in dire 
+moments, sadly due to the mana issues, I almost never take this rune :[ 
+ 
+61 
+
+=== PAGE 63 ===
+ 
+ 
+Rune Shards 
+These may seem small, but are as important as all the other runes we take and 
+can make and break some matchups.. 
+5 
+By default I take Attack Speed Shard, Scaling HP Shard and Tenacity Shard. 
+Against really bad statcheck matchups, where you just lose the duels, I take the 
+MS Shard for the bonus movement speed, because Yorick loses to almost ALL 
+ATTACK SPEED CHAMPS, we do not have burst and up close we will get out 
+DPS by them, most AS (Attack speed) champs have mobility so kiting them with 
+our wall becomes hard, of course you will wall them AFTER they dash but if 
+they’re fast enough to just walk up and fight without needing to dash it becomes 
+hard, because Yorick has 340 MS (movespeed), while most toplaners got more.. 
+ 
+Especially mobile ones, example Jax, Tryndamere and Trundle all have 350 
+MS, they are all also AS based, so if we both are laning and go to hit a minion, 
+they will always hit their minions first, then can move up right after attacking, 
+even if we start walking away because the MS difference is 10, they will catch up 
+to us, because Yorick’s base AS is very low, even Maokai and Sion have more 
+attack speed than him earlier on, this makes spacing them out impossible.. 
+ 
+So once they’re on top of us they can easily attack move, Attack Move is when 
+you attack somebody then instantly move your mouse to chase, the difference is 
+that if you don’t do this and just let your champion attack, once the enemy walks 
+away and you’re no longer in range that’s when your champ will start to move to 
+catch up and auto attack again, the higher your attack speed and movespeed the 
+faster and longer you can do this and increase your DPS, so by them beating us 
+in both MS and AS they always win since we can’t CC / Stun them or burst them. 
+ 
+62 
+
+=== PAGE 64 ===
+ 
+ 
+BUT when we take the MS Shard our 340 MS goes up to 349, now the MS 
+difference is only 1, so we can run away and not get ran down by braindead auto 
+attack champions, meaning at lvl 1 Jax can’t start E and E and walk into stun 
+range, you can just walk out of it’s range and then trade into him, most of these 
+matchups just rely on you kiting them out and getting good trades in to win and 
+just this 1 adaption can make you win against them, Volibear Q and runs at you? 
+With this rune you can just walk away and don’t even need to E or W at times. 
+ 
+ 
+Combine this with Celerity rune in Sorcery tree for even more MS and you can 
+even be faster than them, making any mistake they do lead to them having to 
+flash or just die because they thought they could catch us and wasted their 
+mobility tool or defensive tool, leaving them wide open to get solo killed >:] 
+ 
+Outside of this MS rune strat, I only sometimes go the adaptive rune when I don’t 
+need the scaling HP rune, because I’m fighting Kayle or Nasus, something easy 
+or too weak early on to bother taking MS or scaling HP shard. 
+ 
+The tenacity shard usually stays there but in rare cases where the enemy has 
+very low CC I will just take another scaling HP rune, especially if I’m going an all 
+HP heavy build with Titanic Hydra and Bloodmail for example, while the enemy 
+has no %HP DMG in their kits or items.. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+63 
+
+=== PAGE 65 ===
+ 
+Overgrowth 
+Good rune, but revitalize is usually better so I mostly only take this rune again if 
+I’m going an HP heavy build with Titanic & Bloodmail, otherwise it’s rarely taken. 
+Unflinching 
+Very good when combined with Boneplating against counterpicks or CC + burst: 
+●​ Jax 
+●​ Riven 
+●​ Renekton 
+●​ Pantheon 
+●​ Volibear 
+●​ Anything with a stun / CC (Crowd Control) and burst 
+ 
+Again.. Boneplating will lower the DMG they can do with its mini shields, while 
+unflinching will give you 10 Armor and magic resist, so you won’t take as much 
+DMG while you are stunned, knocked up, slowed, etc. 
+ 
+This is broken against burst only champs with low DPS during trades like Jax or 
+Renekton, Volibear, or even Pantheon because they all start their trades with 
+stuns, this gives you room to deny DMG and trade back or disengage safely.​
+​
+​
+​
+​
+​
+​
+ 
+64 
+
+=== PAGE 66 ===
+ 
+Second Wind 
+Good against Ranged champions or poke champs, even weird things like 
+Volibear’s passive lightning that bounces off minions and hits you periodically. 
+ 
+●​ Teemo (poison) 
+●​ Gangplank (GP) 
+●​ Malphite (Q) 
+●​ Volibear (Passive) 
+●​ Ranged 🤮 
+●​ Rumble 
+●​ Anything with Damage over time or constant poke​
+(even vs Fiora / Yas / Yone’s Q’ing you as they farm)
+ 
+65 
+
+=== PAGE 67 ===
+ 
+Resolve as Secondary 
+Default - A2​​
+       |​ vs Poke - B2​
+       | vs Burst - C2 
+ 
+Resolve as Primary 
+Resolve - Default - A1    | (Default) -  HP Shard (Attack Speed Shard is core) 
+ 
+Resolve - Sustain - B1   | MS Shard (Jax, Trynd, Trund, Yasuo, Yone,Ranged) 
+ 
+Resolve - Defense - C1  | DMG Shard (vs low CC or needing DMG & HP) 
+ 
+I will reference this later in the matchup sheet, for example vs Jax you can go: 
+Grasp-1 or 2, A or C, MS. Meaning Grasp Page 1 or 2, with The A (Boneplating 
+& Revitalize) or B (Boneplating & Unflinching) with MS (movespeed Shard setup) 
+But I could also make it: Grasp-1 or 2, Default or Defensive, MS Shard. 
+But if there’s enough space I’ll just mention the runes so don’t worry~ 
+66 
+
+=== PAGE 68 ===
+ 
+Understanding Rune Setup 
+Now below I will now list out the rest of the Grasp runes, followed by the 
+remaining keystones, keep in mind that these are just rune setups.. 
+ 
+This means the only thing that matters is: 
+●​ Keystone (Grasp/Conqueror/ Comet, Phase rush,etc) 
+●​ Demolish 
+●​ Secondary runes​
+(example: Manaflow & Scorch or DEF ones like Boneplating & unflinching) 
+ 
+The one or two remaining runes will and should always change when possible, 
+for example the next rune page will be in Resolve with Grasp.​
+(it will have Manaflow & Scorch) 
+​
+Since you always take Demolish, the only runes left for adaptation is the 2 
+resolve ones, since we have Resolve as our Primary, we have 2 options, if we 
+were not in Resolve and went with Conqueror making Precision tree our primary 
+then we would only have 1 Resolve option, since Demolish would take 1 spot. 
+ 
+So in the end the boneplating & unflinching runes shown here, are just options 
+you can have together and are not mandatory for this rune setup to work.. 
+67 
+
+=== PAGE 69 ===
+ 
+Grasp-2 - Poke 
+ 
+ 
+Basic Grasp rune page with Scorch as the core, mainly because our Q, E and 
+most importantly our pets can apply scorch, which can burn and poke the enemy 
+The DMG won’t be high, but it happens frequently enough to add up over time. 
+ 
+Manaflow is just for the mana, while everything else, outside of the attack speed 
+shard is dynamic, meaning you can swap out the scaling HP + Tenacity shard 
+while also switching Boneplating & Unflinching for others based on the matchup. 
+ 
+In the Matchup Chapter you’ll see who this is good into, but keep in mind that 
+Grasp runes are just very flexible and all other Keystones only have 1 page. 
+(outside of adapting your shards and 1-2 resolve runes of course) 
+ 
+So if you want Grasp, but would like to poke? Grasp-2 works, while if you wanted 
+Grasp and scale up normally you would take Grasp-1, If you’re needing to chase 
+the enemy or know you’re going items that slow then Grasp-4, While Grasp-3 is 
+just a super sustain heavy Grasp setup, which all depends on who you’re fighting 
+and how confident you are in the matchup, I can take all 4 of these into Jax for 
+example and win as long as I play according to the playstyles, Scaling (1), Poke 
+(2), Sustain (3) or Chasing (4). 
+ 
+I’ll try to keep the other runes brief, since this is all you need to know.. 
+68 
+
+=== PAGE 70 ===
+ 
+Grasp-3 - Sustain 
+ 
+Simple Sustain setup if you think you want extra sustain, Taste of will proc of any 
+DMG you deal, this includes your pets, and with revitalize it will increase the 
+healing from Grasp, Second Wind and Taste of Blood and even Doran’s shield if 
+you take it into a really uncomfortable matchup. 
+ 
+ 
+ 
+69 
+
+=== PAGE 71 ===
+ 
+Grasp-4 - Chase 
+ 
+Chase people, really good if you know you’re going Iceborn Gauntlet or the 
+enemy is mobile or ranged so you need help closing the gap when you hit E. 
+ 
+●​ Approach Velocity: Free MS when slowing enemies with E or Items, works 
+even if you someone else slowed or CC the enemy, great for engage 
+●​ Cash Back: Gives a portion of the gold you spent on items back once 
+purchased, which can help you snowball to your next item sooner. 
+ 
+Everything else outside of the Attack speed shard and Demolish can change, 
+though Revitalize can be core, but if they have CC and burst of course you will 
+swap it out for unflinching, because you will have boneplating as well.. 
+(unless you plan on getting heal & shield items, then keep revitalize) 
+ 
+ 
+ 
+ 
+70 
+
+=== PAGE 72 ===
+ 
+ 
+Conqueror - DMG 
+ 
+Standard Conqueror page, Cut down will proc multiple times from our pets till 
+the enemy is below 60% HP, Presence of Mind for mana, the rest can change. 
+ 
+This rune is just good into Tanks but mostly into enemies that heal too much or 
+scale so well during duels that you need it to win, despite it being a bad matchup.​
+Like against Trundle, Morde, Aatrox, Fiora,etc. 
+ 
+Maiden can stack Conqueror per auto attack but sadly at the moment they are 
+bugged and give 0 Stacks.. 
+ 
+While EACH INDIVIDUAL Ghoul will grant you 2 stacks, every 4 seconds, so if 
+the enemy can’t clear them easily you can easily stack it up to 12 very easily. 
+For example if you have 1 ghoul, it will give 2 stacks every 4 seconds. 
+2 Ghouls will instantly grant you 4 stacks, and 4 more every 4 seconds. 
+3 ghouls will give 6 every 4 seconds, 4 Ghouls 8 stacks. 
+ 
+So if the enemy cannot clear 3 or 4 ghouls in 4 seconds it will proc conqueror 
+Meanwhile hitting E also counts as an ability, so will always have 2 stacks, add Q 
+for another 2 and even with only 2 ghouls you can stack Conqueror quickly.​
+This is assuming you don’t get to auto them but your pets can, so it’s great. 
+71 
+
+=== PAGE 73 ===
+ 
+Arcane Comet - Poke 
+25 
+Comet is one of my Favourite Keystones on Yorick, because unlike the others it’s 
+the only one made for pet users, which is why other Pet Champs like Zyra, 
+Heimer and even Malzahar at times also use Arcane Comet. 
+ 
+This Rune throws a Comet at the enemy when you hit an ability and then 
+reduces it’s cooldown by 1s every time you hit another ability, this counts for the 
+comet itself and since Yorick’s pets count as abilities.. 
+ 
+Each time Yorick’s pets, The Ghouls or Maiden auto attack an enemy it will lower 
+comet’s cooldown, causing it to be able to proc unto enemies 1-3 times 
+depending how long it takes for them to clear them. 
+ 
+Combine this with the other poke rune of Scorch which all our pets and DMG 
+spells can also proc and you can very easily poke enemies out of lane, which is 
+why when Grasp feels weak or Conqueror is weak or bugged on Yorick I mainly 
+played with Arcane Comet.. 
+ 
+ 
+72 
+
+=== PAGE 74 ===
+ 
+Summon Aery - Melee Poke 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(Core runes are: Aery, Scorch, Demolish, Rest can change) 
+ 
+Aery is very similar to Comet, but it does have its differences.. 
+Its basically like a melee version of Comet’s playstyle, where with Comet you will 
+poke and not go up close as often to the enemy and kite more.. 
+ 
+While with Aery you can be more up close and more aggressive because the 
+rune does not have a cooldown, Aery’s “Cooldown” is based on the distance it 
+has to travel back to you, if you don’t kite and remain in melee range of the 
+enemy, despite Aery’s base DMG being lower, it’s AD Ratios are the same as 
+Comet’s thus it can deal as much DMG if not more than Comet.. 
+ 
+It also proc’s off of any DMG you can deal, such as autos, Q, E, Pets, Items 
+anything really, the focus is still to somewhat poke, but Comet can miss while 
+Aery cannot miss at all.. 
+ 
+I mainly started using it against Ranged champions or during a Jax meta and 
+combine Aery with Bramble vest to cheese little DMG with it over time, since 
+Aery will proc Scorch as well, basically if you have Aery and Bramble Vest 
+When the enemy attacks you it will trigger bramble to hurt them, then Aery will 
+attack them, so any ranged champ will be punished early on against this.. 
+ 
+73 
+
+=== PAGE 75 ===
+ 
+ 
+Same goes for Jax, I can’t attack him or hit him back during his E - Counterstrike, 
+so this felt nice, since before this I did go Comet into Jax anyway so the rune fit 
+the page and strategy very nicely, combine this rune with burn items such as 
+Liandry’s and it will keep attacking them constantly 
+ 
+(Video link: https://www.youtube.com/watch?v=yW0HMutmW-s ) 
+ 
+Or Cheese it’s activation with Tiamat in lane, which can bypass Teemo Blind, 
+Shen W and Jax E, you don’t NEED Aery to beat these champs, but it has been 
+done and can be effective if the rest of the enemy team is also weak to poke from 
+Aery or Comet.. Long range team? Comet is better, Melee range? Then go Aery. 
+ 
+Keep in mind that Aery does get weaker when you release Maiden or have your 
+pets harass enemies across the map, while Comet would just fly from botlane to 
+toplane to attack the enemy and since it’s cooldown is based on distance it would 
+take longer, but otherwise it’s a great alternative to Comet when fighting Melees 
+Or when fighting ranged champions that cannot get away like Teemo, Heimer or 
+squishy / weaker ranged tops like Quinn as well. 
+ 
+ 
+(Link: https://youtu.be/X0nAF6qVFoY?si=e4fw5CHKE9V5cBgy ) 
+74 
+
+=== PAGE 76 ===
+ 
+Incase anybody doubts Aery’s DMG here’s some samples I took testing it out, 
+they’re pretty similar to comet and sometimes even stronger.. 
+ 
+ 
+75 
+
+=== PAGE 77 ===
+ 
+Phase Rush - Fast 
+ 
+Phase Rush was a very niche runes I honestly only saw like a few high elo Yorick 
+mains use it in the past alongside another Yorick main GOAT like Krykey, I never 
+liked it back then and since the game wasn’t very mobile it wasn’t needed.. 
+ 
+I only used Phase Rush against ranged champions like Gnar or matchups that 
+could be hard like Mordekaiser when he’s strong and gets Rhylais, since Phase 
+Rush gives the user slow resistance when it’s procc’d, it’s a very good counter. 
+ 
+I documented my climb unto Masters with Phase Rush int this video after fighting 
+a Mordekaiser and his fully ranged team with it but.. 
+ 
+(Link: https://www.youtube.com/watch?v=HXOKwLxDRIU ) 
+76 
+
+=== PAGE 78 ===
+ 
+Phase Rush’s power comes in it’s power, which is MOBILITY 
+League of Legends has too many bloody dashes in it’s game these days and 
+Yorick has none and with his last E Nerf which made his E slow go from 2s long 
+Slow, to a 1.5s slow it became harder to land E and get into wall range or for Q. 
+ 
+But when Phase Rush is activated, which can be done very easily by just 2-3 
+ghouls, since it’s activation requirement is just hitting 3 abilities, just having all 4 
+Ghouls hit the enemy once or twice will activate it, or just hitting Q+E+Ghouls. 
+ 
+This will give you the power of engage or disengage, which usually we do not 
+have, giving you the chance to run somebody down or escape situations where 
+you would usually die.. 
+ 
+Now you may wonder where the DMG will come from, since Scorch isn’t enough 
+and you’re right, outside of giving Yorick the agency of Mobility it has no DMG 
+But.. Yorick’s Ghouls gain any FLAT Bonus movespeed he gains and Phase 
+Rush only gives % Bonus Movespeed, but it’s the only exception to the rule.. 
+ 
+Meaning Ghouls will gain the full 25%-50% movement speed buff from Phase 
+rush, the faster the ghouls are than the enemy the more auto attacks they can 
+land before they have to move again and since their AI sucks, they have to 
+move, then auto untill they enemy or they get out of range, which is not an 
+efficient way of attacking somebody.. 
+ 
+Most players, especially attack speed or ADC players will Attack and move, and 
+repeat this pattern to increase their DPS, otherwise the enemy will walk out of 
+range and you will either cancel auto attack due to not being in range anymore or 
+waste time walking into range, but if you’re fast enough your DPS will sky rocket, 
+this is why Master Yi’s R giving him movement speed is strong. 
+ 
+This is the real reason why Serylda’s Grudge was strong on Yorick back when it 
+permanently slowed the enemy when the ghouls attacked them, but now it needs 
+the enemy to be below half HP to apply the slow. 
+ 
+ 
+ 
+ 
+77 
+
+=== PAGE 79 ===
+ 
+This is also why my main build for years was Iceborn Cleaver 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Iceborn Gauntlet would slow the enemies, making it easier for our ghouls to run 
+them down with additional auto attacks, while black cleaver gave Yorick 20 bonus 
+MS when his pets or him attacked an enemy, which the ghouls also benefitted 
+from the 20 speed boost, they cannot escape? Then the ghouls will deal more 
+DMG to the enemy and because the Ghouls base Movespeed is 325 which is 
+then increased by 60 when nearby Yorick to 385 at lvl 1.. 
+ 
+This is without Yorick having boots, tier 2 boots, or items that give flat MS like 
+Cleaver, Triforce, deadmans plate or runes like Phase rush, for context most 
+champions have a base MS of 330-355, so Ghouls have the highest base 
+movespeed when they are around Yorick, Add Phase rush and their DMG 
+naturally goes up because they become so fast it doesn’t matter that their AI 
+can’t make them attack and move like a normal player will.. 
+ 
+That is where the DMG comes from, pure mobility freak, outside of this Phase 
+Rush also makes team fighting easier since you can easily escape the enemy’s 
+engage or engage yourself and get into W range to pick off the enemy. 
+ 
+This is mostly good into ranged matchups or our very bad ones like:​
+Jax, Gwen, Tryndamere, Gnar, Mordekaiser, Ranged or Mobile enemy team.. 
+(Ex: Caitlyn ADC, Karma Supp, Syndra Mid, Kindred JG, Melee/Ranged top) 
+ 
+ 
+ 
+ 
+78 
+
+=== PAGE 80 ===
+ 
+Hail of Blades - Auto Attack Reset 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Hail of Blades is a Niche Keystone that is way more focused on Auto Attacks, 
+giving you 3 Attacks with a very high attack speed of 160%.. 
+​
+Since Enhanced Auto attacks do not consume the 3 attacks, you can have 4 
+attacks with 160% attack speed with Yorick’s Q, Combine this with other things 
+that can give you an auto attack reset or enhanced auto like Titanic Hydra and 
+you can have a total of 5 attacks with 160% attack speed, to burst an enemy. 
+ 
+I usually use this as an alternative rune against champions that HARD win 
+trades, like Riven, Yone, Renekton or weird Junglers that come top like Xinzhao 
+or Nocturne, sometimes into Trundle.. BUT mainly used when I KNOW I am 
+going Titanic Hydra, which mainly scales with HP.. 
+That’s why in this Rune Page we take Overgrowth and all the scaling HP Shards 
+to fully maximize Titanic and the build, because I use this and NOT go Titanic..​
+There were lethality builds in the past with Hail of Blades, but I was never a fan. 
+ 
+Taste of Blood for sustain, Sith Sense to clear wards while splitting / invading JG 
+and Ultimate Hunter so Maiden’s cooldown is a bit lower later on.. 
+Full build would be: Titanic Hydra, DMG item (Shojin or Cleaver) + Hullbreaker​
+Can combine this with other item combos like Sterak & Bloodmail, more on items 
+in the next chapter focused on Builds & Itemization.. 
+79 
+
+=== PAGE 81 ===
+ 
+First Strike - Money 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+First Strike is the last Keystone, used to be popular like Comet back when it gave 
+more DMG and Gold and I used it alot against Tanks and bad matchups like 
+Mordekaiser & Sett, it’s main use is to poke while generating gold to snowball or 
+get your items faster, used to be broken with a removed rune called future’s 
+market, which let you loan out gold, and you could walk out of base with -200 
+gold, but it didn’t matter because you cheated 100-200 gold to rush an item 
+ 
+These days it’s mainly a good rune to poke with and gain gold, because once you 
+release Maiden, or shadow push ghouls into the sidelane if they attack anyone it 
+will generate you gold, while early on you can go Cull to generate more gold 
+while you CS in lane, combine this steady laning income with Triple tonic’s​
+Elixir of Avarice and you can last hit even easier, combining it’s 5 bonus true 
+DMG on-hit against minions and Cull’s  passive of giving you an additional 1 gold 
+per minion, up to 100g, where you max it out and receive 350g gold afterwards. 
+ 
+Which can let you complete your first item fairly quickly, add Cash Back to gain 
+back 7.5% of the item’s gold, so it’s basically a get rich rune setup for easy poke 
+matchups or into Tanks you can’t really kill, so might as well farm gold out of 
+them. 
+ 
+80 
+
+=== PAGE 82 ===
+ 
+Last rune is approach velocity, which is VERY GOOD RUNE on Yorick, but sadly 
+due to Corruption pot being gone and Yorick needing more trades to all in against 
+an enemy, you will tend to run out of mana, so because of that my Main Grasp-3 
+rune became weaker, otherwise Grasp-3 would be the main one we would take.. 
+ 
+But alas we need mana, but because Approach velocity gives us movement 
+speed against enemies that are CC’d or slowed, once we hit our E we can easily 
+run them down, combine this with my older builds like Iceborn Cleaver, once you 
+slow them with Iceborn Gauntlet it becomes very easily to stay in range.. 
+ 
+And Because Yorick’s ghouls gain all flat bonus MS Yorick gains, this also buffed 
+their movement speed to chase down enemies and when I built Serylda’s Grudge 
+more oftne on Yorick, the ghouls back then would slow the enemy before they’re  
+even below 50% HP and grant themselves the movement speed buff if Yorick 
+was close enough.. Which is why we still use it here even if we don’t buy the slow 
+items.. 
+ 
+ 
+ 
+ 
+81 
+
+=== PAGE 83 ===
+ 
+Builds & Itemization - wip (they’re on Mobafire)
+82 
+
+=== PAGE 84 ===
+ 
+Matchup Sheet (WIP watch my vids smh) 
+Matchup Sheet will be below with Runes & Builds, Read it from Left to Right, 
+from most Viable Option to alternative builds, followed by a short guide on how to 
+beat every toplane matchup, Keep in mind builds are only the first 2-3 items. 
+ 
+As we discussed in the last chapter of Itemization, full builds will tend to change 
+change depending on the enemy composition, but your 1st and 2nd item usually 
+remain the same in most matchup, or at least very similarly with the goal to win 
+lane or survive it and counteract the enemy or make up for Yorick’s weakness. 
+Yorick Matchup difficulty 
+ 
+Easy​
+We counter them 
+But loseable if 
+they can scale up 
+or burst us later 
+Medium 
+Winnable but hard 
+to catch them, 
+May out scales or 
+is more useful 
+Advanced Cringe 
+Annoying & 
+Noninteractive, 
+Invisible, they 
+counter our pets 
+HARD 
+They counter us 
+or are just a better 
+champ, thus hard 
+matchup to beat 
+EXTREME 
+Perma Ban Irelia, 
+perma dive, 
+zoned, can’t farm,  
+worst counters 
+ 
+ 
+ 
+ 
+83 
+
+=== PAGE 85 ===
+ 
+ 
+84 
+Champion 
+Runes 
+Build 
+How to beat or Survive the Lane 
+AD Fighter 
+Conqueror / Grasp 
+(Riven, Trynd, Fiora) 
+ 
+ 
+AD/AP Poke 
+Comet / Grasp​
+Jayce / Gangplank / 
+Naafiri 
+ 
+ 
+Ranged / 
+Battle Mage 
+Conqueror / Aery / 
+Comet​
+(Cassio, Ryze, 
+Swain, Vladimir) 
+ 
+ 
+Ranged  
+Aery / Comet​
+(Vayne, Quinn, 
+Akshan) 
+ 
+ 
+HP Tank 
+Conqueror / Grasp 
+(Cho, Sion, Mundo) 
+ 
+ 
+AP/AD Tank 
+Grasp / Comet / 
+Conqueror​
+(Poppy, AD Sion, 
+Shen, Skarner) 
+ 
+ 
+Aatrox 
+Conqueror / Comet 
+ 
+ 
+Akali 😒 
+Comet / Aery 
+ 
+ 
+Ambessa 
+Aery / Conqueror 
+ 
+ 
+Annivia 🤮 
+Comet / Aery / 
+Phaserush 
+ 
+ 
+
+=== PAGE 86 ===
+ 
+85 
+Aurelion Sol 
+Aery / Comet 
+ 
+ 
+Aurora 🤢 
+Comet / Aery 
+ 
+ 
+Camille 
+Comet / Aery, 
+Conqueror 
+ 
+ 
+Cassiopeia 
+Aery / Conqueror 
+ 
+ 
+Cho’Gath 
+Conqueror / Hail of 
+Blades 
+ 
+ 
+Darius 
+Comet / Conqueror 
+ 
+ 
+Dr. Mundo 
+Grasp Precision / 
+Conqueror/ Comet 
+ 
+ 
+Fiora 
+Grasp Precision / 
+Conqueror 
+ 
+ 
+Gangplank 
+Grasp / Conqueror / 
+Comet 
+ 
+ 
+Garen 
+Conqueror / Comet 
+ 
+ 
+Gnar 
+Comet / Aery / Phase 
+Rush 
+ 
+ 
+Gragas 
+Grasp Sorcery 
+ 
+ 
+
+=== PAGE 87 ===
+ 
+86 
+Gwen 
+Comet / Aery / 
+Conqueror 
+ 
+ 
+Heimer 
+Comet / Aery 
+ 
+ 
+Illaoi 
+Conqueror / Comet / 
+Aery 
+ 
+ 
+Irelia 
+BAN her, WTF are 
+you doing⁉️😠🤬 
+Grasp / Conqueror / 
+Hail of Blades 
+ 
+ 
+Jax 
+ Grasp / Comet / 
+Aery 
+ 
+ 
+Jayce 
+Comet / Grasp / Aery 
+/ Conqueror 
+ 
+ 
+K’Sante 
+First Strike /  Comet /  
+Conqueror 
+ 
+ 
+Kayle 
+Comet / Aery 
+ 
+ 
+Kennen 
+Comet / Aery 
+ 
+ 
+Kled 
+Grasp / Comet 
+ 
+ 
+Malphite 
+Grasp / Comet 
+ 
+ 
+Mordekasier 
+Phase Rush / 
+Conqueror / First 
+Strike 
+ 
+ 
+
+=== PAGE 88 ===
+ 
+87 
+Naafiri 
+Grasp-2 or 3 / Aery 
+ 
+ 
+Nasus 
+Conqueror / Phase  
+ 
+ 
+Olaf 
+Grasp / Conqueror 
+ 
+ 
+Ornn 
+First Strike / Comet  
+ 
+ 
+Pantheon 
+Comet / Conqueror 
+ 
+ 
+Poppy 
+Grasp-1 / Conqueror 
+ 
+ 
+Quinn 
+Aery / Comet 
+ 
+ 
+Renekton 
+Grasp-2-3 / 
+Conqueror 
+ 
+ 
+Riven 
+Grasp-1 or 2, Comet 
+ 
+ 
+Rumble 
+Comet / Aery / 
+Conqueror 
+ 
+ 
+Ryze 
+Conqueror / Grasp-4 
+ 
+ 
+Sejuani 
+Grasp-1-3 / 
+Conqueror 
+ 
+ 
+
+=== PAGE 89 ===
+ 
+88 
+Sett 
+Grasp-1| (Unflinching 
+& Boneplating) 
+ 
+ 
+Shen 
+Conqueror / Comet / 
+Aery 
+ 
+ 
+Singed 
+Grasp Precision / 
+Conqueror 
+ 
+ 
+Sion 
+Grasp / Conqueror / 
+First Strike 
+ 
+ 
+Smolder 
+Comet / Aery 
+ 
+ 
+Swain 
+Aery / Comet / 
+Conqueror 
+ 
+ 
+Sylas 
+Grasp-2-3-A / 
+Conquero / Comet 
+ 
+ 
+Tahm kench 
+Conqueror / First 
+Strike 
+ 
+ 
+Teemo 
+Aery / Comet 
+ 
+ 
+Trundle 
+Conqueror / Phase 
+rush (Run away xd) 
+ 
+ 
+Tryndamere 
+Grasp-2-1-3-A-C / 
+Conqueror  (Exhaust 
+& Speed Shard) 
+ 
+ 
+Udyr 
+Conqueror / Grasp-3 
+ 
+ 
+
+=== PAGE 90 ===
+ 
+89 
+Urgot 
+Conqueror / Comet  
+ 
+ 
+Varus 
+Disgusting Pig 
+Comet / Conqueror 
+ 
+ 
+Vayne 
+Comet / Aery  
+ 
+ 
+Vladimir 
+Conquero / Comet / 
+Aery 
+ 
+ 
+Volibear 
+Grasp-2 + Second 
+Wind & Unflinching / 
+Conqueror 
+ 
+ 
+Warwick 
+Comet / Conqueror 
+ 
+ 
+Wukong 
+Comet / Grasp-2-A 
+ 
+ 
+Yasuo 
+Grasp-B + Speed 
+Shard 
+ 
+ 
+Yone 
+Conqueror + MS 
+Shard / Comet 
+ 
+ 
+Yorick 
+Pick Ornn or any 
+other counter you 
+can play into Yorick 
+ 
+ 
+Zaahen 
+Comet / Conqueror + 
+MS 
+ 
+ 
+Zac 
+Conqueror / Grasp 
+ 
+ 
+
+=== PAGE 91 ===
+ 
+ 
+ 
+90 

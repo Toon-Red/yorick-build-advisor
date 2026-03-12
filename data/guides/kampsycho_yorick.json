@@ -26,20 +26,19 @@
       "Akali": {
         "difficulty": "Advanced",
         "keystones": [
-          "Comet",
-          "Aery"
+          "Grasp-2",
+          "Comet"
         ],
-        "item_category": "eclipse_poke",
+        "item_category": "anti_ap",
         "tags": [
           "vs_assassin",
-          "vs_ap",
-          "e_max"
+          "vs_ap"
         ],
         "shard_override": null,
-        "exhaust_viable": false,
+        "exhaust_viable": true,
         "summoner_spells": "Ghost/Ignite",
         "special_note": "",
-        "advice": "E max with Eclipse. She can shroud to avoid E. W her when she dashes in and shroud is down."
+        "advice": "Grasp for tankiness vs her burst. Rush Null Magic Mantle on first back. W her when she dashes in and shroud is down. Mercs for MR + tenacity. Exhaust her all-in if she snowballs. Spirit Visage amplifies Maiden healing."
       },
       "Akshan": {
         "difficulty": "Advanced",
@@ -2142,6 +2141,7 @@
         "Yone"
       ],
       "BURST_CC_CHAMPS": [
+        "Akali",
         "Jax",
         "Kled",
         "Nocturne",
@@ -2154,6 +2154,7 @@
         "Wukong"
       ],
       "BURST_CHAMPS": [
+        "Akali",
         "Ambessa",
         "Jax",
         "Kled",
@@ -2186,6 +2187,7 @@
         "Riven"
       ],
       "EXHAUST_SECONDARY": [
+        "Akali",
         "Irelia",
         "Jax",
         "Rengar",
@@ -2202,6 +2204,7 @@
         "Tryndamere"
       ],
       "AP_MELEE_CHAMPS": [
+        "Akali",
         "Gwen",
         "Mordekaiser",
         "Sylas"
@@ -2254,7 +2257,6 @@
         "Yone"
       ],
       "ECLIPSE_POKE_CHAMPS": [
-        "Akali",
         "Akshan",
         "Aurora",
         "Gnar",
@@ -3143,5 +3145,7 @@
         ]
       }
     ]
-  }
+  },
+  "updated_at": "2026-03-12T00:26:42.580469+00:00",
+  "created_at": "2026-03-12T00:26:42.580469+00:00"
 }
