@@ -268,10 +268,10 @@ def _build_full_blocks(
             combo_seen.add(cname)
             citems = combo.get("items", [])
             if citems:
-                desc = combo.get("description", "")
-                # Truncate long descriptions for block title
-                short_desc = (desc[:40] + "...") if len(desc) > 40 else desc
-                blocks.append(_make_block(f"{cname}: {short_desc}", citems))
+                tags = combo.get("tags", [])
+                tag_str = " | ".join(tags) if tags else ""
+                label = f"{cname} [{tag_str}]" if tag_str else cname
+                blocks.append(_make_block(label, citems))
 
     # --- 7. Late game swaps ---
     late_notes = set()
