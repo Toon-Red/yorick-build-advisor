@@ -68,7 +68,7 @@ AP_TANK_CHAMPS = {"Malphite", "Ornn", "Cho'Gath"}
 # Item path categories
 SHEEN_ICEBORN_CHAMPS = {"Jax", "Fiora", "Renekton", "Kled", "Yasuo", "Riven", "Irelia"}
 TIAMAT_TITANIC_CHAMPS = {"Tryndamere", "Trundle", "Sett", "Yone"}
-ECLIPSE_POKE_CHAMPS = {"Teemo", "Aurora", "Gnar", "Quinn", "Akshan"}
+ECLIPSE_POKE_CHAMPS = {"Teemo", "Aurora", "Quinn", "Akshan"}
 SUNDERED_SKY_CHAMPS = {"Jayce", "Gragas", "Gangplank"}
 LIANDRY_SHRED_CHAMPS = {"Cho'Gath", "Dr. Mundo", "Sion", "Tahm Kench", "Ornn", "Maokai"}
 HP_STACK_TANKS = {"Sion", "Cho'Gath"}

@@ -140,12 +140,12 @@ MATCHUP_TABLE: dict[str, MatchupInfo] = {
         advice="W him when he runs at you with Q. E+ghouls deny his passive regen. Avoid R execute at low HP.",
     ),
     "Gnar": MatchupInfo(
-        difficulty="Advanced",
-        keystones=("Comet", "Aery", "Phase Rush"),
-        item_category="eclipse_poke",
-        tags=("vs_ranged", "e_max"),
+        difficulty="Easy",
+        keystones=("First Strike", "Conqueror", "Phase Rush"),
+        item_category="default",
+        tags=("vs_ranged", "vs_fighter"),
         shard_override="MS",
-        advice="E max with Eclipse. Back off near Mega form. W him in Mini to force all-in. Phase Rush escapes Mega.",
+        advice="Free lane in Mini form - W him and run him down. First Strike farms gold. Back off near Mega. Phase Rush escapes Mega R. He's a teamfight champ so split push and force him to match you.",
     ),
     "Gragas": MatchupInfo(
         difficulty="Advanced",
