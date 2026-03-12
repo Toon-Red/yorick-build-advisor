@@ -53,7 +53,7 @@ BAD_AD_MATCHUPS = {
     "Riven", "Jax", "Renekton", "Kled", "Sett", "Tryndamere", "Irelia",
 }
 
-AP_MELEE_CHAMPS = {"Gwen", "Mordekaiser", "Sylas", "Akali"}
+AP_MELEE_CHAMPS = {"Gwen", "Mordekaiser", "Sylas", "Akali", "Kayle"}
 
 AP_POKE_CHAMPS = {"Teemo", "Gragas", "Volibear", "Rumble", "Heimerdinger"}
 
@@ -68,7 +68,7 @@ AP_TANK_CHAMPS = {"Malphite", "Ornn", "Cho'Gath"}
 # Item path categories
 SHEEN_ICEBORN_CHAMPS = {"Jax", "Fiora", "Renekton", "Kled", "Yasuo", "Riven", "Irelia"}
 TIAMAT_TITANIC_CHAMPS = {"Tryndamere", "Trundle", "Sett", "Yone"}
-ECLIPSE_POKE_CHAMPS = {"Teemo", "Aurora", "Akali", "Kayle", "Gnar", "Quinn", "Akshan"}
+ECLIPSE_POKE_CHAMPS = {"Teemo", "Aurora", "Gnar", "Quinn", "Akshan"}
 SUNDERED_SKY_CHAMPS = {"Jayce", "Gragas", "Gangplank"}
 LIANDRY_SHRED_CHAMPS = {"Cho'Gath", "Dr. Mundo", "Sion", "Tahm Kench", "Ornn", "Maokai"}
 HP_STACK_TANKS = {"Sion", "Cho'Gath"}
@@ -337,7 +337,9 @@ STEELCAPS_CHAMPS = {
 MERCS_CHAMPS = {
     "Mordekaiser", "Teemo", "Rumble", "Heimerdinger", "Volibear",
     "Malphite", "Sylas", "Gwen", "Cho'Gath", "Ornn",
-    "Singed", "Cassiopeia", "Akali",
+    "Singed", "Cassiopeia", "Akali", "Kayle", "Aurora",
+    "Anivia", "Aurelion Sol", "Diana", "Gragas", "Kennen",
+    "Swain", "Vladimir",
 }
 
 SWIFTNESS_CHAMPS = {

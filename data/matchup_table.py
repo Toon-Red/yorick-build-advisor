@@ -211,11 +211,11 @@ MATCHUP_TABLE: dict[str, MatchupInfo] = {
     ),
     "Kayle": MatchupInfo(
         difficulty="Easy",
-        keystones=("Comet", "Aery"),
-        item_category="eclipse_poke",
-        tags=("vs_ranged", "e_max"),
+        keystones=("Comet", "Aery", "Conqueror", "Phase Rush"),
+        item_category="default",
+        tags=("vs_fighter", "vs_ap"),
         shard_override="AF",
-        advice="ABUSE HER EARLY. Melee until 6, weak until 11. E max Eclipse. Zone her off CS. End before 16.",
+        advice="ABUSE HER EARLY. Melee until 6, weak until 11. Zone her off CS. She scales like Gwen - need MR and to end before 16. Phase Rush helps stick to her post-6 when she kites with range.",
     ),
     "Kennen": MatchupInfo(
         difficulty="Easy",
