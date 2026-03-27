@@ -64,32 +64,36 @@ jobs:
       - name: Smoke test
         shell: bash
         run: |
-          ./dist/YorickBuildAdvisor.exe --server-only &
+          ./dist/YorickBuildAdvisor.exe --server-only > smoke_stdout.log 2> smoke_stderr.log &
           EXE_PID=$!
-          echo "Launched exe (PID $EXE_PID), waiting for health endpoint..."
-          for i in $(seq 1 30); do
+          echo "Launched exe (PID $EXE_PID)"
+          TAG_VER="${{ steps.version.outputs.version }}"
+
+          for i in $(seq 1 60); do
+            # 1. Check if process died — fail immediately with logs
+            if ! kill -0 $EXE_PID 2>/dev/null; then
+              echo "FAIL: exe process died (PID $EXE_PID)"
+              echo "=== stdout ===" && cat smoke_stdout.log
+              echo "=== stderr ===" && cat smoke_stderr.log
+              exit 1
+            fi
+
+            # 2. Check health endpoint
             RESP=$(curl -s http://127.0.0.1:5001/api/health 2>/dev/null || true)
             if echo "$RESP" | grep -q '"status":"ok"'; then
-              echo "Health check passed: $RESP"
-              # Verify version matches tag
-              TAG_VER="${{ steps.version.outputs.version }}"
-              if echo "$RESP" | grep -q "\"version\":\"$TAG_VER\""; then
-                echo "Version matches tag: $TAG_VER"
-              else
-                echo "WARNING: version mismatch! Expected $TAG_VER"
-              fi
-              # Verify NOT dev mode
-              if echo "$RESP" | grep -q '"dev_mode":false'; then
-                echo "Production mode confirmed!"
-              else
-                echo "WARNING: dev_mode should be false for release"
-              fi
+              echo "Health OK: $RESP"
+              echo "$RESP" | grep -q "\"version\":\"$TAG_VER\"" && echo "Version matches: $TAG_VER" || echo "WARNING: version mismatch"
+              echo "$RESP" | grep -q '"dev_mode":false' && echo "Production mode confirmed" || echo "WARNING: dev_mode not false"
               kill $EXE_PID 2>/dev/null || true
               exit 0
             fi
-            sleep 2
+
+            sleep 1
           done
-          echo "FAIL: health endpoint never responded"
+
+          echo "FAIL: process alive but health never responded after 60s"
+          echo "=== stdout ===" && cat smoke_stdout.log
+          echo "=== stderr ===" && cat smoke_stderr.log
           kill $EXE_PID 2>/dev/null || true
           exit 1
 
