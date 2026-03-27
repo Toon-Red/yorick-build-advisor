@@ -76,7 +76,7 @@ def get_latest_release() -> dict | None:
         exe_url = None
         for asset in data.get("assets", []):
             if asset["name"] == "YorickBuildAdvisor.exe":
-                exe_url = asset["browser_download_url"]
+                exe_url = asset.get("url") or asset["browser_download_url"]
                 break
         return {
             "version": tag,
@@ -146,7 +146,10 @@ def download_update(url: str, version: str, progress_callback=None) -> bool:
     """Download new exe to staging dir. Returns True on success."""
     try:
         staging_exe = _staging_exe()
-        req = urllib.request.Request(url, headers=_HEADERS)
+        hdrs = dict(_HEADERS)
+        if "api.github.com" in url:
+            hdrs["Accept"] = "application/octet-stream"
+        req = urllib.request.Request(url, headers=hdrs)
         with urllib.request.urlopen(req, timeout=300) as resp:
             total = int(resp.headers.get("Content-Length", 0))
             downloaded = 0
