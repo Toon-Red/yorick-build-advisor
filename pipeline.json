@@ -1,0 +1,9 @@
+{
+  "name": "Yorick Build Advisor",
+  "app_id": "YorickBuildAdvisor.1.0",
+  "template_type": "desktop_app",
+  "port": 5001,
+  "exe_name": "YorickBuildAdvisor.exe",
+  "install_dir": "%LOCALAPPDATA%/YorickBuildAdvisor",
+  "health_endpoint": "/api/health"
+}
