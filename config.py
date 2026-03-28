@@ -12,7 +12,7 @@ LOCKFILE_PATH = LOL_PATH / "lockfile"
 
 # Server
 API_PORT = 5001
-API_HOST = "127.0.0.1"
+API_HOST = os.getenv("API_HOST", "127.0.0.1")
 
 # Data Dragon
 DDRAGON_BASE = "https://ddragon.leagueoflegends.com/cdn"
