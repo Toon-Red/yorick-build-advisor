@@ -14,4 +14,11 @@ jobs:
         run: docker build -t yorick-tests .
 
       - name: Run tests
-        run: docker run --rm yorick-tests
+        run: docker run --rm -v ${{ github.workspace }}:/results yorick-tests python -m pytest tests/ -v --tb=short --junitxml=/results/test-results.xml
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: test-results.xml
+          retention-days: 7
